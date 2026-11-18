@@ -1,0 +1,218 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --ignore-scripts",
+  "buildCommand": "npm run build:static",
+  "outputDirectory": "site",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/empresa.php",
+      "destination": "/pages/historia",
+      "statusCode": 301
+    },
+    {
+      "source": "/missao.php",
+      "destination": "/pages/historia",
+      "statusCode": 301
+    },
+    {
+      "source": "/valores.php",
+      "destination": "/pages/historia",
+      "statusCode": 301
+    },
+    {
+      "source": "/tipos-de-cafe.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/cafe-e-a-saude.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/produtos-super-milano.php",
+      "destination": "/products/lote-super-milano",
+      "statusCode": 301
+    },
+    {
+      "source": "/produtos-super-torrado.php",
+      "destination": "/products/lote-super",
+      "statusCode": 301
+    },
+    {
+      "source": "/produtos-reggio.php",
+      "destination": "/products/lote-reggio",
+      "statusCode": 301
+    },
+    {
+      "source": "/produtos-descafeinado.php",
+      "destination": "/products/cafe-descafeinado",
+      "statusCode": 301
+    },
+    {
+      "source": "/complementares-acucar.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/complementares-adocante.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/complementares-descafeinado.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/complementares-cha.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/complementares-amendoins.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/conservas.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/sucedaneos-bom-dia.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/sucedaneos-sako.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/sucedaneos-cevada.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/sucedaneos-cevada-oriente.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/colorau.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/pimenta.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/piri-piri.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/canela.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/cravinho.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/cominhos.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/vantagens.php",
+      "destination": "/pages/profissional",
+      "statusCode": 301
+    },
+    {
+      "source": "/profissional.php",
+      "destination": "/pages/profissional",
+      "statusCode": 301
+    },
+    {
+      "source": "/expresso.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/melhor-cafe.php",
+      "destination": "/pages/a-torra",
+      "statusCode": 301
+    },
+    {
+      "source": "/curiosidades.php",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/contactos.php",
+      "destination": "/pages/contactos",
+      "statusCode": 301
+    },
+    {
+      "source": "/projeto.pdf",
+      "destination": "/pages/sobre-a-sotocal",
+      "statusCode": 301
+    },
+    {
+      "source": "/q/chavena",
+      "destination": "/collections/cafe?utm_source=chavena&utm_medium=qr&utm_campaign=horeca",
+      "statusCode": 301
+    },
+    {
+      "source": "/q/acucar",
+      "destination": "/collections/cafe?utm_source=acucar&utm_medium=qr&utm_campaign=horeca",
+      "statusCode": 301
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
+}

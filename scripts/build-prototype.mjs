@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildMock } from './prototype/mock-data.mjs';
-import { staticPages, applyStatic, postProcess, finish, privacyPolicyHtml } from './prototype/static-site.mjs';
+import { staticPages, applyStatic, postProcess, finish, NOINDEX } from './prototype/static-site.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // SITE=static builds the pre-launch site (real data, no shop) into /site for hosting without Shopify (docs/seo/16-static-prelaunch.md).
@@ -290,7 +290,7 @@ async function renderPage(page, lang) {
     const r = postProcess(html, page);
     html = r.html;
     for (const p of r.problems) staticProblems.push(`${page.url}: ${p}`);
-    staticBuilt.push({ url: page.url, html, noindex: /<meta name="robots" content="noindex/.test(html) });
+    staticBuilt.push({ url: page.url, html, noindex: r.noindex });
   }
   const dest = path.join(out, lang === 'en' ? 'en' : '', rel);
   mkdirSync(path.dirname(dest), { recursive: true });
@@ -316,6 +316,7 @@ if (STATIC) {
   const r = finish(out, staticBuilt);
   staticProblems.push(...r.problems);
   console.log(`Built ${built.length} pages into /site (${r.indexable} indexable, ${r.redirects} legacy redirects)`);
+  console.log(NOINDEX.on ? `NOINDEX is ON for every page: ${NOINDEX.reason}` : 'Indexing follows each page rule (real-domain build).');
   if (staticProblems.length) { console.error('Static site problems:'); staticProblems.forEach((p) => console.error(`  - ${p}`)); process.exitCode = 1; }
 } else {
   writeFileSync(path.join(out, 'pages.json'), JSON.stringify(pages.map((p) => ({ template: p.template, path: p.url })), null, 2));
