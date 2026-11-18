@@ -1,0 +1,36 @@
+{%- comment -%}
+  Christmas state of the gifts collection (docs/seo/09-ws9-gifts.md). The URL never changes and has no year. From 1 November to
+  24 December it shows the order cut-off dates and a pointer to company gifts. At any time of year, if the collection has no
+  products yet, it shows a one-off waitlist (newsletter form tagged cabaz-natal) instead of an empty grid.
+{%- endcomment -%}
+{%- capture on_raw -%}{% render 'gift-season-on' %}{%- endcapture -%}
+{%- assign in_season = on_raw | strip -%}
+{%- if in_season == 'true' -%}
+<section class="section section--tight gift-season" data-theme="ink" aria-labelledby="GiftSeason-{{ section.id }}">
+  <div class="container grid">
+    <h2 class="h3 col-left" id="GiftSeason-{{ section.id }}">{{ 'gifts.season_heading' | t }}</h2>
+    <div class="col-right stack">
+      <p>{{ 'gifts.season_text' | t }}</p>
+      {% render 'gift-cutoffs' %}
+      <p><a class="text-link" href="{{ routes.root_url | remove_last: '/' }}/pages/profissional#presentes-empresas">{{ 'gifts.to_corporate' | t }}</a></p>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- if collection.products_count == 0 -%}
+<section class="section section--tight gift-waitlist" data-theme="cream" aria-labelledby="GiftWait-{{ section.id }}">
+  <div class="container stack">
+    <h2 class="h2" id="GiftWait-{{ section.id }}">{{ 'gifts.waitlist_heading' | t }}</h2>
+    <p class="lead">{{ 'gifts.waitlist_text' | t }}</p>
+    <div class="gift-waitlist__form">{% render 'newsletter-form', id: 'GiftWaitlist', tag: 'newsletter,cabaz-natal' %}</div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.gift_season.name",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": []
+}
+{% endschema %}

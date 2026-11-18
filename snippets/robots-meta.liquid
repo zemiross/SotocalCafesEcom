@@ -1,0 +1,129 @@
+{%- comment -%}
+  Indexability rules (docs/seo/01-ws1-technical.md). Emits <meta name="robots" content="noindex,follow"> when the page
+  must stay out of Google's index. Shopify's robots.txt already blocks crawling of some of these URLs, but a blocked URL can
+  still be indexed from links; the meta tag is the reliable signal for pages Google is allowed to fetch.
+
+  noindex when:
+  - /collections/all, /collections/vendors and /collections/types (duplicate listings of products)
+  - a collection URL with a tag, an active filter or a non-default sort order
+  - internal search results
+  - a product still tagged `preco-provisorio` (placeholder price: unresolved TBC, quality gate 4)
+  - a local supplier page unless the area is served and has local content (facts, deliveries or consenting cafés)
+  - the gift-box landing page (supports /products/despensa-do-norte, same intent: docs/seo/url-map.csv)
+  - a page or article whose body still contains a literal [[TBC …]] (quality gate 4)
+  - the quiz page until at least two blends have intensity and best_for filled
+  - a method hub without the Sotocal recommendation or recommended blends; a machine page without recommended blends;
+    a machine MODEL page (brand set) without manufacturer settings and sources (doorway-page guard, WS5)
+  Pagination (page 2 and beyond) stays indexable and followed.
+{%- endcomment -%}
+{%- liquid
+  assign robots_noindex = false
+  case request.page_type
+    when 'search'
+      assign robots_noindex = true
+    when 'collection'
+      if collection.handle == 'all' or collection.handle == 'vendors' or collection.handle == 'types'
+        assign robots_noindex = true
+      elsif request.path contains '/collections/vendors' or request.path contains '/collections/types'
+        assign robots_noindex = true
+      endif
+      if collection.products_count == 0 and collection.handle != blank
+        assign robots_noindex = true
+      endif
+      if current_tags
+        assign robots_noindex = true
+      endif
+      if collection.sort_by != blank and collection.sort_by != collection.default_sort_by
+        assign robots_noindex = true
+      endif
+      for f in collection.filters
+        if f.type == 'price_range'
+          if f.min_value.value != nil or f.max_value.value != nil
+            assign robots_noindex = true
+          endif
+        elsif f.active_values.size > 0
+          assign robots_noindex = true
+        endif
+      endfor
+    when 'product'
+      if product.tags contains 'preco-provisorio'
+        assign robots_noindex = true
+      endif
+  endcase
+  if request.page_type == 'page' and page.template_suffix == 'quiz'
+    assign quiz_ready = 0
+    for p in collections['cafe'].products
+      if p.metafields.sotocal.intensity != blank and p.metafields.sotocal.best_for != blank
+        assign quiz_ready = quiz_ready | plus: 1
+      endif
+    endfor
+    if quiz_ready < 2
+      assign robots_noindex = true
+    endif
+  endif
+  if request.page_type == 'page' and page.content contains '[[TBC'
+    assign robots_noindex = true
+  endif
+  if request.page_type == 'article' and article.content contains '[[TBC'
+    assign robots_noindex = true
+  endif
+  # A comparison that includes Sotocal must say when not to choose Sotocal (brief WS7) before it can be indexed.
+  if request.page_type == 'article' and article.metafields.sotocal.self_included.value == true
+    assign when_not = article.metafields.sotocal.when_not.value
+    if when_not == blank or when_not contains '[[TBC'
+      assign robots_noindex = true
+    endif
+  endif
+  if request.page_type == 'page'
+    case page.template_suffix
+      when 'qr' or 'gift-box'
+        assign robots_noindex = true
+      when 'locator' or 'pickup'
+        assign cafes_raw = ''
+        capture cafes_raw
+          render 'cafe-count'
+        endcapture
+        assign cafes_n = cafes_raw | plus: 0
+        if cafes_n == 0
+          assign robots_noindex = true
+        endif
+    endcase
+  endif
+  assign hub_type = metaobject.system.type
+  if hub_type == 'service_area'
+    # Local supplier pages (D111): indexable only if Sotocal serves the area AND the page has local content of its own.
+    assign area_local = false
+    if metaobject.local_facts.value != blank or metaobject.delivery.value != blank
+      assign area_local = true
+    endif
+    for c in shop.metaobjects.partner_cafe.values
+      assign cd = c.district.value
+      if cd == blank
+        assign cd = c.district
+      endif
+      if c.consent_publish.value and cd == metaobject.district.value
+        assign area_local = true
+      endif
+    endfor
+    if metaobject.served.value != true or area_local == false or metaobject.short_answer.value contains '[[TBC'
+      assign robots_noindex = true
+    endif
+  endif
+  if hub_type == 'method'
+    if metaobject.sotocal_recommendation.value == blank or metaobject.recommended_blends.value == blank
+      assign robots_noindex = true
+    endif
+  elsif hub_type == 'machine'
+    if metaobject.recommended_blends.value == blank
+      assign robots_noindex = true
+    endif
+    if metaobject.brand.value != blank
+      if metaobject.settings.value == blank or metaobject.sources.value == blank
+        assign robots_noindex = true
+      endif
+    endif
+  endif
+-%}
+{%- if robots_noindex %}
+<meta name="robots" content="noindex,follow">
+{%- endif %}

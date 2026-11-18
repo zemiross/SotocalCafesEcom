@@ -1,0 +1,26 @@
+{
+  "$comment": "Pages and blogs. templateSuffix maps to templates/page.<suffix>.json (empty = templates/page.json). Bodies are left empty: paste the rewritten copy from docs/CONTENT.md, or rely on the template sections. EN titles/handles follow the docs/SEO.md URL map. 'optional' pages are created only with --qr-pages.",
+  "pages": [
+    { "handle": "historia", "title": "História", "templateSuffix": "historia", "en": { "title": "Our story", "handle": "our-story" } },
+    { "handle": "a-torra", "seo": { "title": "Torrefação: como torramos o café no Porto | Sotocal", "description": "Como a Sotocal torra o café no Porto desde 1960: origens, lotes de arábica e robusta e o que acontece ao grão na torra." }, "title": "A torra", "templateSuffix": "a-torra", "en": { "title": "Our roast", "handle": "our-roast" } },
+    { "handle": "arabica-e-robusta", "title": "Arábica e robusta", "templateSuffix": "", "en": { "title": "Arabica and Robusta", "handle": "arabica-and-robusta" } },
+    { "handle": "cafe-e-saude", "title": "Café e saúde", "templateSuffix": "", "en": { "title": "Coffee and health", "handle": "coffee-and-health" } },
+    { "handle": "profissional", "seo": { "title": "Fornecedor de café para restaurantes e hotéis | Sotocal", "description": "Fornecedor de café para cafés, restaurantes e hotéis desde 1960. Equipamento colocado mediante acordo, assistência técnica rápida e material promocional." }, "title": "Profissional", "templateSuffix": "profissional", "en": { "title": "For business", "handle": "for-business" } },
+    { "handle": "onde-beber-sotocal", "seo": { "title": "Onde beber café Sotocal, do Minho ao Algarve | Sotocal", "description": "Encontre cafés, restaurantes e pastelarias que servem café Sotocal, do Minho ao Algarve. Em alguns pode levantar as encomendas feitas na loja online." }, "title": "Onde beber Sotocal", "templateSuffix": "locator", "en": { "title": "Where to drink Sotocal", "handle": "where-to-drink-sotocal" } },
+    { "handle": "levantar-no-cafe", "title": "Levantar no café", "templateSuffix": "pickup", "en": { "title": "Collect at a café", "handle": "collect-at-a-cafe" } },
+    { "handle": "subscricao", "title": "Subscrição", "templateSuffix": "subscription", "en": { "title": "Coffee subscription", "handle": "coffee-subscription" } },
+    { "handle": "despensa-do-norte", "title": "Despensa do Norte", "templateSuffix": "gift-box", "en": { "title": "Despensa do Norte gift box", "handle": "despensa-do-norte" } },
+    { "handle": "sobre-a-sotocal", "seo": { "title": "Sobre a Sotocal: torrefação do Porto desde 1960 | Sotocal", "description": "Torrefação portuguesa fundada em 1960 no Porto. Factos sobre a Sotocal: fundadores, lotes, clientes HoReCa do Minho ao Algarve e envios para Portugal e UE." }, "title": "Sobre a Sotocal", "templateSuffix": "facts", "en": { "title": "About Sotocal", "handle": "about-sotocal" } },
+    { "handle": "perguntas-frequentes", "title": "Perguntas frequentes", "templateSuffix": "faq", "en": { "title": "Frequently asked questions", "handle": "faq" } },
+    { "handle": "contactos", "title": "Contactos", "templateSuffix": "contact", "en": { "title": "Contact", "handle": "contact" } },
+    { "handle": "declaracao-de-acessibilidade", "title": "Declaração de acessibilidade", "templateSuffix": "accessibility", "en": { "title": "Accessibility statement", "handle": "accessibility-statement" } },
+    { "handle": "calculadora-custo-chavena", "seo": { "title": "Preço do café em grão por chávena: calculadora | Sotocal", "description": "Quanto custa cada chávena? Compare café em grão, moído e cápsulas por chávena, mês e ano, com preços reais de outras marcas e a data em que os lemos." }, "title": "Calculadora de custo por chávena", "templateSuffix": "calculator", "en": { "title": "Cost-per-cup calculator", "handle": "cost-per-cup-calculator" } },
+    { "handle": "qual-o-cafe-para-a-minha-maquina", "title": "Qual o café para a minha máquina?", "templateSuffix": "quiz", "en": { "title": "Which coffee for my machine?", "handle": "which-coffee-for-my-machine" } },
+    { "handle": "q-chavena", "title": "Chávena", "templateSuffix": "qr", "optional": true, "published": true },
+    { "handle": "q-acucar", "title": "Açúcar", "templateSuffix": "qr", "optional": true, "published": true }
+  ],
+  "blogs": [
+    { "handle": "guia-do-cafe", "title": "Guia do café", "en": { "title": "Coffee guide", "handle": "coffee-guide" } },
+    { "handle": "receitas", "title": "Receitas", "en": { "title": "Recipes", "handle": "recipes" } }
+  ]
+}

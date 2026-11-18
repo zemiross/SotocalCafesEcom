@@ -1,0 +1,42 @@
+{%- comment -%}
+  What Sotocal supplies to cafés, restaurants and hotels (docs/seo/10-ws10-b2b.md). Every line comes from the verified fact sheet
+  (docs/GEO.md section 3). No prices here: the HoReCa offer is a proposal after a visit; the consumer accompaniments keep their public
+  price (D53). Not a claim about machines: Sotocal does not sell them (see benefits).
+{%- endcomment -%}
+<section class="section section--tight horeca-supply" data-theme="cream" aria-labelledby="Supply-{{ section.id }}">
+  <div class="container grid">
+    <h2 class="h2 col-left" id="Supply-{{ section.id }}">{{ 'pages.profissional.supply_heading' | t }}</h2>
+    <dl class="fic col-right">
+      <div><dt>{{ 'pages.profissional.supply_coffee_title' | t }}</dt><dd>{{ 'pages.profissional.supply_coffee' | t }}</dd></div>
+      <div><dt>{{ 'pages.profissional.supply_substitutes_title' | t }}</dt><dd>{{ 'pages.profissional.supply_substitutes' | t }}</dd></div>
+      <div><dt>{{ 'pages.profissional.supply_accompaniments_title' | t }}</dt><dd>{{ 'pages.profissional.supply_accompaniments' | t }}</dd></div>
+      <div><dt>{{ 'pages.profissional.supply_offices_title' | t }}</dt><dd>{{ 'pages.profissional.supply_offices' | t }} {% render 'tbc', note: 'empresas e escritórios: formatos (grão, moído, cápsulas), consumo mínimo, entrega e assistência' %}</dd></div>
+      <div><dt>{{ 'pages.profissional.supply_spices_title' | t }}</dt><dd>{{ 'pages.profissional.supply_spices' | t }}</dd></div>
+    </dl>
+    {%- capture area_links -%}
+      {%- for a in shop.metaobjects.service_area.values -%}
+        {%- if a.served.value == true and a.system.url != blank -%}
+          {%- assign a_local = false -%}
+          {%- if a.local_facts.value != blank or a.delivery.value != blank -%}{%- assign a_local = true -%}{%- endif -%}
+          {%- if a_local -%}{%- assign a_place = a.in_name.value -%}{%- if a_place == blank -%}{%- assign a_place = 'service_area.in_default' | t: name: a.name.value -%}{%- endif -%}<li><a class="text-link" href="{{ a.system.url }}">{{ 'service_area.heading' | t: place: a_place }}</a></li>{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- assign area_links = area_links | strip -%}
+    {%- if area_links != blank -%}
+      <div class="col-full horeca-supply__areas">
+        <h3 class="h3">{{ 'service_area.list_heading' | t }}</h3>
+        <ul class="collection-guide__methods" role="list">{{ area_links }}</ul>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.horeca_supply.name",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [],
+  "presets": [{ "name": "t:sections.horeca_supply.name" }]
+}
+{% endschema %}

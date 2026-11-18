@@ -1,0 +1,46 @@
+{%- comment -%} FAQ section: faq_item metaobjects filtered by category ('all' shows every item grouped by category), with FAQPage schema. {%- endcomment -%}
+{%- liquid
+  assign all = shop.metaobjects.faq_item.values
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'pages.faq.heading' | t
+  endif
+  assign cat = section.settings.category
+  if cat == 'all'
+    assign cat = ''
+  endif
+  assign matches = 0
+  for item in all
+    if cat == blank or item.category.value == cat
+      assign matches = matches | plus: 1
+    endif
+  endfor
+-%}
+<section class="section section--tight faq-section" data-theme="{{ section.settings.theme }}" aria-labelledby="Faq-{{ section.id }}">
+  <div class="container grid">
+    <h2 class="h2 col-left" id="Faq-{{ section.id }}">{{ heading }}</h2>
+    <div class="col-right">
+      {%- if matches > 0 -%}
+        {% render 'faq-list', items: all, category: cat, limit: section.settings.limit %}
+      {%- else -%}
+        <p>{% render 'tbc', note: 'perguntas frequentes (metaobjetos faq_item)' %}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.faq.name",
+  "settings": [
+    { "type": "select", "id": "category", "label": "t:sections.faq.category", "default": "all", "options": [
+      { "value": "all", "label": "t:sections.faq.all" }, { "value": "geral", "label": "Geral" }, { "value": "encomendas", "label": "Encomendas" },
+      { "value": "envios", "label": "Envios" }, { "value": "produto", "label": "Produto" }, { "value": "subscricao", "label": "Subscrição" },
+      { "value": "profissional", "label": "Profissional" }, { "value": "sobre", "label": "Sobre" } ] },
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] },
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "range", "id": "limit", "label": "t:sections.product_faq.limit", "min": 3, "max": 50, "step": 1, "default": 50 }
+  ],
+  "presets": [{ "name": "t:sections.faq.name" }]
+}
+{% endschema %}

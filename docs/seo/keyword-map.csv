@@ -1,0 +1,94 @@
+﻿keyword,cluster,volume,sd,cpc_usd,target_url,page_type,status,conflicts_and_notes
+sotocal,brand,140,9,0.55,/,home,launch,Own the brand SERP on day 1. Legacy site still returns 200 today (17/11/2026).
+café em grão,core,720,8,0.62,/collections/cafe-em-grao,collection,launch,Volume 720 (Ubersuggest 17/11) vs 880 (Oct): treat as a range. Repo target already built.
+melhor café em grão,core,320,12,0.67,/blogs/guia-do-cafe/melhor-cafe-em-grao-portugal,listicle,phase3,Repo docs/SEO.md ships this guide at launch; prompt WS7 puts it in phase 3. Same URL as the next two rows. Needs 8 sourced brands (competitor data).
+melhor café em grão portugal,core,320,12,0.48,/blogs/guia-do-cafe/melhor-cafe-em-grao-portugal,listicle,phase3,Weak SERP (DA 7 at #1). Highest-value listicle. Disclosure and review date required.
+qual o melhor café em grão,core,140,9,0.65,/blogs/guia-do-cafe/melhor-cafe-em-grao-portugal,listicle,phase3,Same URL as above.
+café em grão qual o melhor,core,70,36,0.4,/blogs/guia-do-cafe/melhor-cafe-em-grao-portugal,listicle,phase3,Same URL; no separate page.
+café em grão 1kg,core,170,7,0.63,/collections/cafe-em-grao (+ 1 kg variant on each blend PDP),collection + PDP,launch,"Prompt IA proposes /collections/cafe-em-grao-1kg if 3+ products. All 4 blends have a 1 kg grain variant, so it would duplicate cafe-em-grao. Recommend a section or filter with no own URL (decision D13)."
+café moído,core,110,49,0.38,/collections/cafe-moido,collection,launch,SD 49: harder than the rest. Repo target built.
+café moído 1 kg,core,50,36,0.36,/collections/cafe-moido (1 kg variant on PDPs),collection + PDP,launch,No own URL.
+café moído continente,price anchor,140,14,0.31,,,reject,Retailer navigational. Answer the intent by showing EUR/kg on every tile (repo rule).
+café em grão continente,price anchor,210,14,0.3,,,reject,As above.
+onde comprar café em grão,core,70,36,0.62,/collections/cafe-em-grao,collection,launch,Repo SEO.md also lists /pages/onde-beber-sotocal; keep the collection as primary to avoid cannibalisation.
+preço café em grão,tool,40,36,0,/pages/calculadora-custo-chavena,tool,launch,"Calculator built (WS6) with 74 dated competitor prices; SEO title ""Preço do café em grão por chávena: calculadora"". 18/11/2026."
+café em grão promoção,core,40,36,0.53,,,reject,Channel conflict: no public discounts (prompt section 9).
+comprar café online,core,90,,,/,home,launch,From repo docs/SEO.md (Oct 2026 measurement). Not in the prompt table.
+café em grão delta,competitor,260,10,0.75,NEW: /blogs/guia-do-cafe/cafe-delta-alternativas,comparison,phase3,"D14 decided 17/11/2026: allowed, pending a legal read of the wording (D76). Advertising Code art. 16 applies."
+café delta grão,competitor,590,10,,NEW: /blogs/guia-do-cafe/cafe-delta-alternativas,comparison,phase3,"D14 decided 17/11/2026: allowed, pending a legal read of the wording (D76). Same URL."
+café delta grão 1kg,competitor,210,9,,NEW: /blogs/guia-do-cafe/cafe-delta-alternativas,comparison,phase3,"D14 decided 17/11/2026: allowed, pending a legal read of the wording (D76). Same URL."
+qual o melhor café delta / melhor café delta grão,competitor,140 / 140,12-13,,NEW: /blogs/guia-do-cafe/cafe-delta-alternativas,comparison,phase3,"D14 decided 17/11/2026: allowed, pending a legal read of the wording (D76). Same URL."
+café delta,competitor,8100,15,,,,reject,Brand head term; not winnable.
+melhor café em grão para máquina automática,machine,210,15,0.39,/blogs/guia-do-cafe/melhor-cafe-em-grao-para-maquina-automatica,guide,phase3,"Repo ships guide at launch; prompt says phase 3. Needs the blend Sotocal recommends (Q14, open)."
+máquina de café automática,machine,1600,13,,NEW: /pages/metodo/maquina-automatica (title: café para máquina automática),method hub,conditional,"No method metaobject exists; needs Sotocal dose and grind guidance (Q14). Keep distinct from the guide above (hub = how to use, guide = which beans)."
+melhor máquina de café automática,machine,210,15,,,,reject,"Informational about machines, which Sotocal does not sell. Link from the hub only."
+máquina de café automática delonghi,machine,210,15,,NEW: /pages/maquina/<model> (only with manual-sourced settings),model page,phase3,Doorway risk without manufacturer-sourced settings. Needs a fresh volume check.
+máquina de café automática delonghi ecam220 (Magnifica Start),machine,140,15,,NEW: /pages/maquina/delonghi-magnifica-start,model page,phase3,As above.
+máquina de café automática delonghi magnifica evo,machine,90,36,,NEW: /pages/maquina/delonghi-magnifica-evo,model page,phase3,As above.
+máquina de café automática philips 2200,machine,70,36,,NEW: /pages/maquina/philips-2200,model page,phase3,As above.
+máquina café moído,machine,260,15,,NEW: /pages/metodo/maquina-expresso,method hub,conditional,Moved from /collections/cafe-moido in WS2: machine-owner intent differs from the ground-coffee collection. Same hub as the manual espresso machine.
+máquina de café em grão,machine,90,36,,NEW: /pages/metodo/maquina-automatica,method hub,conditional,Same URL as máquina de café automática.
+cafeteira italiana,method,2400,12,,NEW: /pages/metodo/cafeteira-italiana,method hub,conditional,"Most searchers want to buy the pot, which Sotocal does not sell: low conversion. Hub targets ""café para cafeteira italiana"". The repo hero already uses a moka pot."
+cafeteira italiana indução,method,320,13,,,,reject,Pot-buying intent.
+como fazer café cafeteira italiana,method,140,12,,NEW: /pages/metodo/cafeteira-italiana,method hub,conditional,Same URL.
+como usar cafeteira italiana,method,140,33,,NEW: /pages/metodo/cafeteira-italiana,method hub,conditional,Same URL.
+moinho de café,method,590,14,,NEW: /pages/metodo/moagem,method hub,phase3,Grinder buyers; hub on moagem. Sotocal does not sell grinders.
+moinho de café manual / elétrico,method,140 / 110,10-12,,NEW: /pages/metodo/moagem,method hub,phase3,Same URL.
+como fazer café gelado,recipe,110,5,,NEW: /blogs/guia-do-cafe/como-fazer-cafe-gelado,guide (Recipe schema),phase3,Seasonal (summer). Real Sotocal recipe only.
+como fazer café na prensa francesa,method,30,6,,NEW: /pages/metodo/prensa-francesa,method hub,phase3,Low volume; fold into one hub if thin.
+chicória,substitute,4400,12,,/collections/sucedaneos-do-cafe,collection,launch,"D1 confirmed 17/11/2026. Mixed intent (plant, lettuce). D1: the leaflet lists Mistura Bom Dia (25% coffee, 75% chicory), Sako, Cevada Sotocal and Cevada Oriente, so the range exists; confirm current production and formats. SEO title ""Cevada e chicória: sucedâneos do café"" (18/11/2026)."
+cevada,substitute,3600,12,,/collections/sucedaneos-do-cafe,collection,launch,"D1 confirmed 17/11/2026. Mixed intent. SEO title ""Cevada e chicória: sucedâneos do café"" (18/11/2026)."
+chicória café,substitute,390,12,,/collections/sucedaneos-do-cafe,collection,launch,"D1 confirmed 17/11/2026.  SEO title ""Cevada e chicória: sucedâneos do café"" (18/11/2026)."
+cevada café,substitute,390,10,,/collections/sucedaneos-do-cafe,collection,launch,"D1 confirmed 17/11/2026.  SEO title ""Cevada e chicória: sucedâneos do café"" (18/11/2026)."
+cevada em grão,substitute,140,10,,,PDP,conditional,"Cevada Sotocal is sold ground (""cevada torrada moída""), not as grain, so it cannot honestly target this. Only if a whole-grain cevada exists (Q66 ""Cevada Oriente""). 18/11/2026."
+café com chicória,substitute,40,30,,/products/mistura-bom-dia,PDP,launch,"SEO title ""Mistura Bom Dia: café com chicória"" (25% café, 75% chicória). 18/11/2026."
+o que é chicória,substitute,590,21,,NEW: /blogs/guia-do-cafe/o-que-e-a-chicoria,guide,phase3,Factual and sourced. Can use the client fact of Azores chicory production in the early 1970s.
+cevada tem cafeína,substitute,720,13,,NEW: /blogs/guia-do-cafe/cevada-tem-cafeina,guide,phase3,Factual answer needs a cited source (INSA/EFSA). No source is in the repo yet: publish no answer until one is attached.
+cevada tem glúten,substitute,320,12,,NEW: /blogs/guia-do-cafe/cevada-tem-gluten,guide,phase3,Barley is a gluten cereal and the PDPs already declare it as an allergen. Cite a source.
+chicória tem glúten,substitute,140,10,,NEW: /blogs/guia-do-cafe/cevada-tem-gluten (or a short FAQ),guide,phase3,Needs a source; do not assume.
+benefícios da cevada,substitute,320,14,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+cevada contra indicações,substitute,210,14,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+cevada faz mal ao fígado,substitute,210,17,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+chicória café benefícios,substitute,170,12,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+café de cevada faz mal,substitute,140,14,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+chicória contra indicações,substitute,140,13,,,,reject,Health-claim risk (Reg. 1924/2006). Default: no page. Any factual answer needs legal review first. Existing /pages/cafe-e-saude covers EFSA caffeine figures only.
+cevada delta,substitute,320,9,,,,reject,Competitor or retailer brand query.
+chicória continente,substitute,260,14,,,,reject,Competitor or retailer brand query.
+chicória lidl,substitute,210,11,,,,reject,Competitor or retailer brand query.
+chicória celeiro,substitute,210,15,,,,reject,Competitor or retailer brand query.
+cevada continente,substitute,170,14,,,,reject,Competitor or retailer brand query.
+cápsulas nespresso,capsules,5400,14,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+café cápsulas nespresso,capsules,720,17,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+cápsulas compatíveis nespresso,capsules,390,7,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+cápsulas nespresso compatível,capsules,390,6,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+cápsulas nespresso preço,capsules,320,11,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+máquinas de café compatíveis com cápsulas nespresso,capsules,140,12,,/collections/capsulas-compativeis-nespresso,collection,conditional,"D97: capsules exist (subcontracted, Nespresso-compatible, boxes of 10 and 50). Collection scaffold and SEO title built; goes live when the capsule products, prices and food information exist (Q55). 18/11/2026."
+dolce gusto neo cápsulas compatíveis,capsules,720,11,,,,reject,Only if compatible; no evidence Sotocal makes either format.
+delta q cápsulas compatíveis,capsules,390,13,,,,reject,Only if compatible; no evidence Sotocal makes either format.
+cabaz de natal,gifts,5400,10,1.9,/collections/presentes (+ /products/despensa-do-norte),collection,conditional,"Supermarket-dominated. Prompt IA uses /collections/cabazes-e-presentes; repo uses /collections/presentes (decision D12). Season peaks now: D5. Gift box contents, price and photo are open (Q12). Evergreen URL, no year."
+cabaz de natal continente / pingo doce,gifts,590 / 590,14-16,1.75 / 1.14,,,reject,Retailer anchor.
+cabaz de natal para oferecer,gifts,210,17,0.93,/collections/presentes,collection,conditional,Same URL as cabaz de natal.
+cabaz de natal ideias,gifts,140,13,0.25,NEW: /blogs/guia-do-cafe/cabaz-de-natal-produtos-portugueses,guide,phase3,Seasonal; needs real gift products.
+mini cabaz de natal,gifts,110,8,0,,,reject,No small-box SKU exists.
+cabaz de natal empresas,gifts,90,32,1.32,/pages/profissional (corporate gifts section),B2B section,phase3,The repo gift collection already mentions corporate gifts. Volume pricing on request.
+cabaz de natal gourmet,gifts,70,5,0,/collections/presentes,collection,conditional,Same URL.
+cabaz de natal porto,gifts,20,5,0,,,reject,Too small; no separate page.
+cabaz de natal produtos portugueses,gifts,10,5,0,NEW: /blogs/guia-do-cafe/cabaz-de-natal-produtos-portugueses,guide,phase3,Same URL as ideias.
+a flor da selva (torrefação),competitor,880,16,,,,reject,"Competitor brand. Cover only inside the ""melhores torrefações do Norte"" listicle, if at all."
+torrefação bracarense,competitor,390,23,,NEW: /blogs/guia-do-cafe/melhores-torrefacoes-do-norte,listicle,phase3,Listicle with disclosure.
+buraca roasters,competitor,390,16,,,,reject,Lisbon specialty competitor brand.
+torrefação,category,110,19,,/pages/a-torra,page,launch,"SEO title ""Torrefação: como torramos o café no Porto"". /pages/sobre-a-sotocal also says ""torrefação do Porto"" (entity page, different intent). 18/11/2026."
+torrefação porto,local,unmeasured,,,/pages/a-torra + /pages/historia,page,launch,Hypothesis in repo SEO.md; measure in GSC.
+café português,diaspora,unmeasured,,,/collections/cafe,collection,launch,Hypothesis only. Moved from / to /collections/cafe in WS2 so the home page keeps brand queries and the lotes overview owns the generic term.
+cimbalino,regional,unmeasured,,,/blogs/guia-do-cafe/cimbalino-ou-bica,guide,phase3,Hypothesis only. Repo guide drafted; the source for the term is open (Q39).
+café para empresas,b2b,50,44,4.67,/pages/profissional,B2B page,launch,"D6 yes 17/11/2026: Sotocal also serves companies and offices. Section on the B2B page; details (formats, minimums, delivery) still [[TBC]]."
+máquinas de café para empresas,b2b,90,36,2.68,/pages/profissional#equipamento,B2B page (section),launch,"D115 (José, 18/11/2026): Sotocal does not sell machines but places suitable equipment under the supply agreement (approved FAQ). Section ""Máquina de café para restaurantes, cafés e hotéis"" on the B2B page; no separate URL. Searchers who want to buy a machine will bounce: measure leads, not rankings. Offices: equipment for offices not confirmed yet (Q71); until then the page answers for cafés, restaurants and hotels."
+máquina de café para empresas,b2b,30,36,2.24,/pages/profissional#equipamento,B2B page (section),launch,"D115 (José, 18/11/2026): Sotocal does not sell machines but places suitable equipment under the supply agreement (approved FAQ). Section ""Máquina de café para restaurantes, cafés e hotéis"" on the B2B page; no separate URL. Searchers who want to buy a machine will bounce: measure leads, not rankings. Offices: equipment for offices not confirmed yet (Q71); until then the page answers for cafés, restaurants and hotels."
+máquina de café para restaurante,b2b,30,36,2.14,/pages/profissional#equipamento,B2B page (section),launch,"D115 (José, 18/11/2026): Sotocal does not sell machines but places suitable equipment under the supply agreement (approved FAQ). Section ""Máquina de café para restaurantes, cafés e hotéis"" on the B2B page; no separate URL. Searchers who want to buy a machine will bounce: measure leads, not rankings."
+máquina de café para escritório,b2b,20,36,1.48,/pages/profissional#equipamento,B2B page (section),launch,"D115 (José, 18/11/2026): Sotocal does not sell machines but places suitable equipment under the supply agreement (approved FAQ). Section ""Máquina de café para restaurantes, cafés e hotéis"" on the B2B page; no separate URL. Searchers who want to buy a machine will bounce: measure leads, not rankings. Offices: equipment for offices not confirmed yet (Q71); until then the page answers for cafés, restaurants and hotels."
+café delta (FR),diaspora FR,2900,,,,,phase2,Do not build. Not blocked structurally: Shopify can add a language later.
+café portugais (FR),diaspora FR,1000,,,,,phase2,Do not build.
+fornecedores de café em portugal,b2b,70,,,/pages/profissional,B2B page,launch,"Ubersuggest PT 17/11/2026. National intent: the B2B page, not a city page."
+fornecedor de café,b2b,50,,,/pages/profissional,B2B page,launch,Ubersuggest PT 17/11/2026. Same page as above; the H1 and intro already say it.
+fornecedor de café porto,local,0,,,/pages/fornecedor-de-cafe/porto,local page (service_area),launch,"Measured 0/mo (17/11/2026), but it is the home district: roastery and HQ collection point are real local facts. D111."
+"fornecedor de café <distrito> (lisboa, braga, coimbra, aveiro, faro, …)",local,0,,,/pages/fornecedor-de-cafe/<distrito>,local page (service_area),gated,"Measured 0/mo for porto and lisboa (17/11/2026). 20 draft entries (18 districts + Açores + Madeira). Each page becomes indexable only when Sotocal confirms it serves the district and adds local content (deliveries, local facts or consenting cafés). D111, Q68."

@@ -1,0 +1,619 @@
+{
+  "$comment": "Source of truth for Sotocal metafield definitions. Read by scripts/store-setup.mjs and documented in docs/DATA-MODEL.md. Field 'validations' uses the Admin GraphQL MetafieldDefinitionValidationInput shape (name + string value). Metaobject references use metaobject_definition_type, so no GIDs are needed. Shopify metafield definitions have no default values: the theme renders the defaults listed under 'themeDefault' when a value is blank.",
+  "definitions": [
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "subtitle",
+      "type": "single_line_text_field",
+      "name": "Subtítulo",
+      "description": "Linha por baixo do título, ex.: «Café em grão e moído».",
+      "pin": true,
+      "validations": [
+        {
+          "name": "max",
+          "value": "80"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "character",
+      "type": "single_line_text_field",
+      "name": "Linha de carácter",
+      "description": "Uma frase sobre o carácter do lote, ex.: «Intenso e persistente, com creme aveludado.»",
+      "pin": true,
+      "validations": [
+        {
+          "name": "max",
+          "value": "140"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "tasting_notes",
+      "type": "list.single_line_text_field",
+      "name": "Descritores",
+      "description": "Exatamente 3 descritores curtos (chips), ex.: Intenso, Aroma suave, Creme aveludado.",
+      "pin": true,
+      "validations": [
+        {
+          "name": "list.max",
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "intensity",
+      "type": "number_integer",
+      "name": "Intensidade (1–5)",
+      "description": "[[TBC]] Escala de intensidade definida pela Sotocal.",
+      "pin": true,
+      "validations": [
+        {
+          "name": "min",
+          "value": "1"
+        },
+        {
+          "name": "max",
+          "value": "5"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "roast",
+      "type": "single_line_text_field",
+      "name": "Torra",
+      "description": "Descrição curta da torra, ex.: «Torra intensa de estilo italiano».",
+      "validations": [
+        {
+          "name": "max",
+          "value": "120"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "origins",
+      "type": "multi_line_text_field",
+      "name": "Origens",
+      "description": "Origens e composição do lote (texto do acordeão «Origens e torra»)."
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "best_for",
+      "type": "list.single_line_text_field",
+      "name": "Ideal para",
+      "description": "[[TBC]] Métodos/usos recomendados, ex.: Máquina automática, Moka, Expresso.",
+      "validations": [
+        {
+          "name": "list.max",
+          "value": "5"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "arabica_robusta",
+      "type": "single_line_text_field",
+      "name": "Arábica / robusta",
+      "description": "[[TBC]] Proporção arábica/robusta, ex.: «70% arábica, 30% robusta». Deixar vazio até confirmação.",
+      "validations": [
+        {
+          "name": "max",
+          "value": "60"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "blend",
+      "type": "single_line_text_field",
+      "name": "Lote",
+      "description": "Fonte do filtro «Lote» no Search & Discovery (o tema não depende deste campo).",
+      "validations": [
+        {
+          "name": "choices",
+          "value": "[\"Super Milano\",\"Super\",\"Reggio\",\"Descafeinado\"]"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "preparation",
+      "type": "multi_line_text_field",
+      "name": "Como preparar",
+      "description": "Texto específico do produto para o acordeão «Como preparar». Se vazio, o tema mostra as regras gerais de preparação."
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_ingredients",
+      "type": "multi_line_text_field",
+      "name": "FIC: ingredientes",
+      "description": "Regulamento (UE) 1169/2011. Lista de ingredientes por ordem decrescente de peso.",
+      "pin": true
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_allergens",
+      "type": "list.single_line_text_field",
+      "name": "FIC: alergénios",
+      "description": "Alergénios do Anexo II do Reg. 1169/2011 presentes no produto (o tema destaca-os). Sem alergénios: escrever «Nenhum». Vazio = informação por preencher (o tema mostra «Informação a completar»)."
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_net_quantity",
+      "type": "single_line_text_field",
+      "name": "FIC: quantidade líquida",
+      "description": "Ex.: «1 kg» ou «250 g». Em produtos com variantes de peso, indicar «250 g ou 1 kg, conforme o formato escolhido».",
+      "validations": [
+        {
+          "name": "max",
+          "value": "80"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_storage",
+      "type": "multi_line_text_field",
+      "name": "FIC: conservação",
+      "description": "Condições de conservação e, se aplicável, de utilização após abertura."
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_best_before_note",
+      "type": "single_line_text_field",
+      "name": "FIC: data de durabilidade mínima",
+      "description": "Ex.: «Consumir de preferência antes de: ver embalagem».",
+      "validations": [
+        {
+          "name": "max",
+          "value": "140"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_operator",
+      "type": "multi_line_text_field",
+      "name": "FIC: operador responsável",
+      "description": "Nome e morada do operador. Se vazio, o tema mostra o valor por omissão.",
+      "themeDefault": "Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda., Rua Engenheiro Ferreira Dias, n.º 398, 4100-246 Porto, Portugal"
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_origin",
+      "type": "single_line_text_field",
+      "name": "FIC: origem / proveniência",
+      "description": "Se vazio, o tema mostra o valor por omissão.",
+      "themeDefault": "Torrado em Portugal",
+      "validations": [
+        {
+          "name": "max",
+          "value": "120"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "fic_nutrition",
+      "type": "json",
+      "name": "FIC: declaração nutricional",
+      "description": "Opcional. Formato: {\"per\":\"100 g\",\"rows\":[{\"label\":\"Energia\",\"value\":\"… kJ / … kcal\"}]}",
+      "validations": [
+        {
+          "name": "schema",
+          "value": "{\"type\":\"object\",\"required\":[\"per\",\"rows\"],\"properties\":{\"per\":{\"type\":\"string\"},\"rows\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"label\",\"value\"],\"properties\":{\"label\":{\"type\":\"string\"},\"value\":{\"type\":\"string\"}}}}}}"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "faq",
+      "type": "list.metaobject_reference",
+      "name": "Perguntas frequentes",
+      "description": "3 perguntas (metaobjeto faq_item) mostradas na página de produto, com schema FAQPage.",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "faq_item"
+        },
+        {
+          "name": "list.max",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "pairings",
+      "type": "list.product_reference",
+      "name": "Combina com",
+      "description": "Produtos sugeridos na secção «Combina com».",
+      "validations": [
+        {
+          "name": "list.max",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "lowest_price_30d",
+      "type": "money",
+      "name": "Preço mais baixo nos últimos 30 dias",
+      "description": "Diretiva Omnibus. Preencher sempre que houver preço de comparação (desconto). O tema só o mostra quando existe compare-at price."
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "gift_box_items",
+      "type": "list.metaobject_reference",
+      "name": "Conteúdo do cabaz",
+      "description": "Itens do cabaz «Despensa do Norte» (metaobjeto gift_box_item).",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "gift_box_item"
+        },
+        {
+          "name": "list.max",
+          "value": "12"
+        }
+      ]
+    },
+    {
+      "ownerType": "COLLECTION",
+      "namespace": "sotocal",
+      "key": "intro",
+      "type": "multi_line_text_field",
+      "name": "Introdução curta",
+      "description": "60 a 120 palavras, mostrada por cima da grelha: responde logo à pergunta do título. A descrição da coleção é o texto SEO mais longo, mostrado por baixo da grelha.",
+      "pin": true,
+      "validations": [
+        {
+          "name": "max",
+          "value": "700"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "related_products",
+      "type": "list.product_reference",
+      "name": "Produtos relacionados",
+      "description": "Cada guia liga a pelo menos um produto (e o tema liga à coleção do produto).",
+      "validations": [
+        {
+          "name": "list.max",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "author",
+      "type": "metaobject_reference",
+      "name": "Autor (pessoa)",
+      "description": "Metaobjeto person usado na assinatura e no schema BlogPosting/Recipe. [[TBC: consentimento de Maria José Barbosa]]",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "person"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_yield",
+      "type": "single_line_text_field",
+      "name": "Receita: doses",
+      "description": "Ex.: «4 pessoas».",
+      "validations": [
+        {
+          "name": "max",
+          "value": "40"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_prep_minutes",
+      "type": "number_integer",
+      "name": "Receita: preparação (min)",
+      "validations": [
+        {
+          "name": "min",
+          "value": "0"
+        },
+        {
+          "name": "max",
+          "value": "1440"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_cook_minutes",
+      "type": "number_integer",
+      "name": "Receita: confeção (min)",
+      "validations": [
+        {
+          "name": "min",
+          "value": "0"
+        },
+        {
+          "name": "max",
+          "value": "1440"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_ingredients",
+      "type": "list.single_line_text_field",
+      "name": "Receita: ingredientes",
+      "description": "Um ingrediente por linha da lista, com quantidade métrica, ex.: «1 colher de chá de piri-piri Sotocal»."
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_steps",
+      "type": "list.single_line_text_field",
+      "name": "Receita: passos",
+      "description": "Um passo por item, pela ordem. (Shopify não tem list.multi_line_text_field.)"
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "recipe_category",
+      "type": "single_line_text_field",
+      "name": "Receita: categoria",
+      "description": "Ex.: «Prato principal».",
+      "validations": [
+        {
+          "name": "max",
+          "value": "60"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "story",
+      "type": "multi_line_text_field",
+      "name": "História do lote",
+      "description": "Texto curto sobre o lote, escrito pela Sotocal. Sem factos por confirmar. [[TBC: Sotocal]]",
+      "validations": [
+        {
+          "name": "max",
+          "value": "600"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "recommended_methods",
+      "type": "list.metaobject_reference",
+      "name": "Métodos recomendados",
+      "description": "Métodos de preparação (metaobjeto method) com que o lote funciona melhor, segundo a Sotocal. Liga a página do produto aos hubs de método. [[TBC: pergunta 14]]",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "method"
+        },
+        {
+          "name": "list.max",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "roast_date_policy",
+      "type": "single_line_text_field",
+      "name": "Prática de data de torra",
+      "description": "Só preencher com o que a Sotocal faz de facto. Vazio = o site não faz nenhuma afirmação de frescura. [[TBC: decisão D10]]",
+      "validations": [
+        {
+          "name": "choices",
+          "value": "[\"impressa-na-embalagem\", \"torrado-na-semana-do-envio\", \"torrado-por-encomenda\"]"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "grind_options",
+      "type": "list.single_line_text_field",
+      "name": "Moagens disponíveis",
+      "description": "Para o formato Moído: moagens oferecidas (ex.: expresso, filtro, cafeteira italiana). Vazio = uma só moagem. [[TBC: Sotocal]]",
+      "validations": [
+        {
+          "name": "list.max",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "ownerType": "PRODUCT",
+      "namespace": "sotocal",
+      "key": "substitute",
+      "type": "metaobject_reference",
+      "name": "Sucedâneo (ficha)",
+      "description": "Só em sucedâneos: liga ao metaobjeto substitute (o que é, como se torra, como se prepara, factos com fonte).",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "substitute"
+        }
+      ]
+    },
+    {
+      "ownerType": "COLLECTION",
+      "namespace": "sotocal",
+      "key": "faq",
+      "type": "list.metaobject_reference",
+      "name": "Perguntas frequentes",
+      "description": "Até 6 perguntas (faq_item) mostradas por baixo da grelha, com schema FAQPage.",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "faq_item"
+        },
+        {
+          "name": "list.max",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "ownerType": "COLLECTION",
+      "namespace": "sotocal",
+      "key": "buying_guide",
+      "type": "multi_line_text_field",
+      "name": "Guia de compra curto",
+      "description": "Poucas linhas para quem hesita entre lotes ou formatos. Escrito pela Sotocal. [[TBC: Sotocal]]",
+      "validations": [
+        {
+          "name": "max",
+          "value": "600"
+        }
+      ]
+    },
+    {
+      "ownerType": "COLLECTION",
+      "namespace": "sotocal",
+      "key": "related_methods",
+      "type": "list.metaobject_reference",
+      "name": "Métodos relacionados",
+      "description": "Hubs de método (metaobjeto method) ligados a partir da coleção.",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "method"
+        },
+        {
+          "name": "list.max",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "answer",
+      "type": "multi_line_text_field",
+      "name": "Resposta direta",
+      "description": "40 a 70 palavras por baixo do título. A primeira frase responde à pergunta do título.",
+      "validations": [
+        {
+          "name": "max",
+          "value": "420"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "last_reviewed",
+      "type": "date",
+      "name": "Última revisão",
+      "description": "Data em que o conteúdo foi realmente revisto. Mostrada no artigo e usada em dateModified."
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "sources",
+      "type": "list.url",
+      "name": "Fontes",
+      "description": "URLs das fontes de cada facto de terceiros. Obrigatório em guias com números ou afirmações factuais."
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "compared",
+      "type": "list.metaobject_reference",
+      "name": "Marcas comparadas",
+      "description": "Entradas competitor mostradas na tabela de comparação, pela ordem da tabela (ordene por preço por kg, do mais baixo). Cada entrada tem fonte e data.",
+      "validations": [
+        {
+          "name": "metaobject_definition_type",
+          "value": "competitor"
+        },
+        {
+          "name": "list.max",
+          "value": "12"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "criteria",
+      "type": "multi_line_text_field",
+      "name": "Critérios da comparação",
+      "description": "Critérios objetivos usados (preço por kg, embalagem, formato, canal). Sem juízos de qualidade.",
+      "validations": [
+        {
+          "name": "max",
+          "value": "800"
+        }
+      ]
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "self_included",
+      "type": "boolean",
+      "name": "A Sotocal está na lista",
+      "description": "Se verdadeiro, o artigo mostra a divulgação «somos a Sotocal; esta lista é nossa» e a linha da Sotocal, sempre depois das outras marcas."
+    },
+    {
+      "ownerType": "ARTICLE",
+      "namespace": "sotocal",
+      "key": "when_not",
+      "type": "multi_line_text_field",
+      "name": "Quando não escolher a Sotocal",
+      "description": "Obrigatório quando a Sotocal consta da lista: situações em que outra opção é melhor, factuais e honestas.",
+      "validations": [
+        {
+          "name": "max",
+          "value": "500"
+        }
+      ]
+    }
+  ]
+}

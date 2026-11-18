@@ -1,0 +1,337 @@
+/* Homepage folds and the coffee stream (brief §6–7).
+   Static state (no JS / reduced motion) is the default; `.motion-ok` (set in <head> when motion is allowed)
+   prepares the start states that stream.js, beans.js, blends.js and cup.js animate. */
+
+/* ---------- The stream ("o fio de café") ---------- */
+.stream {
+  --core: 6px;
+  --box: 34px;
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: var(--box); margin-left: calc(var(--box) / -2);
+  overflow: hidden; pointer-events: none; z-index: var(--z-stream);
+  contain: strict;
+}
+.stream__tail { position: absolute; inset: 0; }
+.stream__liquid {
+  position: absolute; left: 0; right: 0; top: 0;
+  height: calc(100% + 48px);
+  background: var(--stream-bg);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 48px), transparent);
+  will-change: transform;
+}
+/* Lit on cream: dark core + 1 px left specular highlight. */
+[data-theme="cream"] .stream, .stream {
+  --stream-bg:
+    linear-gradient(color-mix(in oklab, var(--cream-hi) 35%, transparent), color-mix(in oklab, var(--cream-hi) 35%, transparent)) calc((var(--box) - var(--core)) / 2 + 1px) 0 / 1px 100% no-repeat,
+    linear-gradient(to right, #0C0000, #3A1A0B 45%, #210000 70%, #0C0000) center / var(--core) 100% no-repeat;
+}
+/* Backlit amber on ink, with a soft glow (painted as a background band, not a box-shadow, so the mask keeps it). */
+[data-theme="ink"] .stream {
+  --stream-bg:
+    linear-gradient(to right, #4A1712, #AE5041 50%, #4A1712) center / var(--core) 100% no-repeat,
+    linear-gradient(to right, transparent, color-mix(in oklab, #AE5041 45%, transparent) 50%, transparent) center / 30px 100% no-repeat;
+}
+/* Sheen: a pseudo-element twice the stream's height, translated in a 2.4 s loop (transform only). */
+.stream__liquid::after {
+  content: "";
+  position: absolute; left: calc(50% - var(--core) / 2); width: var(--core);
+  top: -100%; height: 200%;
+  background: repeating-linear-gradient(to bottom, transparent 0 150px, color-mix(in oklab, var(--cream-hi) 32%, transparent) 190px, transparent 230px 240px);
+  animation: stream-sheen 2.4s linear infinite;
+}
+@keyframes stream-sheen { to { transform: translateY(240px); } }
+.stream.is-offscreen .stream__liquid::after { animation-play-state: paused; }
+.motion-ok .stream__liquid { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) { .stream__liquid::after { display: none; } }
+
+@media (min-width: 1024px) and (max-width: 1439.98px) { .stream { --core: 5px; } }
+@media (max-width: 1023.98px) {
+  .stream { --core: 4px; left: var(--rail-x); }
+}
+
+/* Mobile ribbons (centre ↔ rail). Hidden on desktop. */
+.stream-ribbon { display: none; position: absolute; overflow: visible; pointer-events: none; z-index: var(--z-stream); }
+.stream-ribbon path { fill: none; vector-effect: non-scaling-stroke; }
+.stream-ribbon__edge { stroke: #0C0000; stroke-width: 4px; }
+.stream-ribbon__core { stroke: #3A1A0B; stroke-width: 2px; }
+.stream-ribbon__spec { stroke: color-mix(in oklab, var(--cream-hi) 35%, transparent); stroke-width: 1px; }
+.stream-ribbon__glow { stroke: transparent; stroke-width: 0; }
+.motion-ok .stream-ribbon:not(.is-driven) .stream-ribbon__reveal { transform: scaleY(0); }
+@media (max-width: 1023.98px) {
+  .stream-ribbon { display: block; left: var(--rail-x); width: calc(50% - var(--rail-x)); height: var(--ribbon-h, 72px); }
+  .stream-ribbon--out { top: var(--spout-y); }
+}
+
+/* ---------- Fold 1: hero ---------- */
+.hero {
+  --machine-w: min(22vw, 34vh, 440px);
+  --l2-half: calc((min(100vw, var(--container) + 2 * var(--gutter-outer)) - 2 * var(--gutter-outer)) / 2);
+  --hero-fs: min(var(--fs-hero),
+    calc((var(--l2-half) - var(--machine-w) * (var(--gap-l, .33) + .02)) / (var(--l2a-chars, 6) * .52)),
+    calc((var(--l2-half) - var(--machine-w) * (var(--gap-r, .33) + .02)) / (var(--l2b-chars, 6) * .52)));
+  --machine-top: calc(var(--header-h) + 8px + var(--hero-fs) * .9 * .82);
+  --spout-y: calc(var(--machine-top) + var(--machine-w) * var(--machine-ratio, 1.25) * var(--spout-ratio, .58));
+  --ribbon-h: 72px;
+  display: flex; flex-direction: column;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 8px);
+  padding-bottom: clamp(32px, 6vh, 64px);
+  overflow: clip;
+}
+.hero__title { position: relative; z-index: 1; width: min(100% - 2 * var(--gutter-outer), var(--container)); margin-inline: auto; text-align: center; }
+/* Fit: line 2 (two words around the art) must fit the container; DM Serif averages ≈ .5em per character.
+   PT ("vem do" + "Norte.") stays at the full hero size; longer lines (EN) scale down. The gap either side of the
+   spout follows the art: the moka pot lies to the left of its spout (--gap-l .9, --gap-r .12 of its width), so each
+   word gets half the line minus its own gap, and the gaps meet at the centre. */
+@media (min-width: 1024px) {
+  .hero__title { font-size: var(--hero-fs); }
+}
+.hero__line { display: block; }
+.hero__line--2 { display: grid; grid-template-columns: calc(50% - var(--machine-w) * var(--gap-l, .33)) calc(var(--machine-w) * var(--gap-l, .33)) calc(var(--machine-w) * var(--gap-r, .33)) minmax(0, 1fr); }
+.hero__word--a { justify-self: end; grid-column: 1; }
+.hero__word--b { justify-self: start; grid-column: 4; }
+.hero__machine {
+  position: absolute; z-index: 2;
+  left: 50%; top: var(--machine-top);
+  width: var(--machine-w); translate: calc(var(--spout-x, .5) * -100%) 0;
+}
+.hero__img { width: 100%; height: auto; }
+/* The pot turns about its spout tip, so the start of the stream never moves (stream.js: upright → 0°). */
+.hero__img--greca { transform-origin: calc(var(--spout-x) * 100%) calc(var(--spout-ratio) * 100%); }
+.motion-ok .hero__img--greca { transform: rotate(-32deg); }
+.hero--greca { --machine-w: min(17vw, 27vh, 340px); }
+.hero--greca .hero__shadow { display: none; }
+.hero__shadow {
+  position: absolute; inset: 14% -10% 30% 10%; z-index: -1; pointer-events: none;
+  background: radial-gradient(46% 50% at 60% 50%, color-mix(in oklab, var(--ink) 10%, transparent), transparent 70%);
+}
+.hero__shadow img { width: 100%; height: 100%; object-fit: contain; }
+.hero__sequence { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.hero__sequence.is-ready { opacity: 1; }
+.hero__machine.has-sequence .hero__img { visibility: hidden; }
+.hero .stream--hero {
+  --box: 10px;
+  top: var(--spout-y);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='160' viewBox='0 0 10 160'%3E%3Cpath d='M0 0h10c0 34-1.1 58-1.6 84S8 140 8 160H2c0-22-.3-50-.5-76S0 34 0 0Z'/%3E%3C/svg%3E") top center / 10px 160px no-repeat, linear-gradient(#000 0 0) center 160px / 6px calc(100% - 160px) no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='160' viewBox='0 0 10 160'%3E%3Cpath d='M0 0h10c0 34-1.1 58-1.6 84S8 140 8 160H2c0-22-.3-50-.5-76S0 34 0 0Z'/%3E%3C/svg%3E") top center / 10px 160px no-repeat, linear-gradient(#000 0 0) center 160px / 6px calc(100% - 160px) no-repeat;
+}
+.hero .stream--hero .stream__liquid { background:
+  linear-gradient(color-mix(in oklab, var(--cream-hi) 35%, transparent), color-mix(in oklab, var(--cream-hi) 35%, transparent)) 3px 0 / 1px 100% no-repeat,
+  linear-gradient(to right, #0C0000, #3A1A0B 45%, #210000 70%, #0C0000) center / 100% 100% no-repeat; }
+.hero__foot { position: relative; z-index: var(--z-text); margin-top: auto; align-items: end; row-gap: var(--s-5); }
+.hero__sub .lead { margin-bottom: var(--s-2); }
+.hero__cta { display: grid; justify-items: start; gap: var(--s-3); }
+.hero__note { display: flex; gap: var(--s-2); align-items: center; max-width: 40ch; }
+
+@media (max-width: 1023.98px) {
+  .hero {
+    --machine-w: min(62vw, 300px, 36svh);
+    --machine-top: calc(var(--header-h) + 4px);
+    padding-top: var(--machine-top);
+  }
+  .hero__machine { position: relative; order: -1; left: auto; top: auto; translate: none; margin-inline: calc(50% - var(--machine-w) * var(--spout-x, .5)) 0; }
+  /* Mobile: the pot is mirrored about its spout so it sits right of centre, clear of the ribbon to the left rail,
+     and the title starts below it. */
+  .hero--greca { --machine-w: min(calc((50vw - 8px) / var(--spout-x)), 300px, 36svh); }
+  .hero--greca .hero__machine { scale: -1 1; transform-origin: calc(var(--spout-x) * 100%) 50%; }
+  .hero--greca .hero__title { margin-top: calc(var(--machine-w) * .13 + 8px); } /* clears the upright pot before the tilt */
+  .hero__title {
+    width: auto; padding-inline: var(--content-start) 16px;
+    margin-top: calc(var(--ribbon-h) + 8px - var(--machine-w) * var(--machine-ratio, 1.25) * (1 - var(--spout-ratio, .58)));
+    font-size: min(var(--fs-hero), 17.5vw);
+  }
+  .hero__line, .hero__line--2 { display: inline; }
+  .hero__word { display: inline; }
+  .hero .stream--hero { top: calc(var(--spout-y) + var(--ribbon-h)); left: var(--rail-x); --box: 34px; -webkit-mask: none; mask: none; }
+  .hero .stream--hero .stream__liquid { background: var(--stream-bg); }
+  .hero__foot { margin-top: var(--s-6); }
+  .hero__sub, .hero__cta { text-align: left; }
+  .hero__cta { justify-items: stretch; }
+  .hero__cta .btn { width: 100%; }
+}
+
+/* ---------- Fold 2: the roast ---------- */
+/* Desktop with motion: one viewport tall, content centred below the header, so beans.js can pin the fold while the
+   four stages scrub over --pin-vh of scroll. If the content does not fit, beans.js leaves it unpinned. */
+.roast { --pin-vh: 200; }
+@media (min-width: 1024px) {
+  .motion-ok .roast {
+    min-height: 100vh; display: grid; align-content: center;
+    padding-block: var(--header-h) 0;
+  }
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+  .motion-ok .roast__text { gap: var(--s-4); }
+}
+.roast__grid { align-items: center; row-gap: var(--s-7); }
+.roast__beans { position: relative; aspect-ratio: 1 / 1.06; max-height: 82vh; }
+.roast__glow {
+  position: absolute; inset: 4%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 18%, transparent), transparent);
+}
+.motion-ok .roast__glow { opacity: .2; }
+.bean {
+  position: absolute; left: var(--x); top: var(--y); width: var(--size); aspect-ratio: 1;
+  translate: -50% -50%; rotate: var(--rot);
+}
+.bean--far { z-index: 1; }
+.bean--mid { z-index: 2; }
+.bean--near { z-index: 3; }
+.bean--desktop { display: none; }
+@media (min-width: 1024px) { .bean--desktop { display: block; } }
+.bean__pop { position: relative; width: 100%; height: 100%; }
+.bean__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.bean__img--green { opacity: 0; }
+.motion-ok .bean__img--green { opacity: 1; }
+.motion-ok .bean__img--roasted { opacity: 0; }
+.roast__text { display: grid; gap: var(--s-5); justify-items: start; }
+.roast__body { max-width: 52ch; }
+.stages { display: grid; gap: var(--s-1); margin: var(--s-2) 0; }
+.stage { display: flex; gap: var(--s-3); align-items: center; min-height: 36px; color: var(--fg-muted); transition: color var(--dur-ui) var(--ease-out); }
+.stage__num {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line);
+  display: grid; place-items: center; font-size: .8125rem; flex: none;
+  transition: background-color var(--dur-ui) var(--ease-out), color var(--dur-ui) var(--ease-out), border-color var(--dur-ui);
+}
+.stage[aria-current="step"] { color: var(--fg); font-weight: 600; }
+.stage[aria-current="step"] .stage__num { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+.roast__quote { border-left: 2px solid var(--oxblood); padding-left: var(--s-5); max-width: 40ch; }
+.roast__quote blockquote p { font-family: var(--font-display); font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1.2; }
+.roast__quote figcaption { margin-top: var(--s-2); font-size: var(--fs-small); color: var(--fg-muted); }
+@media (max-width: 1023.98px) {
+  .roast__beans { aspect-ratio: 1 / .9; max-width: 520px; width: 100%; }
+}
+
+/* ---------- Fold 3: four blends ---------- */
+.blends__grid { row-gap: var(--s-6); }
+.blends__head, .blends__steps, .blends__all { grid-column: 1 / 6; }
+.blends__intro { margin-top: var(--s-4); max-width: 46ch; }
+.blends__list { grid-column: 1 / -1; display: grid; row-gap: var(--s-9); }
+.blend { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: center; }
+.blend__text { grid-column: 1 / 6; display: grid; gap: var(--s-4); justify-items: start; }
+.blend__media { grid-column: 8 / 13; }
+.blend__char { font-size: var(--fs-lead); line-height: 1.45; max-width: 36ch; }
+.blend__ideal-label { font-weight: 600; margin-right: 6px; }
+.blend__actions { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); align-items: center; }
+.blend__form { display: grid; gap: 6px; }
+.blend__plane { position: relative; aspect-ratio: 1 / 1.02; background: var(--sand); display: grid; place-items: end center; padding: 10% 10% 13%; }
+.blend__img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.blends__steps { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.blends__step {
+  display: grid; gap: 6px; align-content: center; min-height: 48px; padding: 6px 16px 8px;
+  border: 1px solid var(--line); border-radius: var(--r-input); font-weight: 500; text-align: left;
+}
+.blends__step[aria-pressed="true"] { border-color: var(--fg); font-weight: 700; }
+.blends__step-bar { display: block; height: 2px; background: var(--sand-deep); border-radius: 1px; overflow: hidden; }
+.blends__step-bar span { display: block; height: 100%; background: var(--ink); transform-origin: left; transform: scaleX(0); }
+.blends__step[aria-pressed="true"] .blends__step-bar span { transform: scaleX(var(--p, 1)); }
+.blends__steps { display: none; }
+.js .blends__steps { display: flex; }
+.blend__text-inner { display: contents; }
+
+/* Desktop with motion: stacked + pinned (class set by blends.js). */
+@media (min-width: 1024px) {
+  .blends.is-stacked { padding-block: 0; }
+  .blends.is-stacked .blends__pin { height: 100svh; display: grid; align-items: center; padding-top: var(--header-h); }
+  .blends.is-stacked .blends__grid { grid-template-rows: auto auto auto auto; align-content: center; row-gap: var(--s-5); }
+  .blends.is-stacked .blends__head { grid-row: 1; }
+  .blends.is-stacked .blends__list { grid-row: 1 / 5; grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; grid-template-rows: subgrid; row-gap: var(--s-5); }
+  .blends.is-stacked .blend { grid-row: 1 / 5; grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; grid-template-rows: subgrid; }
+  .blends.is-stacked .blend__text { grid-row: 2; align-self: start; overflow: clip; }
+  .blends.is-stacked .blend__media { grid-row: 1 / 5; align-self: center; }
+  .blends.is-stacked .blend__plane { height: min(64svh, 600px); aspect-ratio: auto; }
+  .blends.is-stacked .blends__steps { grid-row: 3; }
+  .blends.is-stacked .blends__all { grid-row: 4; }
+  .blends.is-stacked .blend:not(.is-active) { pointer-events: none; }
+  .blends.is-stacked .blend:not(.is-active) .blend__text,
+  .blends.is-stacked .blend:not(.is-active) .blend__media { opacity: 0; }
+}
+/* Reduced motion with JS: instant switching, inactive blends hidden="until-found" (blends.js). */
+.blends.is-tabs .blends__list { row-gap: 0; }
+
+@media (max-width: 1023.98px) {
+  .blends__list {
+    min-width: 0; /* a grid item defaults to min-width: auto and would stretch the page instead of scrolling */
+    position: relative; /* contain absolutely positioned descendants (visually-hidden labels) */
+    display: flex; gap: var(--s-4); overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-left: 0;
+    margin-right: -16px; padding-right: 16px; padding-bottom: var(--s-2);
+    scrollbar-width: none;
+  }
+  .blends__list::-webkit-scrollbar { display: none; }
+  .blend { flex: 0 0 84vw; display: flex; flex-direction: column; align-items: stretch; gap: var(--s-4); scroll-snap-align: start; }
+  .blend__media { order: -1; }
+  .blend__plane { aspect-ratio: 1 / .9; }
+  .blends.is-tabs .blend[hidden] { display: none; }
+}
+
+/* ---------- Fold 4: para casa | para o seu negócio ---------- */
+.audiences__grid { row-gap: var(--s-5); align-items: start; }
+.audiences__h--home { grid-area: 1 / 1 / 2 / 6; align-self: baseline; }
+.audiences__h--biz { grid-area: 1 / 8 / 2 / 13; align-self: baseline; }
+.audiences__lead--home { grid-area: 2 / 1 / 3 / 6; }
+.audiences__lead--biz { grid-area: 2 / 8 / 3 / 13; }
+.audiences__list--home { grid-area: 3 / 1 / 4 / 6; }
+.audiences__list--biz { grid-area: 3 / 8 / 4 / 13; }
+.audiences__cta--home { grid-area: 4 / 1 / 5 / 6; margin-top: var(--s-3); }
+.audiences__cta--biz { grid-area: 4 / 8 / 5 / 13; margin-top: var(--s-3); }
+.ticks { list-style: none; padding: 0; display: grid; gap: var(--s-3); max-width: 46ch; }
+.ticks li { position: relative; padding-left: 28px; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: .8em; width: 14px; height: 1.5px; border-radius: 1px; background: var(--accent); }
+@media (max-width: 1023.98px) {
+  .audiences__grid > * { grid-area: auto; }
+  .audiences__h--biz { margin-top: var(--s-8); }
+}
+
+/* ---------- Fold 5: the cup ---------- */
+.cup-fold { padding-block: 0; }
+.cup-stage {
+  --cup-w: min(400px, 34vw, 44svh);
+  --cup-top: calc(62svh - var(--cup-w) * .464);
+  position: relative; height: 100svh; min-height: 600px; overflow: clip;
+}
+.cup-stage .stream--cup { top: 0; bottom: auto; height: var(--cup-top); }
+.cup-fold__title {
+  position: absolute; left: 0; right: 0; z-index: 1;
+  top: calc(var(--cup-top) - var(--fs-display) * 1.42);
+  text-align: center;
+}
+.cup-fold__line { display: block; }
+.cup-fold__cup { position: absolute; z-index: 2; left: 50%; top: var(--cup-top); width: var(--cup-w); translate: -50% 0; }
+.cup { width: 100%; height: auto; overflow: visible; }
+.cup__ripple { transform-box: fill-box; transform-origin: center; }
+.cup.is-pouring .cup__ripple { animation: cup-ripple var(--dur-orch) var(--ease-out) infinite; }
+.cup.is-pouring .cup__ripple:nth-child(2) { animation-delay: 300ms; }
+.cup.is-pouring .cup__ripple:nth-child(3) { animation-delay: 600ms; }
+@keyframes cup-ripple { 0% { transform: scale(.3); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.cup.is-offscreen .cup__ripple { animation-play-state: paused; }
+.cup__pour, .cup__drop { transform-box: fill-box; }
+.cup-fold__foot { position: absolute; left: 0; right: 0; bottom: clamp(24px, 5vh, 48px); z-index: var(--z-text); align-items: end; margin-inline: auto; }
+.cup-fold__sub { grid-column: 1 / 6; max-width: 46ch; }
+.cup-fold__cta { grid-column: 8 / 13; position: relative; justify-self: start; }
+.cup-fold__arrow {
+  position: absolute; width: 180px; height: 108px; right: calc(100% - 28px); bottom: calc(100% + 2px);
+  fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; overflow: visible;
+}
+.motion-ok .cup-fold [data-cup-reveal] { opacity: 0; }
+.motion-ok .cup-fold__arrow:not(.is-driven) .cup-fold__arrow-clip { transform: scaleX(0); }
+/* Static state: the pour is finished, so fold 5 shows no stream (the tail has fallen into the full cup). */
+html:not(.motion-ok) .cup-stage .stream, html:not(.motion-ok) .cup-stage .stream-ribbon { display: none; }
+
+@media (max-width: 1023.98px) {
+  .cup-stage {
+    --cup-w: min(300px, 70vw, calc(100svh - var(--header-h) - 380px));
+    --ribbon-h: 56px;
+    --cup-top: calc(var(--header-h) + 16px + min(var(--fs-display), 10.5vw) * 1.9 + var(--ribbon-h));
+    min-height: 0;
+  }
+  .cup-stage .stream--cup { height: calc(var(--cup-top) - var(--ribbon-h)); left: var(--rail-x); }
+  .cup-stage .stream-ribbon--in { top: calc(var(--cup-top) - var(--ribbon-h)); height: var(--ribbon-h); }
+  .cup-fold__title { top: calc(var(--header-h) + 16px); padding-inline: var(--content-start) 16px; font-size: min(var(--fs-display), 10.5vw); }
+  .cup-fold__foot { bottom: 24px; row-gap: var(--s-4); }
+  .cup-fold__cta { justify-self: stretch; }
+  .cup-fold__cta .btn { width: 100%; }
+  .cup-fold__arrow { display: none; }
+}
+.blend__actions .text-link { white-space: nowrap; }

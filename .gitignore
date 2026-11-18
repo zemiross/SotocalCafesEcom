@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Generated: `npm run prototype` rebuilds /prototype; Playwright and Lighthouse write /qa
+prototype/
+qa/
+
+# Secrets and local settings: never commit
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+*.pem
+*.key
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log

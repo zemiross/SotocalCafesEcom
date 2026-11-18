@@ -1,0 +1,76 @@
+{%- comment -%}
+  Article (guide or recipe): byline, date, reading time; recipes add yield, times, ingredients and numbered steps from
+  sotocal.recipe_* metafields (Recipe schema in snippets/structured-data-article). Every guide links to one collection and
+  one product (related products), per brief §11.
+{%- endcomment -%}
+{%- liquid
+  assign m = article.metafields.sotocal
+  assign is_recipe = false
+  if section.settings.layout == 'recipe' or blog.handle == 'receitas'
+    assign is_recipe = true
+  endif
+-%}
+<article class="section article" data-theme="cream" aria-labelledby="ArticleTitle">
+  <div class="container">
+    {% render 'breadcrumbs' %}
+    <header class="article__head">
+      <h1 class="h-display" id="ArticleTitle">{{ article.title }}</h1>
+      {% render 'article-meta', article: article %}
+      {%- if m.answer != blank -%}<p class="lead article__answer">{{ m.answer.value }}</p>{%- endif -%}
+    </header>
+    {%- if article.image -%}
+      <figure class="article__hero media-plane">{{ article.image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 1024px) 70vw, 92vw', loading: 'eager', fetchpriority: 'high', alt: article.image.alt }}</figure>
+    {%- endif -%}
+
+    {%- if is_recipe -%}
+      <div class="recipe grid">
+        <aside class="recipe__facts col-left" aria-label="{{ 'blog.recipe_facts' | t }}">
+          <dl class="fic">
+            <div><dt>{{ 'blog.yield' | t }}</dt><dd>{% if m.recipe_yield != blank %}{% assign y = m.recipe_yield.value %}{% if y contains '[[TBC' %}{% render 'tbc', note: 'rende quantas pessoas' %}{% else %}{{ y }}{% endif %}{% else %}{% render 'tbc', note: 'rende quantas pessoas' %}{% endif %}</dd></div>
+            <div><dt>{{ 'blog.prep_time' | t }}</dt><dd class="tabular">{% if m.recipe_prep_minutes != blank %}{{ m.recipe_prep_minutes.value }} min{% else %}{% render 'tbc', note: 'tempo' %}{% endif %}</dd></div>
+            <div><dt>{{ 'blog.cook_time' | t }}</dt><dd class="tabular">{% if m.recipe_cook_minutes != blank %}{{ m.recipe_cook_minutes.value }} min{% else %}{% render 'tbc', note: 'tempo e temperatura do forno' %}{% endif %}</dd></div>
+          </dl>
+          {%- if m.recipe_ingredients != blank -%}
+            <h2 class="h3" style="margin-top: 32px">{{ 'blog.ingredients' | t }}</h2>
+            <ul class="hairlines" role="list">{%- for i in m.recipe_ingredients.value -%}<li>{{ i }}</li>{%- endfor -%}</ul>
+          {%- endif -%}
+        </aside>
+        <div class="col-right">
+          {%- if m.recipe_steps != blank -%}
+            <h2 class="h3">{{ 'blog.method' | t }}</h2>
+            <ol class="steps__list steps__list--recipe" role="list">
+              {%- for s in m.recipe_steps.value -%}<li class="steps__item"><span class="steps__num tabular" aria-hidden="true">{{ forloop.index }}</span><p>{{ s }}</p></li>{%- endfor -%}
+            </ol>
+          {%- endif -%}
+          <div class="rte">{{ article.content }}</div>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="grid"><div class="rte article__body">{{ article.content }}</div></div>
+      {%- if m.compared != blank -%}{% render 'article-comparison', article: article %}{%- endif -%}
+      {% render 'article-sources', article: article %}
+    {%- endif -%}
+  </div>
+</article>
+
+{%- assign related = m.related_products.value -%}
+{%- if related.size > 0 -%}
+<section class="section section--tight related" data-theme="ink" aria-labelledby="Related">
+  <div class="container">
+    <h2 class="h2" id="Related" style="margin-bottom: 48px">{% if is_recipe %}{{ 'blog.related_recipe' | t }}{% else %}{{ 'blog.related_guide' | t }}{% endif %}</h2>
+    <ul class="tiles tiles--3" role="list">
+      {%- for p in related limit: 3 -%}<li>{% render 'product-tile', product: p %}</li>{%- endfor -%}
+    </ul>
+    <p style="margin-top: 32px"><a class="text-link" href="{% if routes.root_url != '/' %}{{ routes.root_url }}{% endif %}/collections/{% if is_recipe %}especiarias{% else %}cafe{% endif %}">{% if is_recipe %}{{ 'blog.see_spices' | t }}{% else %}{{ 'home.blends.all' | t }}{% endif %}</a></p>
+  </div>
+</section>
+{%- elsif request.design_mode or settings.show_tbc_markers -%}
+<section class="section section--tight" data-theme="ink"><div class="container"><p>{% render 'tbc', note: 'produtos relacionados (metafield sotocal.related_products)' %}</p></div></section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.main_article.name",
+  "settings": [ { "type": "select", "id": "layout", "label": "t:sections.main_product.layout", "default": "article", "options": [ { "value": "article", "label": "t:sections.main_article.article" }, { "value": "recipe", "label": "t:sections.main_article.recipe" } ] } ]
+}
+{% endschema %}

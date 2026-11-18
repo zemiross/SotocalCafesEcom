@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "ink",
+        "preset": "historia",
+        "heading": "",
+        "intro": ""
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "settings": {
+        "theme": "ink",
+        "heading": ""
+      }
+    },
+    "people": {
+      "type": "people",
+      "settings": {
+        "heading": ""
+      }
+    },
+    "mission": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false,
+        "tight": true,
+        "theme": "cream"
+      }
+    },
+    "values": {
+      "type": "values-awards",
+      "settings": {
+        "values": ""
+      }
+    },
+    "photo": {
+      "type": "image-band",
+      "settings": {
+        "fallback": "torrefacao",
+        "caption": "",
+        "theme": "cream"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "photo",
+    "timeline",
+    "people",
+    "mission",
+    "values"
+  ]
+}

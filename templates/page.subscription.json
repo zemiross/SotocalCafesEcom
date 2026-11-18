@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "subscription"
+      }
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "preset": "subscription",
+        "theme": "ink"
+      }
+    },
+    "featured": {
+      "type": "featured-product",
+      "settings": {
+        "product": "lote-super-milano",
+        "theme": "cream"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "category": "subscricao",
+        "theme": "cream",
+        "limit": 6
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "steps",
+    "featured",
+    "faq"
+  ]
+}

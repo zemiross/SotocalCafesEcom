@@ -1,0 +1,153 @@
+{%- comment -%}
+  Fold 1, the hero (cream). Depth sandwich: background → H1 (real text) → pot/machine cut-out → stream.
+  The art is placed so its spout tip sits at x = 50% of the viewport. The default art is the moka pot (greca.svg, D56):
+  its tip sits at 95% / 32.7% of the image, line 2 opens a wide gap on the pot's side, and stream.js tilts it about the
+  tip before the pour. An uploaded cut-out uses spout_y (default 58%) with the tip centred.
+  A scroll-scrubbed image sequence can replace the still later (sequence_* settings).
+{%- endcomment -%}
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'home.hero.heading' | t
+  endif
+  assign sub = section.settings.subheading
+  if sub == blank
+    assign sub = 'home.hero.subheading' | t
+  endif
+  assign cta_label = section.settings.cta_label
+  if cta_label == blank
+    assign cta_label = 'home.hero.cta' | t
+  endif
+  assign link_label = section.settings.link_label
+  if link_label == blank
+    assign link_label = 'home.hero.link' | t
+  endif
+  assign note = section.settings.note
+  if note == blank
+    assign note = 'home.hero.note' | t
+  endif
+  if routes.root_url == '/'
+    assign prefix = ''
+  else
+    assign prefix = routes.root_url
+  endif
+  assign cta_url = section.settings.cta_link
+  if cta_url == blank
+    assign cta_url = prefix | append: '/collections/cafe'
+  endif
+  assign link_url = section.settings.link_url
+  if link_url == blank
+    assign link_url = prefix | append: '/pages/profissional'
+  endif
+
+  assign words = heading | split: ' '
+  assign n = words.size
+  assign half = n | divided_by: 2 | floor
+  assign rest = n | minus: half | minus: 1
+  capture l1
+    for w in words limit: half
+      echo w
+      unless forloop.last
+        echo ' '
+      endunless
+    endfor
+  endcapture
+  capture l2a
+    for w in words offset: half limit: rest
+      echo w
+      unless forloop.last
+        echo ' '
+      endunless
+    endfor
+  endcapture
+  assign l2b = words.last
+  assign l2a_chars = l2a | strip | size
+
+  assign img = section.settings.machine_image
+  if img != blank
+    assign ratio = 1.0 | divided_by: img.aspect_ratio
+    assign spout = section.settings.spout_y | divided_by: 100.0
+    assign art = '--spout-x: .5; --gap-l: .33; --gap-r: .33;'
+  else
+    assign ratio = 1.0
+    assign spout = 0.327
+    assign art = '--spout-x: .95; --gap-l: .9; --gap-r: .12;'
+  endif
+-%}
+
+<section class="section hero{% if img == blank %} hero--greca{% endif %}" data-theme="cream" data-motion="hero" aria-labelledby="HeroTitle-{{ section.id }}"
+         style="--machine-ratio: {{ ratio }}; --spout-ratio: {{ spout }}; {{ art }} --l2a-chars: {{ l2a_chars }}; --l2b-chars: {{ l2b.size }};">
+  <h1 class="hero__title h-hero" id="HeroTitle-{{ section.id }}">
+    <span class="hero__line hero__line--1">{{ l1 | strip }}</span>
+    <span class="hero__line hero__line--2"><span class="hero__word hero__word--a">{{ l2a | strip }}</span> <span class="hero__word hero__word--b">{{ l2b }}</span></span>
+  </h1>
+
+  <div class="hero__machine" data-hero-machine>
+    <div class="hero__shadow" aria-hidden="true">
+      {%- if section.settings.machine_shadow != blank -%}
+        {{ section.settings.machine_shadow | image_url: width: 1200 | image_tag: alt: '', loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width: 1024px) 24vw, 66vw' }}
+      {%- endif -%}
+    </div>
+    {%- if img != blank -%}
+      {%- assign alt = img.alt -%}
+      {%- if alt == blank -%}{%- assign alt = 'home.hero.machine_alt' | t -%}{%- endif -%}
+      {{ img | image_url: width: 1600 | image_tag: widths: '375, 500, 750, 1000, 1200, 1600', sizes: '(min-width: 1024px) min(22vw, 34vh), min(62vw, 300px)', alt: alt, fetchpriority: 'high', loading: 'eager', preload: true, class: 'hero__img' }}
+    {%- else -%}
+      <img class="hero__img hero__img--greca" src="{{ 'greca.svg' | asset_url }}" width="600" height="600"
+           alt="{{ 'home.hero.machine_alt' | t }}" fetchpriority="high" decoding="async" data-hero-tilt="32">
+    {%- endif -%}
+    {%- if section.settings.sequence_base_url != blank and section.settings.sequence_frame_count > 1 -%}
+      <canvas class="hero__sequence" data-sequence data-base="{{ section.settings.sequence_base_url }}"
+              data-count="{{ section.settings.sequence_frame_count }}" data-pad="{{ section.settings.sequence_pad }}"
+              data-ext="{{ section.settings.sequence_ext }}" aria-hidden="true"></canvas>
+    {%- endif -%}
+  </div>
+
+  {% render 'stream', variant: 'hero', ribbon: 'out' %}
+
+  <div class="hero__foot container grid">
+    <div class="col-left hero__sub">
+      <p class="lead">{{ sub }}</p>
+      <a class="text-link" href="{{ link_url }}">{{ link_label }}</a>
+    </div>
+    <div class="col-right hero__cta">
+      <a class="btn btn--primary" href="{{ cta_url }}">{{ cta_label }}</a>
+      {%- if section.settings.show_note -%}
+        <p class="hero__note small muted">{% render 'icon', name: 'truck', class: 'icon--sm' %}<span>{{ note }}</span></p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'stream.js' | asset_url }}" defer></script>
+<script src="{{ 'sequence.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.hero.name",
+  "class": "section-home-hero",
+  "settings": [
+    { "type": "paragraph", "content": "t:sections.hero.info" },
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "subheading", "label": "t:settings.subheading", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "cta_label", "label": "t:settings.cta_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "cta_link", "label": "t:settings.cta_link" },
+    { "type": "text", "id": "link_label", "label": "t:settings.link_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "link_url", "label": "t:settings.link_url" },
+    { "type": "checkbox", "id": "show_note", "label": "t:sections.hero.show_note", "default": true },
+    { "type": "text", "id": "note", "label": "t:sections.hero.note", "info": "t:settings.blank_uses_default" },
+    { "type": "header", "content": "t:sections.hero.machine" },
+    { "type": "image_picker", "id": "machine_image", "label": "t:sections.hero.machine_image", "info": "t:sections.hero.machine_image_info" },
+    { "type": "image_picker", "id": "machine_shadow", "label": "t:sections.hero.machine_shadow" },
+    { "type": "range", "id": "spout_y", "label": "t:sections.hero.spout_y", "min": 30, "max": 80, "step": 1, "unit": "%", "default": 58 },
+    { "type": "header", "content": "t:sections.sequence.header" },
+    { "type": "paragraph", "content": "t:sections.sequence.info" },
+    { "type": "text", "id": "sequence_base_url", "label": "t:sections.sequence.base_url" },
+    { "type": "number", "id": "sequence_frame_count", "label": "t:sections.sequence.frame_count" },
+    { "type": "number", "id": "sequence_pad", "label": "t:sections.sequence.pad", "default": 4 },
+    { "type": "select", "id": "sequence_ext", "label": "t:sections.sequence.ext", "default": "webp", "options": [ { "value": "webp", "label": "WebP" }, { "value": "avif", "label": "AVIF" }, { "value": "jpg", "label": "JPG" } ] }
+  ],
+  "enabled_on": { "templates": ["index"] },
+  "presets": [{ "name": "t:sections.hero.name" }]
+}
+{% endschema %}

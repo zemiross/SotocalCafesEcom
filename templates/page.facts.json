@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "ink",
+        "preset": "facts"
+      }
+    },
+    "facts": {
+      "type": "fact-sheet",
+      "settings": {
+        "updated": ""
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "facts"
+  ]
+}

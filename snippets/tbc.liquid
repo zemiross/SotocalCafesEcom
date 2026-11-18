@@ -1,0 +1,7 @@
+{%- comment -%}
+  Content-gap marker (brief §0). Visible only while "show_tbc_markers" is on or inside the theme editor (DECISIONS D09).
+  Usage: {% render 'tbc', note: 'desconto da subscrição' %}
+{%- endcomment -%}
+{%- if settings.show_tbc_markers or request.design_mode -%}
+  <mark class="tbc">[[TBC: {{ note }}]]</mark>
+{%- endif -%}

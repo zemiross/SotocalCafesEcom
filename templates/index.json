@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "hero": {
+      "type": "home-hero",
+      "settings": {
+        "heading": "", "subheading": "", "cta_label": "", "cta_link": "", "link_label": "", "link_url": "",
+        "show_note": true, "note": "", "spout_y": 58, "sequence_base_url": "", "sequence_pad": 4, "sequence_ext": "webp"
+      }
+    },
+    "roast": {
+      "type": "home-roast",
+      "blocks": {
+        "bean-1": { "type": "bean", "settings": { "depth": "near", "x": 22, "y": 30, "size": 30, "rotation": -14 } },
+        "bean-2": { "type": "bean", "settings": { "depth": "mid", "x": 60, "y": 16, "size": 22, "rotation": 20 } },
+        "bean-3": { "type": "bean", "settings": { "depth": "far", "x": 84, "y": 42, "size": 14, "rotation": 8 } },
+        "bean-4": { "type": "bean", "settings": { "depth": "near", "x": 50, "y": 58, "size": 34, "rotation": 32 } },
+        "bean-5": { "type": "bean", "settings": { "depth": "mid", "x": 14, "y": 76, "size": 22, "rotation": -30 } },
+        "bean-6": { "type": "bean", "settings": { "depth": "far", "x": 78, "y": 74, "size": 15, "rotation": -12 } },
+        "bean-7": { "type": "bean", "settings": { "depth": "mid", "x": 88, "y": 12, "size": 18, "rotation": 40 } },
+        "bean-8": { "type": "bean", "settings": { "depth": "far", "x": 36, "y": 8, "size": 12, "rotation": -6 } },
+        "bean-9": { "type": "bean", "settings": { "depth": "near", "x": 72, "y": 92, "size": 26, "rotation": 12 } }
+      },
+      "block_order": ["bean-1", "bean-2", "bean-3", "bean-4", "bean-5", "bean-6", "bean-7", "bean-8", "bean-9"],
+      "settings": { "heading": "", "body": "", "quote": "", "quote_attribution": "", "cta_label": "", "cta_link": "", "sequence_pad": 4, "sequence_ext": "webp" }
+    },
+    "blends": {
+      "type": "home-blends",
+      "blocks": {
+        "blend-super-milano": { "type": "blend", "settings": { "product": "lote-super-milano", "fallback": "super-milano", "fallback_handle": "lote-super-milano" } },
+        "blend-super": { "type": "blend", "settings": { "product": "lote-super", "fallback": "super", "fallback_handle": "lote-super" } },
+        "blend-reggio": { "type": "blend", "settings": { "product": "lote-reggio", "fallback": "reggio", "fallback_handle": "lote-reggio" } },
+        "blend-descafeinado": { "type": "blend", "settings": { "product": "cafe-descafeinado", "fallback": "descafeinado", "fallback_handle": "cafe-descafeinado" } }
+      },
+      "block_order": ["blend-super-milano", "blend-super", "blend-reggio", "blend-descafeinado"],
+      "settings": { "heading": "", "intro": "", "link_label": "", "link_url": "", "step_vh": 70 }
+    },
+    "audiences": { "type": "home-audiences", "settings": {} },
+    "cup": { "type": "home-cup", "settings": { "heading": "", "sub": "", "cta_label": "", "cta_link": "", "pin_vh": 150 } }
+  },
+  "order": ["hero", "roast", "blends", "audiences", "cup"]
+}

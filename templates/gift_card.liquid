@@ -1,0 +1,32 @@
+{%- layout none -%}
+{%- liquid
+  assign initial = gift_card.initial_value | money
+  assign expires = gift_card.expires_on | date: '%d/%m/%Y'
+-%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>{{ 'gift_card.title' | t }} | Sotocal</title>
+    {%- render 'fonts' -%}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body data-theme="cream">
+    <main class="section" data-theme="cream">
+      <div class="container stack" style="max-width: 640px">
+        {% render 'logo', width: 120 %}
+        <h1 class="h-display">{{ 'gift_card.title' | t }}</h1>
+        <p class="price price--lg"><span class="price__current">{{ gift_card.balance | money }}</span>{% if gift_card.balance != gift_card.initial_value %} <span class="muted">({{ 'gift_card.initial' | t: value: initial }})</span>{% endif %}</p>
+        {%- if gift_card.expired or gift_card.enabled == false -%}<p class="form-status">{{ 'gift_card.expired' | t }}</p>{%- endif -%}
+        <p class="label">{{ 'gift_card.code' | t }}</p>
+        <p class="h3 tabular">{{ gift_card.code | format_code }}</p>
+        {%- if gift_card.expires_on -%}<p class="small muted">{{ 'gift_card.expires' | t: date: expires }}</p>{%- endif -%}
+        <p><a class="btn btn--primary" href="{{ shop.url }}">{{ 'gift_card.shop' | t }}</a></p>
+        {%- if gift_card.pass_url -%}<p><a class="link" href="{{ gift_card.pass_url }}">{{ 'gift_card.wallet' | t }}</a></p>{%- endif -%}
+      </div>
+    </main>
+  </body>
+</html>

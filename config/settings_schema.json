@@ -1,0 +1,91 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Sotocal",
+    "theme_version": "1.0.0",
+    "theme_author": "Sotocal",
+    "theme_documentation_url": "https://sotocalcafes.pt/",
+    "theme_support_url": "https://sotocalcafes.pt/pages/contactos"
+  },
+  {
+    "name": "t:settings_schema.brand.name",
+    "settings": [
+      { "type": "paragraph", "content": "t:settings_schema.brand.locked_info" },
+      { "type": "image_picker", "id": "logo", "label": "t:settings_schema.brand.logo", "info": "t:settings_schema.brand.logo_info" },
+      { "type": "range", "id": "logo_width", "label": "t:settings_schema.brand.logo_width", "min": 60, "max": 200, "step": 2, "unit": "px", "default": 92 },
+      { "type": "image_picker", "id": "favicon", "label": "t:settings_schema.brand.favicon" },
+      { "type": "image_picker", "id": "share_image", "label": "t:settings_schema.brand.share_image", "info": "t:settings_schema.brand.share_image_info" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.commerce.name",
+    "settings": [
+      { "type": "number", "id": "free_shipping_threshold", "label": "t:settings_schema.commerce.free_shipping_threshold", "info": "t:settings_schema.commerce.free_shipping_threshold_info", "default": 40 },
+      { "type": "checkbox", "id": "pickup_enabled", "label": "t:settings_schema.commerce.pickup_enabled", "default": true },
+      { "type": "product", "id": "upsell_product", "label": "t:settings_schema.commerce.upsell_product", "info": "t:settings_schema.commerce.upsell_product_info" },
+      { "type": "number", "id": "shipping_rate_pt", "label": "t:settings_schema.commerce.shipping_rate_pt", "info": "t:settings_schema.commerce.shipping_rate_pt_info" },
+      { "type": "number", "id": "shipping_handling_days", "label": "t:settings_schema.commerce.shipping_handling_days" },
+      { "type": "number", "id": "shipping_transit_days", "label": "t:settings_schema.commerce.shipping_transit_days" },
+      { "type": "number", "id": "schema_return_days", "label": "t:settings_schema.commerce.schema_return_days", "default": 14 }
+    ]
+  },
+  {
+    "name": "t:settings_schema.prelaunch.name",
+    "settings": [
+      { "type": "checkbox", "id": "show_tbc_markers", "label": "t:settings_schema.prelaunch.show_tbc_markers", "info": "t:settings_schema.prelaunch.show_tbc_markers_info", "default": true }
+    ]
+  },
+  {
+    "name": "t:settings_schema.social.name",
+    "settings": [
+      { "type": "text", "id": "social_facebook", "label": "Facebook", "default": "https://www.facebook.com/sotocalcafes/" },
+      { "type": "text", "id": "social_instagram", "label": "Instagram", "default": "https://www.instagram.com/sotocal_cafes/" },
+      { "type": "text", "id": "social_google_maps", "label": "Google Maps", "info": "t:settings_schema.social.maps_info", "default": "https://share.google/3xeTRo73mxHukgmxf" },
+      { "type": "text", "id": "social_wikidata", "label": "Wikidata", "info": "t:settings_schema.social.wikidata_info" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.legal.name",
+    "settings": [
+      { "type": "text", "id": "ral_entity_name", "label": "t:settings_schema.legal.ral_entity_name", "info": "t:settings_schema.legal.ral_info" },
+      { "type": "url", "id": "ral_entity_url", "label": "t:settings_schema.legal.ral_entity_url" },
+      { "type": "image_picker", "id": "cofunding_image", "label": "t:settings_schema.legal.cofunding_image", "info": "t:settings_schema.legal.cofunding_info" },
+      { "type": "url", "id": "cofunding_link", "label": "t:settings_schema.legal.cofunding_link" },
+      { "type": "checkbox", "id": "cookie_banner_enabled", "label": "t:settings_schema.legal.cookie_banner_enabled", "info": "t:settings_schema.legal.cookie_banner_info", "default": true }
+    ]
+  },
+  {
+    "name": "t:settings_schema.gifts.name",
+    "settings": [
+      { "type": "paragraph", "content": "t:settings_schema.gifts.info" },
+      { "type": "select", "id": "gift_season_force", "label": "t:settings_schema.gifts.force", "default": "auto", "options": [
+        { "value": "auto", "label": "t:settings_schema.gifts.force_auto" },
+        { "value": "on", "label": "t:settings_schema.gifts.force_on" },
+        { "value": "off", "label": "t:settings_schema.gifts.force_off" } ] },
+      { "type": "text", "id": "gift_cutoff_mainland", "label": "t:settings_schema.gifts.cutoff_mainland", "info": "t:settings_schema.gifts.cutoff_info" },
+      { "type": "text", "id": "gift_cutoff_islands", "label": "t:settings_schema.gifts.cutoff_islands" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.leads.name",
+    "settings": [
+      { "type": "paragraph", "content": "t:settings_schema.leads.info" },
+      { "type": "url", "id": "lead_endpoint_url", "label": "t:settings_schema.leads.endpoint", "info": "t:settings_schema.leads.endpoint_info" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.local.name",
+    "settings": [
+      { "type": "paragraph", "content": "t:settings_schema.local.info" },
+      { "type": "checkbox", "id": "hq_open_to_public", "label": "t:settings_schema.local.hq_open", "info": "t:settings_schema.local.hq_open_info", "default": false },
+      { "type": "textarea", "id": "hq_opening_hours", "label": "t:settings_schema.local.hq_hours", "info": "t:settings_schema.local.hq_hours_info" }
+    ]
+  },
+  {
+    "name": "t:settings_schema.seo.name",
+    "settings": [
+      { "type": "text", "id": "google_site_verification", "label": "t:settings_schema.seo.google_site_verification", "default": "FsPoxaMNsglzycxyLmZmlgoBw3YHtdp8XVS8otgEwyc" },
+      { "type": "text", "id": "entity_base_url", "label": "t:settings_schema.seo.entity_base_url", "info": "t:settings_schema.seo.entity_base_url_info", "default": "https://sotocalcafes.pt" }
+    ]
+  }
+]

@@ -1,0 +1,55 @@
+{%- comment -%} Blog listing (guia-do-cafe, receitas): one lead article, then editorial rows (no identical card grid, §5.8). {%- endcomment -%}
+{%- paginate blog.articles by 12 -%}
+{%- liquid
+  assign has_lead = false
+  if paginate.current_page == 1 and blog.articles.size > 0
+    assign has_lead = true
+    assign lead = blog.articles.first
+  endif
+-%}
+<section class="section blog" data-theme="cream" aria-labelledby="BlogTitle">
+  <div class="container">
+    {% render 'breadcrumbs' %}
+    <header class="blog__head grid">
+      <h1 class="h-display col-left" id="BlogTitle">{{ blog.title }}</h1>
+      <p class="lead col-right">{% if blog.handle == 'receitas' %}{{ 'blog.recipes_intro' | t }}{% else %}{{ 'blog.guide_intro' | t }}{% endif %}</p>
+    </header>
+
+    {%- if has_lead -%}
+      <article class="blog__lead grid">
+        <div class="col-left blog__lead-media media-plane">
+          {%- if lead.image -%}{{ lead.image | image_url: width: 1200 | image_tag: widths: '400, 700, 1000, 1200', sizes: '(min-width: 1024px) 40vw, 92vw', loading: 'eager', alt: lead.image.alt }}{%- endif -%}
+        </div>
+        <div class="col-right stack">
+          <h2 class="h2"><a class="blog__link" href="{{ lead.url }}">{{ lead.title }}</a></h2>
+          <p>{{ lead.excerpt_or_content | strip_html | truncatewords: 40 }}</p>
+          {% render 'article-meta', article: lead %}
+        </div>
+      </article>
+    {%- endif -%}
+
+    {%- if blog.articles.size > 0 -%}
+      <ul class="blog__rows" role="list">
+        {%- for article in blog.articles -%}
+          {%- if has_lead and forloop.first -%}{%- continue -%}{%- endif -%}
+          <li class="blog__row">
+            <div class="blog__row-text">
+              <h2 class="h3"><a class="blog__link" href="{{ article.url }}">{{ article.title }}</a></h2>
+              <p class="muted">{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>
+              {% render 'article-meta', article: article %}
+            </div>
+            {%- if article.image -%}<div class="blog__row-media media-plane">{{ article.image | image_url: width: 400 | image_tag: widths: '200, 300, 400', sizes: '160px', loading: 'lazy', alt: '' }}</div>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p class="h3">{{ 'blog.empty' | t }}</p>
+    {%- endif -%}
+    {% render 'pagination', paginate: paginate %}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "t:sections.main_blog.name", "settings": [] }
+{% endschema %}

@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "t:sections.header.group",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "enabled": true, "text": "", "link": "" } },
+    "header": { "type": "header", "settings": { "menu": "main-menu", "overlay_on_home": true } }
+  },
+  "order": ["announcement", "header"]
+}

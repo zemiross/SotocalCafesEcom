@@ -1,0 +1,44 @@
+{%- comment -%}
+  FAQ list + FAQPage JSON-LD. Params: items (faq_item metaobjects), category (optional filter on the category field),
+  limit (default 50). Answers come first in the text (answer-first writing for AI assistants, brief §12).
+{%- endcomment -%}
+{%- liquid
+  assign max = limit | default: 50
+  assign count = 0
+  for item in items
+    if category == blank or item.category.value == category
+      assign count = count | plus: 1
+    endif
+  endfor
+-%}
+{%- if count > 0 -%}
+<div class="accordion faq">
+  {%- assign shown = 0 -%}
+  {%- for item in items -%}
+    {%- if category != blank and item.category.value != category -%}{%- continue -%}{%- endif -%}
+    {%- if shown >= max -%}{%- break -%}{%- endif -%}
+    {%- assign shown = shown | plus: 1 -%}
+    <details class="accordion__item">
+      <summary><span>{{ item.question.value }}</span><span class="pm" aria-hidden="true"></span></summary>
+      <div class="accordion__body rte">{{ item.answer.value }}</div>
+    </details>
+  {%- endfor -%}
+</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": {{ canonical_url | append: '#faq' | json }},
+  "mainEntity": [
+    {%- assign shown = 0 -%}
+    {%- for item in items -%}
+      {%- if category != blank and item.category.value != category -%}{%- continue -%}{%- endif -%}
+      {%- if shown >= max -%}{%- break -%}{%- endif -%}
+      {%- if shown > 0 -%},{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+    { "@type": "Question", "name": {{ item.question.value | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ item.answer.value | strip_html | strip | json }} } }
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}

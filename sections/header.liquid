@@ -1,0 +1,170 @@
+{%- comment -%}
+  Conventional header (Jakob). ≤ 6 top-level items, "Loja" first and "Profissional" last (Hick, serial position).
+  Transparent over the homepage hero, then --bg at 92% + blur after 80 px; data-theme follows the fold underneath (theme.js).
+  Menu comes from the "main-menu" navigation; if it is empty a flat fallback with the six items renders.
+{%- endcomment -%}
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign is_overlay = false
+  if request.page_type == 'index' and section.settings.overlay_on_home
+    assign is_overlay = true
+  endif
+  if routes.root_url == '/'
+    assign prefix = ''
+  else
+    assign prefix = routes.root_url
+  endif
+-%}
+
+<header class="site-header{% if is_overlay %} site-header--overlay{% endif %}" data-header data-theme="cream">
+  <div class="container">
+    <div class="site-header__bar">
+      <button class="icon-btn menu-toggle" type="button" data-menu-open aria-controls="menu-drawer" aria-expanded="false">
+        {% render 'icon', name: 'menu' %}<span class="visually-hidden">{{ 'header.menu' | t }}</span>
+      </button>
+
+      {% render 'logo' %}
+
+      <nav class="nav" aria-label="{{ 'header.main_nav' | t }}">
+        <ul class="nav__list" role="list">
+          {%- if menu.links.size > 0 -%}
+            {%- for link in menu.links -%}
+              <li class="nav__item"{% if link.links.size > 0 %} data-mega{% endif %}>
+                {%- if link.links.size > 0 -%}
+                  <button class="nav__link" type="button" aria-expanded="false" aria-controls="mega-{{ forloop.index }}">
+                    {{ link.title }}{% render 'icon', name: 'chevron', class: 'icon--sm' %}
+                  </button>
+                  <div class="mega" id="mega-{{ forloop.index }}" hidden>
+                    <div class="container">
+                      <ul class="mega__grid" role="list">
+                        {%- for child in link.links -%}
+                          <li>
+                            <a class="mega__title" href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a>
+                            {%- if child.links.size > 0 -%}
+                              <ul class="mega__list" role="list">
+                                {%- for grandchild in child.links -%}
+                                  <li><a href="{{ grandchild.url }}"{% if grandchild.current %} aria-current="page"{% endif %}>{{ grandchild.title }}</a></li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                {%- else -%}
+                  <a class="nav__link" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a class="nav__link" href="{{ prefix }}/collections/cafe">{{ 'nav.shop' | t }}</a></li>
+            <li><a class="nav__link" href="{{ prefix }}/collections/cafe#lotes">{{ 'nav.blends' | t }}</a></li>
+            <li><a class="nav__link" href="{{ prefix }}/pages/a-torra">{{ 'nav.roast' | t }}</a></li>
+            <li><a class="nav__link" href="{{ prefix }}/pages/historia">{{ 'nav.about' | t }}</a></li>
+            <li><a class="nav__link" href="{{ prefix }}/blogs/guia-do-cafe">{{ 'nav.guide' | t }}</a></li>
+            <li><a class="nav__link" href="{{ prefix }}/pages/profissional">{{ 'nav.business' | t }}</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="hide-mobile">{% render 'language-switch', id: 'HeaderLanguage' %}</div>
+        <button class="icon-btn" type="button" data-search-open aria-controls="search-dialog" aria-haspopup="dialog">
+          {% render 'icon', name: 'search' %}<span class="visually-hidden">{{ 'header.search' | t }}</span>
+        </button>
+        {%- if shop.customer_accounts_enabled -%}
+          <a class="icon-btn hide-mobile" href="{{ routes.account_url }}">
+            {% render 'icon', name: 'account' %}<span class="visually-hidden">{% if customer %}{{ 'header.account' | t }}{% else %}{{ 'header.login' | t }}{% endif %}</span>
+          </a>
+        {%- endif -%}
+        <a class="icon-btn" href="{{ routes.cart_url }}" data-cart-open aria-haspopup="dialog">
+          {% render 'icon', name: 'cart' %}
+          <span class="visually-hidden" data-cart-label>{{ 'header.cart_count' | t: count: cart.item_count }}</span>
+          <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}" aria-hidden="true">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<dialog id="menu-drawer" class="drawer" data-theme="ink" aria-label="{{ 'header.menu' | t }}">
+  <div class="menu-drawer__inner grain" data-theme="ink">
+    <div class="menu-drawer__top">
+      <button class="icon-btn" type="button" data-dialog-close>
+        {% render 'icon', name: 'close' %}<span class="visually-hidden">{{ 'general.close' | t }}</span>
+      </button>
+    </div>
+    <nav aria-label="{{ 'header.main_nav' | t }}">
+      <ul class="menu-drawer__nav" role="list">
+        {%- if menu.links.size > 0 -%}
+          {%- for link in menu.links -%}
+            {%- if forloop.last and link.links.size == 0 and link.url contains 'profissional' -%}{%- continue -%}{%- endif -%}
+            <li>
+              {%- if link.links.size > 0 -%}
+                <details>
+                  <summary>{{ link.title }}<span class="pm" aria-hidden="true"></span></summary>
+                  <ul class="menu-drawer__sub" role="list">
+                    {%- for child in link.links -%}
+                      <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                </details>
+              {%- else -%}
+                <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="{{ prefix }}/collections/cafe">{{ 'nav.shop' | t }}</a></li>
+          <li><a href="{{ prefix }}/collections/cafe#lotes">{{ 'nav.blends' | t }}</a></li>
+          <li><a href="{{ prefix }}/pages/a-torra">{{ 'nav.roast' | t }}</a></li>
+          <li><a href="{{ prefix }}/pages/historia">{{ 'nav.about' | t }}</a></li>
+          <li><a href="{{ prefix }}/blogs/guia-do-cafe">{{ 'nav.guide' | t }}</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+    <div class="menu-drawer__foot">
+      <a class="btn btn--outline btn--block" href="{{ prefix }}/pages/profissional">{{ 'header.business_cta' | t }}</a>
+      {% render 'language-switch', id: 'DrawerLanguage' %}
+      <p class="menu-drawer__contacts">
+        <a href="tel:+351226167020">+351 226 167 020</a><br>
+        {{ 'contact.call_cost' | t }}<br>
+        <a href="mailto:sotocalcafes@sotocalcafes.pt">sotocalcafes@sotocalcafes.pt</a>
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="search-dialog" class="drawer search-dialog" data-theme="cream" aria-label="{{ 'header.search' | t }}">
+  <div class="search-dialog__inner container">
+    <div class="menu-drawer__top">
+      <button class="icon-btn" type="button" data-dialog-close>
+        {% render 'icon', name: 'close' %}<span class="visually-hidden">{{ 'general.close' | t }}</span>
+      </button>
+    </div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" data-predictive-search>
+      <label class="h3" for="SearchInput">{{ 'search.label' | t }}</label>
+      <div class="search-form__row">
+        <input class="input" id="SearchInput" type="search" name="q" autocomplete="off" spellcheck="false"
+               placeholder="{{ 'search.placeholder' | t }}" aria-describedby="SearchStatus">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button class="btn btn--solid" type="submit">{{ 'search.submit' | t }}</button>
+      </div>
+      <p id="SearchStatus" class="visually-hidden" aria-live="polite" data-search-status></p>
+      <div class="search-results" data-search-results></div>
+    </form>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "section-header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "t:sections.header.menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "overlay_on_home", "label": "t:sections.header.overlay", "default": true }
+  ]
+}
+{% endschema %}

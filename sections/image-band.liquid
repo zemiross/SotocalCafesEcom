@@ -1,0 +1,55 @@
+{%- comment -%}
+  A single real photograph with a caption (brief §5.4: real materials; no stock clichés). Until a higher-resolution file is
+  chosen in the editor, it falls back to a client photo from the Sotocal leaflet, kept at its native width (≈ 1000 px).
+{%- endcomment -%}
+{%- liquid
+  assign fallback = section.settings.fallback
+  case fallback
+    when 'torrefacao'
+      assign src = 'photo-torrefacao.webp'
+      assign w = 984
+      assign h = 349
+    when 'cafeeiro'
+      assign src = 'photo-cafeeiro.webp'
+      assign w = 984
+      assign h = 354
+    else
+      assign src = 'photo-chavena-sotocal.webp'
+      assign w = 1000
+      assign h = 370
+  endcase
+  assign alt_key = 'pages.photos.' | append: fallback | append: '_alt'
+  assign cap_key = 'pages.photos.' | append: fallback | append: '_caption'
+  assign caption = section.settings.caption
+  if caption == blank and section.settings.image == blank
+    assign caption = cap_key | t
+  endif
+-%}
+<section class="section section--tight image-band" data-theme="{{ section.settings.theme }}"{% if caption == blank %} aria-hidden="true"{% endif %}>
+  <figure class="container image-band__figure">
+    <div class="image-band__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 2000 | image_tag: widths: '600, 900, 1200, 1600, 2000', sizes: '(min-width: 1360px) 1360px, 100vw', loading: 'lazy' }}
+      {%- else -%}
+        <img src="{{ src | asset_url }}" alt="{{ alt_key | t }}" width="{{ w }}" height="{{ h }}" loading="lazy" decoding="async">
+      {%- endif -%}
+    </div>
+    {%- if caption != blank -%}<figcaption class="small muted">{{ caption }}</figcaption>{%- endif -%}
+  </figure>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.image_band.name",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "t:blocks.image.name" },
+    { "type": "select", "id": "fallback", "label": "t:sections.image_band.fallback", "default": "torrefacao", "options": [
+      { "value": "torrefacao", "label": "t:sections.image_band.torrefacao" },
+      { "value": "cafeeiro", "label": "t:sections.image_band.cafeeiro" },
+      { "value": "chavena", "label": "t:sections.image_band.chavena" } ] },
+    { "type": "text", "id": "caption", "label": "t:blocks.image.caption" },
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] }
+  ],
+  "presets": [{ "name": "t:sections.image_band.name" }]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "faq"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "category": "all",
+        "theme": "cream",
+        "limit": 50
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "faq"
+  ]
+}

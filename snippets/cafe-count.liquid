@@ -1,0 +1,12 @@
+{%- comment -%}
+  Prints how many partner cafés may be shown: consent_publish = true (and, with pickup: true, pickup_enabled = true).
+  Only Active entries reach shop.metaobjects. Use with capture, e.g. {% capture n %}{% render 'cafe-count' %}{% endcapture %}.
+  Locator and pickup pages, their links and the "collect at a café" promise appear only when this is above zero (D3).
+{%- endcomment -%}
+{%- assign count = 0 -%}
+{%- for c in shop.metaobjects.partner_cafe.values -%}
+  {%- if c.consent_publish.value -%}
+    {%- if pickup != true or c.pickup_enabled.value -%}{%- assign count = count | plus: 1 -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{- count -}}

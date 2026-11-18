@@ -1,0 +1,25 @@
+{
+  "current": {
+    "logo_width": 92,
+    "free_shipping_threshold": 40,
+    "pickup_enabled": true,
+    "schema_return_days": 14,
+    "show_tbc_markers": true,
+    "social_facebook": "https://www.facebook.com/sotocalcafes/",
+    "social_instagram": "https://www.instagram.com/sotocal_cafes/",
+    "social_google_maps": "https://share.google/3xeTRo73mxHukgmxf",
+    "cookie_banner_enabled": true,
+    "google_site_verification": "FsPoxaMNsglzycxyLmZmlgoBw3YHtdp8XVS8otgEwyc",
+    "entity_base_url": "https://sotocalcafes.pt"
+  },
+  "presets": {
+    "Default": {
+      "logo_width": 92,
+      "free_shipping_threshold": 40,
+      "pickup_enabled": true,
+      "schema_return_days": 14,
+      "show_tbc_markers": true,
+      "cookie_banner_enabled": true
+    }
+  }
+}

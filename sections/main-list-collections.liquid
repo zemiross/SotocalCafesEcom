@@ -1,0 +1,27 @@
+{%- comment -%} All collections ("Loja"). Each collection stands on a sand plane; no card containers. {%- endcomment -%}
+<section class="section" data-theme="cream" aria-labelledby="CollectionsTitle">
+  <div class="container">
+    {% render 'breadcrumbs' %}
+    <h1 class="h-display" id="CollectionsTitle" style="margin-block: 24px 64px">{{ 'collections.all_title' | t }}</h1>
+    <ul class="tiles tiles--3" role="list">
+      {%- for c in collections -%}
+        {%- unless c.handle == 'all' or c.handle == 'frontpage' -%}
+          <li>
+            <article class="tile">
+              <div class="tile__media">
+                {%- assign img = c.featured_image | default: c.products.first.featured_image -%}
+                {%- if img -%}{{ img | image_url: width: 700 | image_tag: widths: '360, 540, 700', sizes: '(min-width: 1024px) 30vw, 44vw', loading: 'lazy', alt: '' }}{%- endif -%}
+              </div>
+              <h2 class="tile__title"><a href="{{ c.url }}">{{ c.title }}</a></h2>
+              <p class="tile__char">{{ 'collections.products_count' | t: count: c.products_count }}</p>
+            </article>
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "t:sections.list_collections.name", "settings": [] }
+{% endschema %}

@@ -1,0 +1,223 @@
+{
+  "$comment": "Source of truth for Sotocal metaobject definitions. Read by scripts/store-setup.mjs and documented in docs/DATA-MODEL.md. Every definition gets access.storefront = PUBLIC_READ (required for Liquid shop.metaobjects and the Storefront API), translatable capability on, and publishable capability on where drafts must not reach the storefront. Order matters: definitions referenced by others come first.",
+  "definitions": [
+    {
+      "type": "faq_item",
+      "name": "Pergunta frequente",
+      "description": "Pergunta e resposta para páginas de FAQ, produto, Profissional e Sobre a Sotocal (schema FAQPage).",
+      "displayNameKey": "question",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "question", "name": "Pergunta", "type": "single_line_text_field", "required": true, "validations": [{ "name": "max", "value": "160" }] },
+        { "key": "answer", "name": "Resposta", "type": "rich_text_field", "required": true, "description": "A primeira frase responde à pergunta." },
+        { "key": "category", "name": "Categoria", "type": "single_line_text_field", "required": true,
+          "validations": [{ "name": "choices", "value": "[\"geral\",\"encomendas\",\"envios\",\"produto\",\"subscricao\",\"profissional\",\"sobre\"]" }] },
+        { "key": "scope", "name": "Âmbito", "type": "single_line_text_field", "description": "Onde a pergunta se aplica: geral (todo o site), familia-de-produto ou metodo. Opcional.",
+          "validations": [{ "name": "choices", "value": "[\"global\",\"familia-de-produto\",\"metodo\"]" }] }
+      ]
+    },
+    {
+      "type": "person",
+      "name": "Pessoa",
+      "description": "Pessoas da Sotocal para a página História, assinaturas de artigos e schema Person. Fotografias reais apenas.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "name", "name": "Nome", "type": "single_line_text_field", "required": true },
+        { "key": "role", "name": "Função", "type": "single_line_text_field", "description": "[[TBC: título preferido de José Barbosa]]" },
+        { "key": "bio", "name": "Biografia", "type": "multi_line_text_field", "description": "Não fixar idades fora de contexto datado." },
+        { "key": "photo", "name": "Fotografia", "type": "file_reference", "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }], "description": "Fotografia real. Nunca gerada por IA." },
+        { "key": "same_as", "name": "Perfis (sameAs)", "type": "list.url", "description": "URLs de perfis públicos (LinkedIn, Wikidata…) para schema sameAs." }
+      ]
+    },
+    {
+      "type": "gift_box_item",
+      "name": "Item do cabaz",
+      "description": "Conteúdo do cabaz «Despensa do Norte».",
+      "displayNameKey": "name",
+      "publishable": false,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "name", "name": "Nome", "type": "single_line_text_field", "required": true },
+        { "key": "quantity", "name": "Quantidade", "type": "single_line_text_field", "description": "Ex.: «250 g», «1 frasco»." },
+        { "key": "product", "name": "Produto", "type": "product_reference", "description": "Opcional: liga o item à página do produto." },
+        { "key": "image", "name": "Imagem", "type": "file_reference", "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }] }
+      ]
+    },
+    {
+      "type": "partner_cafe",
+      "name": "Café parceiro",
+      "description": "Cafés clientes Sotocal para o localizador «Onde beber Sotocal» e para o levantamento no café. Só aparecem no site com consent_publish = true e estado Ativo.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "name", "name": "Nome", "type": "single_line_text_field", "required": true },
+        { "key": "address", "name": "Morada", "type": "single_line_text_field", "required": true },
+        { "key": "postal_code", "name": "Código postal", "type": "single_line_text_field", "required": true, "validations": [{ "name": "regex", "value": "^[0-9]{4}-[0-9]{3}$" }] },
+        { "key": "city", "name": "Localidade", "type": "single_line_text_field", "required": true },
+        { "key": "district", "name": "Distrito / Região", "type": "single_line_text_field", "required": true,
+          "validations": [{ "name": "choices", "value": "[\"Aveiro\",\"Beja\",\"Braga\",\"Bragança\",\"Castelo Branco\",\"Coimbra\",\"Évora\",\"Faro\",\"Guarda\",\"Leiria\",\"Lisboa\",\"Portalegre\",\"Porto\",\"Santarém\",\"Setúbal\",\"Viana do Castelo\",\"Vila Real\",\"Viseu\",\"Região Autónoma dos Açores\",\"Região Autónoma da Madeira\"]" }] },
+        { "key": "lat", "name": "Latitude", "type": "number_decimal", "validations": [{ "name": "min", "value": "30" }, { "name": "max", "value": "43" }, { "name": "max_precision", "value": "6" }] },
+        { "key": "lng", "name": "Longitude", "type": "number_decimal", "validations": [{ "name": "min", "value": "-32" }, { "name": "max", "value": "-6" }, { "name": "max_precision", "value": "6" }] },
+        { "key": "opening_hours", "name": "Horário", "type": "multi_line_text_field", "description": "Uma linha por dia ou intervalo, ex.: «Seg.–Sex.: 07:00–20:00»." },
+        { "key": "pickup_enabled", "name": "Aceita levantamentos", "type": "boolean", "description": "Mostra «Levantar aqui» e inclui o café no seletor do carrinho." },
+        { "key": "consent_publish", "name": "Autorizou publicação", "type": "boolean", "required": true, "description": "RGPD/acordo comercial: o café autorizou por escrito aparecer no site. Sem isto, nunca é mostrado." },
+        { "key": "pickup_notes", "name": "Notas de levantamento", "type": "multi_line_text_field", "description": "O que se pode levantar neste café e em quanto tempo. Texto único por café; é o que justifica uma página própria (só com consentimento)." },
+        { "key": "photo", "name": "Fotografia", "type": "file_reference", "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }] }
+      ]
+    },
+    {
+      "type": "timeline_event",
+      "name": "Marco da história",
+      "description": "Marcos da cronologia na página História. Ordenados por «sort».",
+      "displayNameKey": "title",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "year", "name": "Ano", "type": "single_line_text_field", "required": true, "description": "Ex.: «1960», «Início dos anos 70»." },
+        { "key": "title", "name": "Título", "type": "single_line_text_field", "required": true },
+        { "key": "text", "name": "Texto", "type": "multi_line_text_field" },
+        { "key": "image", "name": "Imagem", "type": "file_reference", "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }] },
+        { "key": "sort", "name": "Ordem", "type": "number_integer", "required": true }
+      ]
+    },
+    {
+      "type": "award",
+      "name": "Distinção",
+      "description": "Distinções verificadas (PME Excelência, PME Líder).",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        { "key": "name", "name": "Nome", "type": "single_line_text_field", "required": true },
+        { "key": "year", "name": "Ano", "type": "single_line_text_field", "required": true },
+        { "key": "image", "name": "Imagem", "type": "file_reference", "validations": [{ "name": "file_type_options", "value": "[\"Image\"]" }] }
+      ]
+    },
+    {
+      "type": "method",
+      "name": "Método de preparação",
+      "description": "Hub de um método (máquina automática, cafeteira italiana, expresso, prensa francesa, filtro, moagem). Renderiza em /pages/metodo/<handle>. Só as recomendações da Sotocal; nada inventado.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "renderable": {"metaTitleKey": "seo_title", "metaDescriptionKey": "seo_description"},
+      "onlineStore": {"urlHandle": "metodo"},
+      "fieldDefinitions": [
+        {"key": "name", "name": "Nome", "type": "single_line_text_field", "required": true, "description": "Ex.: «Máquina automática»."},
+        {"key": "short_answer", "name": "Resposta curta", "type": "multi_line_text_field", "required": true, "description": "40 a 70 palavras por baixo do título. A primeira frase responde à pergunta.", "validations": [{"name": "max", "value": "500"}]},
+        {"key": "sotocal_recommendation", "name": "Recomendação da Sotocal", "type": "multi_line_text_field", "required": true, "description": "O que os torradores da Sotocal recomendam para este método: o elemento que mais nenhuma página tem. Vem da Sotocal. [[TBC: pergunta 14]]"},
+        {"key": "recommended_blends", "name": "Lotes recomendados", "type": "list.product_reference", "description": "Produtos (lotes) recomendados, até 4.", "validations": [{"name": "list.max", "value": "4"}]},
+        {"key": "grind", "name": "Moagem", "type": "single_line_text_field", "description": "Da Sotocal, não inventada.", "validations": [{"name": "max", "value": "120"}]},
+        {"key": "dose_ratio", "name": "Dose e proporção", "type": "single_line_text_field", "description": "Da Sotocal, não inventada. Ex.: gramas de café por volume de água.", "validations": [{"name": "max", "value": "120"}]},
+        {"key": "steps", "name": "Passos", "type": "list.single_line_text_field", "description": "Um passo por item, pela ordem."},
+        {"key": "common_mistakes", "name": "Erros comuns", "type": "list.single_line_text_field"},
+        {"key": "faq", "name": "Perguntas frequentes", "type": "list.metaobject_reference", "description": "Até 6 faq_item.", "validations": [{"name": "metaobject_definition_type", "value": "faq_item"}, {"name": "list.max", "value": "6"}]},
+        {"key": "image", "name": "Imagem", "type": "file_reference", "validations": [{"name": "file_type_options", "value": "[\"Image\"]"}]},
+        {"key": "author", "name": "Autor (pessoa)", "type": "metaobject_reference", "description": "Só com consentimento da pessoa. Sem autor, a página assina «Sotocal».", "validations": [{"name": "metaobject_definition_type", "value": "person"}]},
+        {"key": "reviewed_on", "name": "Revisto em", "type": "date", "required": true, "description": "Data real da última revisão."},
+        {"key": "seo_title", "name": "Título SEO", "type": "single_line_text_field", "description": "Até 60 caracteres. Inclui a palavra-chave principal.", "validations": [{"name": "max", "value": "60"}]},
+        {"key": "seo_description", "name": "Descrição SEO", "type": "multi_line_text_field", "description": "Até 155 caracteres, em pt-PT.", "validations": [{"name": "max", "value": "155"}]}
+      ]
+    },
+    {
+      "type": "machine",
+      "name": "Máquina",
+      "description": "Tipo de máquina ou modelo validado (ex.: De'Longhi Magnifica Start). Renderiza em /pages/maquina/<handle>. Uma página de modelo só é indexável com definições retiradas do manual e fontes.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "renderable": {"metaTitleKey": "seo_title", "metaDescriptionKey": "seo_description"},
+      "onlineStore": {"urlHandle": "maquina"},
+      "fieldDefinitions": [
+        {"key": "name", "name": "Nome", "type": "single_line_text_field", "required": true},
+        {"key": "machine_type", "name": "Tipo", "type": "single_line_text_field", "required": true, "validations": [{"name": "choices", "value": "[\"automatica\", \"expresso-manual\", \"cafeteira-italiana\", \"prensa-francesa\", \"filtro\", \"capsulas\"]"}]},
+        {"key": "brand", "name": "Marca", "type": "single_line_text_field", "description": "Só em páginas de modelo."},
+        {"key": "model", "name": "Modelo", "type": "single_line_text_field", "description": "Só em páginas de modelo com procura validada."},
+        {"key": "method", "name": "Método", "type": "metaobject_reference", "required": true, "description": "Hub de método a que esta máquina pertence.", "validations": [{"name": "metaobject_definition_type", "value": "method"}]},
+        {"key": "short_answer", "name": "Resposta curta", "type": "multi_line_text_field", "required": true, "description": "40 a 70 palavras por baixo do título.", "validations": [{"name": "max", "value": "500"}]},
+        {"key": "recommended_blends", "name": "Lotes recomendados", "type": "list.product_reference", "description": "Até 4 lotes, segundo a Sotocal.", "validations": [{"name": "list.max", "value": "4"}]},
+        {"key": "recommended_grind", "name": "Moagem recomendada", "type": "single_line_text_field", "description": "Da Sotocal.", "validations": [{"name": "max", "value": "120"}]},
+        {"key": "settings", "name": "Definições do fabricante", "type": "multi_line_text_field", "description": "Gama de moagem, depósito de grão, ciclo de limpeza: copiados do manual do fabricante, com a fonte em «Fontes». Vazio = página de modelo não indexável."},
+        {"key": "sources", "name": "Fontes", "type": "list.url", "description": "URLs do manual do fabricante."},
+        {"key": "faq", "name": "Perguntas frequentes", "type": "list.metaobject_reference", "validations": [{"name": "metaobject_definition_type", "value": "faq_item"}, {"name": "list.max", "value": "6"}]},
+        {"key": "author", "name": "Autor (pessoa)", "type": "metaobject_reference", "validations": [{"name": "metaobject_definition_type", "value": "person"}]},
+        {"key": "reviewed_on", "name": "Revisto em", "type": "date", "required": true},
+        {"key": "seo_title", "name": "Título SEO", "type": "single_line_text_field", "description": "Até 60 caracteres. Inclui a palavra-chave principal.", "validations": [{"name": "max", "value": "60"}]},
+        {"key": "seo_description", "name": "Descrição SEO", "type": "multi_line_text_field", "description": "Até 155 caracteres, em pt-PT.", "validations": [{"name": "max", "value": "155"}]}
+      ]
+    },
+    {
+      "type": "substitute",
+      "name": "Sucedâneo",
+      "description": "Ficha factual de um sucedâneo do café (cevada, chicória). Alimenta guias e fichas de produto; não gera páginas próprias. NÃO tem campo de benefícios para a saúde (Reg. (CE) 1924/2006).",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "fieldDefinitions": [
+        {"key": "name", "name": "Nome", "type": "single_line_text_field", "required": true, "description": "Ex.: «Cevada», «Chicória»."},
+        {"key": "what_it_is", "name": "O que é", "type": "multi_line_text_field", "required": true, "description": "Descrição factual. A primeira frase responde."},
+        {"key": "roasting", "name": "Como é torrada", "type": "multi_line_text_field", "description": "Só o que a Sotocal confirma."},
+        {"key": "preparation", "name": "Como se prepara", "type": "multi_line_text_field"},
+        {"key": "caffeine_statement", "name": "Cafeína (afirmação)", "type": "single_line_text_field", "description": "Só se tiver fonte em «Cafeína (fonte)». O site só mostra a afirmação com fonte.", "validations": [{"name": "max", "value": "200"}]},
+        {"key": "caffeine_source", "name": "Cafeína (fonte)", "type": "url", "description": "EFSA, tabela INSA/PortFIR ou artigo científico."},
+        {"key": "gluten_statement", "name": "Glúten (afirmação)", "type": "single_line_text_field", "description": "Só se tiver fonte. A cevada contém glúten: é alergénio obrigatório na rotulagem.", "validations": [{"name": "max", "value": "200"}]},
+        {"key": "gluten_source", "name": "Glúten (fonte)", "type": "url"},
+        {"key": "history_note", "name": "Nota de história", "type": "multi_line_text_field", "description": "Só factos confirmados pela Sotocal (ex.: produção de chicória nos Açores no início dos anos 70)."},
+        {"key": "products", "name": "Produtos", "type": "list.product_reference", "description": "Produtos Sotocal deste sucedâneo.", "validations": [{"name": "list.max", "value": "6"}]},
+        {"key": "faq", "name": "Perguntas frequentes", "type": "list.metaobject_reference", "validations": [{"name": "metaobject_definition_type", "value": "faq_item"}, {"name": "list.max", "value": "6"}]},
+        {"key": "reviewed_on", "name": "Revisto em", "type": "date", "required": true}
+      ]
+    },
+    {
+      "type": "competitor",
+      "name": "Preço de referência (concorrente)",
+      "description": "Preço por kg de uma marca concorrente, com fonte e data de consulta. Usado só em comparações objetivas e na calculadora; cada preço é reverificado antes de publicar. Sem logótipos.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": false,
+      "fieldDefinitions": [
+        {"key": "name", "name": "Marca", "type": "single_line_text_field", "required": true},
+        {"key": "group", "name": "Grupo", "type": "single_line_text_field", "description": "Ex.: grupo empresarial proprietário."},
+        {"key": "product", "name": "Produto", "type": "single_line_text_field", "required": true, "description": "Nome exato do produto comparado."},
+        {"key": "format", "name": "Formato", "type": "single_line_text_field", "required": true, "validations": [{"name": "choices", "value": "[\"grao\", \"moido\", \"capsula\"]"}]},
+        {"key": "pack_weight_g", "name": "Peso da embalagem (g)", "type": "number_integer", "validations": [{"name": "min", "value": "1"}]},
+        {"key": "pack_units", "name": "Unidades por embalagem", "type": "number_integer", "description": "Só para cápsulas: número de cápsulas da embalagem.", "validations": [{"name": "min", "value": "1"}]}, {"key": "pack_price", "name": "Preço da embalagem (€)", "type": "number_decimal", "validations": [{"name": "min", "value": "0"}, {"name": "max_precision", "value": "2"}]},
+        {"key": "price_per_kg", "name": "Preço por kg (€)", "type": "number_decimal", "required": true, "description": "Calculado a partir da embalagem ou lido da fonte.", "validations": [{"name": "min", "value": "0"}, {"name": "max_precision", "value": "2"}]},
+        {"key": "price_kind", "name": "Tipo de preço", "type": "single_line_text_field", "required": true, "description": "Preço de tabela ou de promoção. Nunca misturar.", "validations": [{"name": "choices", "value": "[\"tabela\", \"promocao\"]"}]},
+        {"key": "channel", "name": "Canal", "type": "single_line_text_field", "required": true, "validations": [{"name": "choices", "value": "[\"retalho\", \"loja-propria\", \"online\", \"horeca\"]"}]},
+        {"key": "tier", "name": "Segmento", "type": "single_line_text_field", "validations": [{"name": "choices", "value": "[\"marca-propria\", \"marca-nacional\", \"torrefacao-especialidade\"]"}]},
+        {"key": "source_url", "name": "Fonte (URL)", "type": "url", "required": true, "description": "Página pública onde o preço foi lido."},
+        {"key": "accessed_on", "name": "Consultado em", "type": "date", "required": true, "description": "Data em que o preço foi lido. Mostrada junto ao preço."},
+        {"key": "notes", "name": "Notas", "type": "multi_line_text_field"}
+      ]
+    },
+    {
+      "type": "service_area",
+      "name": "Zona servida (fornecedor de café)",
+      "description": "Página local para cafés, restaurantes e hotéis de um distrito ou cidade: /pages/fornecedor-de-cafe/<handle>. Só é indexável quando a Sotocal confirma que serve a zona e há conteúdo próprio da zona (entregas, factos locais ou cafés parceiros com consentimento). Nunca texto inventado nem cidades sem serviço real.",
+      "displayNameKey": "name",
+      "publishable": true,
+      "translatable": true,
+      "renderable": {"metaTitleKey": "seo_title", "metaDescriptionKey": "seo_description"},
+      "onlineStore": {"urlHandle": "fornecedor-de-cafe"},
+      "fieldDefinitions": [
+        {"key": "name", "name": "Cidade ou distrito", "type": "single_line_text_field", "required": true},
+        {"key": "in_name", "name": "Nome com preposição", "type": "single_line_text_field", "required": true, "description": "Como aparece no título «Fornecedor de café <isto>»: «no Porto», «em Lisboa», «na Guarda», «nos Açores». Em inglês: «in Porto»."},
+        {"key": "district", "name": "Distrito / Região", "type": "single_line_text_field", "required": true, "validations": [{"name": "choices", "value": "[\"Aveiro\", \"Beja\", \"Braga\", \"Bragança\", \"Castelo Branco\", \"Coimbra\", \"Évora\", \"Faro\", \"Guarda\", \"Leiria\", \"Lisboa\", \"Portalegre\", \"Porto\", \"Santarém\", \"Setúbal\", \"Viana do Castelo\", \"Vila Real\", \"Viseu\", \"Região Autónoma dos Açores\", \"Região Autónoma da Madeira\"]"}]},
+        {"key": "served", "name": "A Sotocal serve esta zona", "type": "boolean", "required": true, "description": "Só marcar com confirmação da Sotocal. Desmarcado = página não indexável."},
+        {"key": "short_answer", "name": "Resposta curta", "type": "multi_line_text_field", "required": true, "description": "40 a 70 palavras, específicas desta zona. Nada genérico copiado de outras zonas.", "validations": [{"name": "max", "value": "500"}]},
+        {"key": "local_facts", "name": "Factos locais", "type": "multi_line_text_field", "description": "O que só é verdade nesta zona (ex.: torrefação e sede no Porto). Da Sotocal."},
+        {"key": "delivery", "name": "Entregas nesta zona", "type": "multi_line_text_field", "description": "Dias, frequência ou prazo de entrega a cafés e restaurantes desta zona. Da Sotocal."},
+        {"key": "local_contact", "name": "Contacto da zona", "type": "single_line_text_field", "description": "Função de quem atende esta zona (ex.: «comercial da zona Norte»). Nome de pessoa só com consentimento."},
+        {"key": "faq", "name": "Perguntas frequentes", "type": "list.metaobject_reference", "validations": [{"name": "metaobject_definition_type", "value": "faq_item"}, {"name": "list.max", "value": "6"}]},
+        {"key": "reviewed_on", "name": "Revisto em", "type": "date", "required": true},
+        {"key": "seo_title", "name": "Título SEO", "type": "single_line_text_field", "validations": [{"name": "max", "value": "60"}]},
+        {"key": "seo_description", "name": "Descrição SEO", "type": "multi_line_text_field", "validations": [{"name": "max", "value": "155"}]}
+      ]
+    }
+  ]
+}

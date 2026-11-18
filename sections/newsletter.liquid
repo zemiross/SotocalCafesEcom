@@ -1,0 +1,31 @@
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'newsletter.heading' | t
+  endif
+  assign text = section.settings.text
+  if text == blank
+    assign text = 'newsletter.text' | t
+  endif
+-%}
+<section class="section section--tight newsletter" data-theme="{{ section.settings.theme }}" aria-labelledby="Newsletter-{{ section.id }}">
+  <div class="container newsletter__inner">
+    <div>
+      <h2 class="h3" id="Newsletter-{{ section.id }}">{{ heading }}</h2>
+      <p class="muted" style="margin-top:8px">{{ text }}</p>
+    </div>
+    {% render 'newsletter-form', id: 'Newsletter' %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] },
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "text", "label": "t:settings.text", "info": "t:settings.blank_uses_default" }
+  ],
+  "presets": [{ "name": "t:sections.newsletter.name" }]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{%- comment -%} Dismissible announcement (brief §8). Threshold comes from theme settings so the bar and the cart agree. {%- endcomment -%}
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros
+  assign text = section.settings.text
+  if text == blank
+    assign text = 'announcement.free_shipping' | t: amount: threshold
+  endif
+-%}
+{%- if section.settings.enabled -%}
+<div class="announcement" data-announcement data-key="{{ text | handle | truncate: 40, "" }}">
+  <div class="announcement__inner container">
+    <p>
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}">{{ text }}</a>
+      {%- else -%}
+        {{ text }}
+      {%- endif -%}
+      {%- if settings.free_shipping_threshold == 40 %} {% render 'tbc', note: 'limiar de envio grátis 40 €' %}{% endif -%}
+    </p>
+    <button class="announcement__close" type="button" data-announcement-close aria-label="{{ 'announcement.dismiss' | t }}">
+      {% render 'icon', name: 'close', class: 'icon--sm' %}
+    </button>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.announcement.name",
+  "class": "section-announcement",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "t:sections.announcement.enabled", "default": true },
+    { "type": "text", "id": "text", "label": "t:sections.announcement.text", "info": "t:sections.announcement.text_info" },
+    { "type": "url", "id": "link", "label": "t:sections.announcement.link" }
+  ]
+}
+{% endschema %}

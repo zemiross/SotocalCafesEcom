@@ -1,0 +1,19 @@
+{%- comment -%}
+  Prints "true" while the Christmas season is on: 1 November to 24 December, every year (docs/seo/09-ws9-gifts.md).
+  The setting "Época de Natal" can force it on or off. Use with capture: {% capture on %}{% render 'gift-season-on' %}{% endcapture %}.
+{%- endcomment -%}
+{%- liquid
+  assign on = false
+  assign force = settings.gift_season_force
+  if force == 'on'
+    assign on = true
+  elsif force != 'off'
+    assign month = 'now' | date: '%m' | plus: 0
+    assign day = 'now' | date: '%d' | plus: 0
+    assign md = month | times: 100 | plus: day
+    if md >= 1101 and md <= 1224
+      assign on = true
+    endif
+  endif
+-%}
+{{- on -}}

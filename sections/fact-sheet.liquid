@@ -1,0 +1,112 @@
+{%- comment -%}
+  /pages/sobre-a-sotocal: the factual sheet for AI assistants (brief §12). Plain sentences, a facts table, answer-first
+  Q&A, sources and "Atualizado em dd/mm/aaaa". Every fact comes from brief §2; gaps show as [[TBC]].
+{%- endcomment -%}
+{%- liquid
+  capture years
+    render 'years'
+  endcapture
+  assign years = years | strip
+  if section.settings.updated != blank
+    assign updated = section.settings.updated
+  else
+    assign updated = page.updated_at | date: '%d/%m/%Y'
+  endif
+  assign qa = shop.metaobjects.faq_item.values
+  assign about_count = 0
+  for item in qa
+    if item.category.value == 'sobre'
+      assign about_count = about_count | plus: 1
+    endif
+  endfor
+-%}
+<section class="section facts" data-theme="cream" aria-labelledby="Facts-{{ section.id }}">
+  <div class="container grid">
+    <div class="col-left">
+      <h2 class="h2" id="Facts-{{ section.id }}">{{ 'pages.facts.statements_heading' | t }}</h2>
+      <p class="small muted" style="margin-top: 16px">{{ 'general.updated_on' | t: date: updated }}</p>
+    </div>
+    <div class="col-right rte facts__statements">
+      <p>{{ 'facts.entity_1' | t }}</p>
+      <p>{{ 'facts.entity_2' | t }}</p>
+      <p>{{ 'facts.entity_3' | t }}</p>
+      <p>{{ 'facts.entity_4' | t }}</p>
+      <p>{{ 'facts.entity_5' | t }} {% render 'tbc', note: 'nome exato da confraria' %}</p>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 96px">
+    <h2 class="h3">{{ 'pages.facts.table_heading' | t }}</h2>
+    <table class="facts__table">
+      <caption class="visually-hidden">{{ 'pages.facts.table_heading' | t }}</caption>
+      <tbody>
+        <tr><th scope="row">{{ 'pages.facts.row_brand' | t }}</th><td>Sotocal</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_legal' | t }}</th><td>Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda.</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_vat' | t }}</th><td class="tabular">500 275 068 (PT500275068)</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_founded' | t }}</th><td>{{ 'pages.facts.founded_value' | t: years: years }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_founders' | t }}</th><td>{{ 'pages.facts.founders_value' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_leadership' | t }}</th><td>{{ 'pages.facts.leadership_value' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_activity' | t }}</th><td>{{ 'pages.facts.activity_value' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_blends' | t }}</th><td>{{ 'facts.entity_4' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_reach' | t }}</th><td>{{ 'pages.facts.reach_value' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_online' | t }}</th><td>{{ 'pages.facts.online_value' | t }}</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_awards' | t }}</th><td>PME Excelência Indústria (2001); PME Líder (2011)</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_address' | t }}</th><td>Rua Engenheiro Ferreira Dias, n.º 398, 4100-246 Porto, Portugal</td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_contacts' | t }}</th><td><a class="link" href="tel:+351226167020">+351 226 167 020</a> {{ 'contact.call_cost' | t }}; <a class="link" href="mailto:sotocalcafes@sotocalcafes.pt">sotocalcafes@sotocalcafes.pt</a></td></tr>
+        <tr><th scope="row">{{ 'pages.facts.row_machines' | t }}</th><td>{{ 'pages.profissional.no_machines' | t }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container grid" style="margin-top: 96px">
+    <h2 class="h3 col-left">{{ 'pages.facts.qa_heading' | t }}</h2>
+    <div class="col-right">
+      {%- if about_count > 0 -%}
+        {% render 'faq-list', items: qa, category: 'sobre' %}
+      {%- else -%}
+        <div class="accordion faq">
+          {%- for n in (1..6) -%}
+            {%- assign k = 'pages.facts.q' | append: n -%}
+            <details class="accordion__item"{% if forloop.first %} open{% endif %}>
+              <summary><span>{{ k | append: '_q' | t }}</span><span class="pm" aria-hidden="true"></span></summary>
+              <div class="accordion__body rte"><p>{{ k | append: '_a' | t }}</p></div>
+            </details>
+          {%- endfor -%}
+        </div>
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org", "@type": "FAQPage", "@id": {{ canonical_url | append: '#faq' | json }},
+          "mainEntity": [
+            {%- for n in (1..6) -%}{%- assign k = 'pages.facts.q' | append: n -%}
+            { "@type": "Question", "name": {{ k | append: '_q' | t | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ k | append: '_a' | t | json }} } }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+        </script>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="container grid" style="margin-top: 96px">
+    <h2 class="h3 col-left">{{ 'pages.facts.sources_heading' | t }}</h2>
+    <ul class="col-right hairlines" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}><a class="link" href="{{ block.settings.url }}">{{ block.settings.label }}</a></li>
+      {%- else -%}
+        <li><a class="link" href="{% if routes.root_url != '/' %}{{ routes.root_url }}{% endif %}/pages/historia">{{ 'nav.history' | t }}</a></li>
+        <li><a class="link" href="https://www.livroreclamacoes.pt/">{{ 'footer.complaints_book' | t }}</a></li>
+        <li>{% render 'tbc', note: 'fontes externas: IAPMEI (PME Líder, PME Excelência), Wikidata, imprensa' %}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.facts.name",
+  "settings": [ { "type": "text", "id": "updated", "label": "t:sections.facts.updated", "info": "t:sections.facts.updated_info" } ],
+  "blocks": [ { "type": "source", "name": "t:sections.facts.source", "settings": [
+    { "type": "text", "id": "label", "label": "t:sections.facts.source_label" }, { "type": "url", "id": "url", "label": "t:sections.facts.source_url" } ] } ],
+  "presets": [{ "name": "t:sections.facts.name" }]
+}
+{% endschema %}

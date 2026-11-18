@@ -1,0 +1,35 @@
+{%- comment -%}
+  Facts about a coffee substitute (cevada, chicória) from the `substitute` metaobject (docs/seo/05-ws5-hubs.md).
+  Param: substitute (metaobject). A caffeine or gluten statement is shown ONLY with its source URL; there is no health-benefit
+  field by design (Reg. (CE) 1924/2006). Prints nothing when the entry is empty.
+{%- endcomment -%}
+{%- liquid
+  assign s = substitute
+  assign show_caffeine = false
+  if s.caffeine_statement.value != blank and s.caffeine_source.value != blank
+    assign show_caffeine = true
+  endif
+  assign show_gluten = false
+  if s.gluten_statement.value != blank and s.gluten_source.value != blank
+    assign show_gluten = true
+  endif
+-%}
+{%- if s != blank -%}
+<section class="substitute-facts" aria-labelledby="SubFacts-{{ s.system.handle }}">
+  <h2 class="h3" id="SubFacts-{{ s.system.handle }}">{{ 'substitute.heading' | t: name: s.name.value }}</h2>
+  <div class="rte">
+    <p>{{ s.what_it_is.value | newline_to_br }}</p>
+    {%- if s.history_note.value != blank -%}<p><strong>{{ 'substitute.history' | t }}:</strong> {{ s.history_note.value | newline_to_br }}</p>{%- endif -%}
+  </div>
+  {%- if show_caffeine or show_gluten -%}
+    <dl class="fic">
+      {%- if show_caffeine -%}
+        <div><dt>{{ 'substitute.caffeine' | t }}</dt><dd>{{ s.caffeine_statement.value }} <a class="link" href="{{ s.caffeine_source.value }}" rel="noopener nofollow">{{ 'substitute.source' | t }}</a></dd></div>
+      {%- endif -%}
+      {%- if show_gluten -%}
+        <div><dt>{{ 'substitute.gluten' | t }}</dt><dd>{{ s.gluten_statement.value }} <a class="link" href="{{ s.gluten_source.value }}" rel="noopener nofollow">{{ 'substitute.source' | t }}</a></dd></div>
+      {%- endif -%}
+    </dl>
+  {%- endif -%}
+</section>
+{%- endif -%}

@@ -1,0 +1,34 @@
+{%- comment -%}
+  Self-hosted fonts (brief §5.2). Two files on first load: DM Serif Display 400 (latin) and Inter variable (latin, wght).
+  The italic face exists for article quotes only and is never preloaded (DECISIONS D07).
+  Fallback overrides computed with Capsize (scripts/vendor.mjs) so the swap does not shift layout.
+{%- endcomment -%}
+{{ 'dm-serif-display-400.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'inter-var.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+<style>
+  @font-face {
+    font-family: "DM Serif Display";
+    src: url("{{ 'dm-serif-display-400.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "DM Serif Display";
+    src: url("{{ 'dm-serif-display-400-italic.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("{{ 'inter-var.woff2' | asset_url }}") format("woff2-variations"), url("{{ 'inter-var.woff2' | asset_url }}") format("woff2");
+    font-weight: 100 900; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "DM Serif Fallback";
+    src: local("Georgia");
+    ascent-override: 103.5537%; descent-override: 33.485%; line-gap-override: 0%; size-adjust: 100.0447%;
+  }
+  @font-face {
+    font-family: "Inter Fallback";
+    src: local("Arial"), local("ArialMT");
+    ascent-override: 90.4365%; descent-override: 22.518%; line-gap-override: 0%; size-adjust: 107.1194%;
+  }
+</style>

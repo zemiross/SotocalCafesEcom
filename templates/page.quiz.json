@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "quiz"
+      }
+    },
+    "quiz": {
+      "type": "tool-quiz",
+      "settings": {
+        "collection": "cafe"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "quiz"
+  ]
+}

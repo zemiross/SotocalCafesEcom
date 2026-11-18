@@ -1,0 +1,33 @@
+{%- comment -%}
+  Company gifts (target for "cabaz de natal empresas", docs/seo/09-ws9-gifts.md). A section of /pages/profissional, with the anchor
+  #presentes-empresas, linked from the gifts collection. No public prices: volume pricing is on request. The lead form's business type
+  "Presentes de empresa" tells the sales team what the enquiry is about.
+{%- endcomment -%}
+<section class="section section--tight corporate-gifts" id="presentes-empresas" data-theme="{{ section.settings.theme }}" aria-labelledby="CorpGifts-{{ section.id }}">
+  <div class="container grid">
+    <h2 class="h2 col-left" id="CorpGifts-{{ section.id }}">{{ 'gifts.corporate_heading' | t }}</h2>
+    <div class="col-right stack">
+      <p class="lead">{{ 'gifts.corporate_text' | t }}</p>
+      <ul class="hairlines" role="list">
+        <li>{{ 'gifts.corporate_point_1' | t }}</li>
+        <li>{{ 'gifts.corporate_point_2' | t }}</li>
+        <li>{{ 'gifts.corporate_point_3' | t }}</li>
+      </ul>
+      {%- if request.page_type == 'page' -%}
+        <a class="btn btn--primary" href="#contacto">{{ 'gifts.corporate_cta' | t }}</a>
+      {%- else -%}
+        <a class="btn btn--primary" href="{{ routes.root_url | remove_last: '/' }}/pages/profissional#presentes-empresas">{{ 'gifts.corporate_cta' | t }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.corporate_gifts.name",
+  "settings": [
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] }
+  ],
+  "presets": [{ "name": "t:sections.corporate_gifts.name" }]
+}
+{% endschema %}

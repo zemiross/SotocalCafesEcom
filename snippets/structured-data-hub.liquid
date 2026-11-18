@@ -1,0 +1,31 @@
+{%- comment -%}
+  JSON-LD for method hubs and machine pages: a WebPage plus an Article (guide) with author Person or the Organization, and the
+  review date as dateModified. No datePublished is emitted because the data model records only the review date. FAQPage comes
+  from snippets/faq-list and BreadcrumbList from snippets/breadcrumbs. Params: m (metaobject), org_id, site_id, page_url, lang.
+  Output starts without a comma and holds two nodes.
+{%- endcomment -%}
+{%- liquid
+  assign author = m.author.value
+  assign headline = m.seo_title.value | default: m.name.value
+-%}
+{
+  "@type": "WebPage",
+  "@id": {{ page_url | append: '#webpage' | json }},
+  "url": {{ page_url | json }},
+  "name": {{ m.name.value | json }},
+  "inLanguage": {{ lang | json }},
+  "isPartOf": { "@id": {{ site_id | json }} },
+  "breadcrumb": { "@id": {{ page_url | append: '#breadcrumb' | json }} }
+},
+{
+  "@type": "Article",
+  "@id": {{ page_url | append: '#article' | json }},
+  "mainEntityOfPage": { "@id": {{ page_url | append: '#webpage' | json }} },
+  "headline": {{ headline | json }},
+  "description": {{ m.short_answer.value | strip_html | strip | json }},
+  "inLanguage": {{ lang | json }},
+  {%- if m.reviewed_on.value != blank %}"dateModified": {{ m.reviewed_on.value | date: '%Y-%m-%d' | json }},{% endif %}
+  {%- if m.image.value %}"image": [{{ m.image.value | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+  "author": {% if author != blank %}{ "@type": "Person", "name": {{ author.name.value | json }}, "worksFor": { "@id": {{ org_id | json }} } }{% else %}{ "@id": {{ org_id | json }} }{% endif %},
+  "publisher": { "@id": {{ org_id | json }} }
+}

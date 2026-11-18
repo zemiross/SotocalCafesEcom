@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "layout": "substitute",
+        "show_subscription": false,
+        "show_intensity": false,
+        "fic_open": false
+      }
+    },
+    "faq": {
+      "type": "product-faq",
+      "settings": {
+        "theme": "ink",
+        "heading": "",
+        "limit": 3
+      }
+    },
+    "pairings": {
+      "type": "product-pairings",
+      "settings": {
+        "heading": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq",
+    "pairings"
+  ]
+}

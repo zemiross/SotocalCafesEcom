@@ -1,0 +1,172 @@
+{
+  "$comment": "Smart collections. Rules use CollectionRuleInput (column/relation/condition). intro → collection metafield sotocal.intro (≤ 60 words, above the grid). descriptionHtml is the longer SEO text below the grid: paste the rewritten texts from docs/CONTENT.md. EN title/handle per the docs/SEO.md URL map.",
+  "collections": [
+    {
+      "handle": "cafe",
+      "templateSuffix": "cafe",
+      "title": "Café",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Café"
+        }
+      ],
+      "intro": "Os lotes Sotocal, torrados no Porto desde 1960: Super Milano, Super, Reggio e Descafeinado. São os cafés que servimos em cafés, restaurantes e hotéis do Minho ao Algarve, agora para a sua casa. Todos juntam arábicas e robustas; muda a origem, a proporção e a torra. Em cada formato mostramos o preço por kg, para poder comparar com facilidade. O café que vem do Norte.",
+      "en": {
+        "title": "Coffee",
+        "handle": "coffee",
+        "intro": "The Sotocal blends, roasted in Porto since 1960: Super Milano, Super, Reggio and Decaf. They are the coffees we serve in cafés, restaurants and hotels from the Minho to the Algarve, now for your home. Every blend combines Arabica and Robusta; what changes is the origin, the proportion and the roast. Each size shows the price per kg, so you can compare easily. The coffee that comes from the North."
+      }
+    },
+    {
+      "handle": "cafe-em-grao", "seo": { "title": "Café em grão, em 250 g e 1 kg" },
+      "templateSuffix": "cafe",
+      "title": "Café em grão",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Café"
+        },
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "formato-grao"
+        }
+      ],
+      "intro": "Café em grão Sotocal, para moer na hora em casa ou na máquina automática. São os mesmos lotes que servimos nos cafés, torrados no Porto desde 1960: Super Milano, Super, Reggio e Descafeinado. Todos juntam arábicas e robustas; muda a origem, a proporção e a torra. Em cada formato mostramos o preço por kg, para poder comparar. É o café que vem do Norte.",
+      "en": {
+        "title": "Coffee beans",
+        "handle": "coffee-beans",
+        "intro": "Sotocal coffee beans, to grind fresh at home or in a bean-to-cup machine. They are the same blends we serve in cafés, roasted in Porto since 1960: Super Milano, Super, Reggio and Decaf. Every blend combines Arabica and Robusta; what changes is the origin, the proportion and the roast. Each size shows the price per kg, so you can compare. It is the coffee that comes from the North."
+      }
+    },
+    {
+      "handle": "cafe-moido", "seo": { "title": "Café moído, em 250 g e 1 kg" },
+      "templateSuffix": "cafe",
+      "title": "Café moído",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Café"
+        },
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "formato-moido"
+        }
+      ],
+      "intro": "Café moído Sotocal, pronto a usar na sua cafeteira. São os mesmos lotes que servimos nos cafés, torrados no Porto desde 1960: Super Milano, Super, Reggio e Descafeinado. Todos juntam arábicas e robustas; muda a origem, a proporção e a torra. Em cada formato mostramos o preço por kg, para poder comparar com o café em grão e com outras marcas.",
+      "en": {
+        "title": "Ground coffee",
+        "handle": "ground-coffee",
+        "intro": "Sotocal ground coffee, ready to use in your coffee maker. They are the same blends we serve in cafés, roasted in Porto since 1960: Super Milano, Super, Reggio and Decaf. Every blend combines Arabica and Robusta; what changes is the origin, the proportion and the roast. Each size shows the price per kg, so you can compare with whole bean and with other brands."
+      }
+    },
+    {
+      "handle": "especiarias",
+      "title": "Especiarias",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Especiaria"
+        }
+      ],
+      "intro": "Colorau, pimenta, piri-piri, canela, cravinho e cominhos Sotocal, para a cozinha portuguesa de todos os dias. No guia de receitas encontra pratos como o frango assado com piri-piri.",
+      "en": {
+        "title": "Spices",
+        "handle": "spices",
+        "intro": "Sotocal colorau, pepper, piri-piri, cinnamon, cloves and cumin, for everyday Portuguese cooking. Our recipes include dishes such as roast chicken with piri-piri."
+      }
+    },
+    {
+      "handle": "sucedaneos-do-cafe", "seo": { "title": "Cevada e chicória: sucedâneos do café" },
+      "title": "Sucedâneos do café",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Sucedâneo"
+        }
+      ],
+      "intro": "Cevada e misturas para uma chávena com menos café, ou sem café. A Mistura Bom Dia junta 25% de café e 75% de chicória; a Mistura Sako, 20% de café e 80% de cereais torrados (cevada, chicória e grão preto). Também há Cevada Sotocal e Cevada Oriente. A Sotocal começou pelos sucedâneos: quatro a cinco anos depois de 1960, já era líder de mercado nos sucedâneos torrados em Portugal.",
+      "en": {
+        "title": "Coffee substitutes",
+        "handle": "coffee-substitutes",
+        "intro": "Barley and blends for a cup with less coffee, or none. The Bom Dia blend combines 25% coffee with 75% chicory; the Sako blend, 20% coffee and 80% roasted cereals (barley, chicory and grão preto). There are also Sotocal roasted barley and Oriente roasted barley. Sotocal began with substitutes: four to five years after 1960 it was already the market leader in roasted coffee substitutes in Portugal."
+      }
+    },
+    {
+      "handle": "complementares",
+      "title": "Complementares",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Complementar"
+        }
+      ],
+      "intro": "O que acompanha o café: açúcar em carteiras e adoçante em saquetas, descafeinado em unidoses, chá verde e chá preto, infusões de camomila e de cidreira e amendoins Jumbo torrados.",
+      "en": {
+        "title": "Accompaniments",
+        "handle": "accompaniments",
+        "intro": "Everything that goes with coffee: sugar and sweetener sachets, decaf single-serve doses, green and black tea, chamomile and lemon balm infusions, and roasted Jumbo peanuts."
+      }
+    },
+    {
+      "handle": "conservas",
+      "title": "Conservas",
+      "rules": [
+        {
+          "column": "TYPE",
+          "relation": "EQUALS",
+          "condition": "Conserva"
+        }
+      ],
+      "intro": "",
+      "en": {
+        "title": "Conservas",
+        "handle": "conservas",
+        "intro": ""
+      }
+    },
+    {
+      "handle": "presentes",
+      "templateSuffix": "presentes",
+      "title": "Presentes",
+      "rules": [
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "presente"
+        }
+      ],
+      "intro": "Presentes com sabor ao Norte. O cabaz Despensa do Norte junta café Sotocal e produtos da nossa despensa, para o Natal, para a família lá fora ou para oferecer na empresa.",
+      "en": {
+        "title": "Gifts",
+        "handle": "gifts",
+        "intro": "Gifts that taste of the North of Portugal. The Despensa do Norte gift box brings together Sotocal coffee and other products from our pantry: for Christmas, for family abroad or for corporate gifts."
+      }
+    },
+    {
+      "handle": "capsulas-compativeis-nespresso", "seo": { "title": "Cápsulas compatíveis Nespresso" },
+      "title": "Cápsulas compatíveis Nespresso",
+      "rules": [
+        {
+          "column": "TAG",
+          "relation": "EQUALS",
+          "condition": "capsula"
+        }
+      ],
+      "intro": "",
+      "en": {
+        "title": "Nespresso-compatible capsules",
+        "handle": "nespresso-compatible-capsules",
+        "intro": ""
+      }
+    }
+  ]
+}

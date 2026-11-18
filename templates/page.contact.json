@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "contact"
+      }
+    },
+    "contact": {
+      "type": "contact",
+      "settings": {
+        "hours": ""
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "contact"
+  ]
+}

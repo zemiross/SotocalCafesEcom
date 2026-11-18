@@ -1,0 +1,30 @@
+{%- comment -%}
+  Equipment on the B2B page (D115): answers "máquina de café para restaurante / para empresas / para escritório". Facts only from the
+  approved FAQ entries `vendem-maquinas` and `o-que-oferece-horeca`: Sotocal does not sell machines; with a supply agreement it places
+  suitable equipment, gives fast technical support and operating instructions. Offices are served (D98), but equipment for offices is
+  not confirmed (Q71), so it shows only as a TBC marker.
+{%- endcomment -%}
+<section class="section section--tight horeca-equipment" id="equipamento" data-theme="{{ section.settings.theme }}" aria-labelledby="Equipment-{{ section.id }}">
+  <div class="container grid">
+    <h2 class="h2 col-left" id="Equipment-{{ section.id }}">{{ 'pages.profissional.equipment_heading' | t }}</h2>
+    <div class="col-right stack">
+      <p class="lead">{{ 'pages.profissional.equipment_text' | t }}</p>
+      <p>{{ 'pages.profissional.equipment_text_2' | t }}</p>
+      {%- if request.design_mode or settings.show_tbc_markers -%}
+        <p>{% render 'tbc', note: 'empresas e escritórios: a Sotocal também coloca equipamento em escritórios? (Q71)' %}</p>
+      {%- endif -%}
+      <p><a class="text-link" href="#contacto">{{ 'pages.profissional.equipment_cta' | t }}</a></p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.horeca_equipment.name",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "ink", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] }
+  ],
+  "presets": [{ "name": "t:sections.horeca_equipment.name" }]
+}
+{% endschema %}

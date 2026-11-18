@@ -1,0 +1,115 @@
+{%- comment -%}
+  Objective price comparison for listicles and "alternatives" guides (docs/seo/07-ws7-guides.md). Param: article.
+  Rows come from the `competitor` entries listed in sotocal.compared, in the order the editor set (price per kg, lowest first).
+  Rules (Portuguese Advertising Code art. 16: objective, verifiable, not denigrating): only prices, pack sizes, format and channel;
+  every row links its source and shows the date read; no logos; list price and promotional price are labelled, never mixed.
+  Sotocal, when it is on the list (sotocal.self_included), is disclosed and always rendered AFTER the other brands, never first.
+  A Sotocal row appears only for products without the `preco-provisorio` tag, except while the TBC markers are on (pre-launch
+  review), where the placeholder price is shown with a TBC marker. Emits an ItemList for the compared brands.
+{%- endcomment -%}
+{%- liquid
+  assign m = article.metafields.sotocal
+  assign rows = m.compared.value
+  assign now = 'now' | date: '%s' | plus: 0
+  assign oldest = now
+  assign newest = 0
+  for r in rows
+    assign stamp = r.accessed_on.value | date: '%s' | plus: 0
+    if stamp < oldest
+      assign oldest = stamp
+    endif
+    if stamp > newest
+      assign newest = stamp
+    endif
+  endfor
+  assign from_date = oldest | date: '%d/%m/%Y'
+  assign to_date = newest | date: '%d/%m/%Y'
+-%}
+{%- if rows.size > 0 -%}
+<section class="compare-block" aria-labelledby="CompareBlock-{{ article.id }}">
+  <h2 class="h2" id="CompareBlock-{{ article.id }}">{{ 'blog.compare.heading' | t }}</h2>
+  {%- if m.self_included.value -%}
+    <p class="compare-block__disclosure"><strong>{{ 'blog.compare.disclosure' | t }}</strong></p>
+  {%- endif -%}
+  {%- if m.criteria != blank -%}<div class="rte"><p>{{ m.criteria.value | newline_to_br }}</p></div>{%- endif -%}
+
+  <div class="compare__scroll" role="region" aria-labelledby="CompareBlock-{{ article.id }}" tabindex="0">
+    <table class="compare__table">
+      <caption class="visually-hidden">{{ 'blog.compare.caption' | t }}</caption>
+      <thead>
+        <tr>
+          <th scope="col">{{ 'blog.compare.col_product' | t }}</th>
+          <th scope="col">{{ 'blog.compare.col_pack' | t }}</th>
+          <th scope="col">{{ 'blog.compare.col_pack_price' | t }}</th>
+          <th scope="col">{{ 'blog.compare.col_per_kg' | t }}</th>
+          <th scope="col">{{ 'blog.compare.col_price_kind' | t }}</th>
+          <th scope="col">{{ 'blog.compare.col_source' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for r in rows -%}
+          {%- assign stamp = r.accessed_on.value | date: '%s' | plus: 0 -%}
+          {%- assign age_days = now | minus: stamp | divided_by: 86400 | floor -%}
+          <tr>
+            <th scope="row">{{ r.name.value }}: {{ r.product.value }}</th>
+            <td class="tabular">{%- assign g = r.pack_weight_g.value | default: 0 -%}{%- if g == 1000 -%}1 kg{%- elsif g > 0 -%}{{ g }} g{%- elsif r.pack_units.value -%}{{ r.pack_units.value }} un{%- endif -%}</td>
+            <td class="tabular">{{ r.pack_price.value | times: 100 | round | money }}</td>
+            <td class="tabular">{%- if r.price_per_kg.value != blank and r.format.value != 'capsula' -%}{{ r.price_per_kg.value | times: 100 | round | money }}{%- endif -%}</td>
+            <td>{%- if r.price_kind.value == 'promocao' -%}{{ 'blog.compare.promo' | t }}{%- else -%}{{ 'blog.compare.list_price' | t }}{%- endif -%}</td>
+            <td><a class="link" href="{{ r.source_url.value }}" rel="noopener nofollow">{{ r.accessed_on.value | date: '%d/%m/%Y' }}</a>{%- if age_days > 90 %} <span class="small muted">{{ 'blog.compare.stale' | t }}</span>{%- endif -%}</td>
+          </tr>
+        {%- endfor -%}
+        {%- if m.self_included.value -%}
+          {%- for p in m.related_products.value -%}
+            {%- assign provisional = false -%}
+            {%- if p.tags contains 'preco-provisorio' -%}{%- assign provisional = true -%}{%- endif -%}
+            {%- if provisional == false or settings.show_tbc_markers or request.design_mode -%}
+              {%- assign shown = false -%}
+              {%- for v in p.variants -%}
+                {%- if v.weight == 1000 and shown == false -%}
+                  {%- assign shown = true -%}
+                  <tr class="is-own">
+                    <th scope="row">{{ 'blog.compare.own_label' | t: title: p.title }}</th>
+                    <td class="tabular">1 kg</td>
+                    <td class="tabular">{{ v.price | money }}{% if provisional %} {% render 'tbc', note: 'preço provisório' %}{% endif %}</td>
+                    <td class="tabular">{{ v.price | money }}</td>
+                    <td>{{ 'blog.compare.list_price' | t }}</td>
+                    <td><a class="link" href="{{ p.url }}">{{ shop.name }}</a></td>
+                  </tr>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">{{ 'blog.compare.note' | t }}
+    {%- if newest > 0 %} {{ 'blog.compare.read_between' | t: from: from_date, to: to_date }}{%- endif -%}
+  </p>
+
+  {%- if m.self_included.value and m.when_not != blank -%}
+    <h3 class="compare-block__sub">{{ 'blog.compare.when_not' | t }}</h3>
+    {%- if m.when_not.value contains '[[TBC' -%}
+      <p>{% render 'tbc', note: 'quando não escolher a Sotocal: texto factual da Sotocal' %}</p>
+    {%- else -%}
+      <div class="rte"><p>{{ m.when_not.value | newline_to_br }}</p></div>
+    {%- endif -%}
+  {%- endif -%}
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": {{ canonical_url | append: '#itemlist' | json }},
+  "name": {{ article.title | json }},
+  "itemListOrder": "https://schema.org/ItemListUnordered",
+  "numberOfItems": {{ rows.size }},
+  "itemListElement": [
+    {%- for r in rows -%}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ r.name.value | append: ': ' | append: r.product.value | json }}, "url": {{ r.source_url.value | json }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}

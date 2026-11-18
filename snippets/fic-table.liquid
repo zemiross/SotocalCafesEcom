@@ -1,0 +1,30 @@
+{%- comment -%}
+  Mandatory food information (EU Regulation 1169/2011, art. 14: visible before purchase). Reads sotocal.fic_* metafields;
+  empty fields show "Informação a completar" until the client's spec sheets arrive (brief §10).
+{%- endcomment -%}
+{%- liquid
+  assign m = product.metafields.sotocal
+  assign missing = 'product.fic_missing' | t
+  assign operator = m.fic_operator.value | default: 'Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda., Rua Engenheiro Ferreira Dias, n.º 398, 4100-246 Porto, Portugal'
+-%}
+<dl class="fic">
+  <div><dt>{{ 'product.fic_name' | t }}</dt><dd>{{ product.title }}</dd></div>
+  <div><dt>{{ 'product.fic_ingredients' | t }}</dt><dd>{% if m.fic_ingredients != blank %}{{ m.fic_ingredients.value | newline_to_br }}{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_allergens' | t }}</dt><dd>{% if m.fic_allergens != blank %}<strong>{{ m.fic_allergens.value | join: ', ' }}</strong>{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_net_quantity' | t }}</dt><dd>{% if m.fic_net_quantity != blank %}{{ m.fic_net_quantity.value }}{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_storage' | t }}</dt><dd>{% if m.fic_storage != blank %}{{ m.fic_storage.value | newline_to_br }}{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_best_before' | t }}</dt><dd>{% if m.fic_best_before_note != blank %}{{ m.fic_best_before_note.value }}{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_origin' | t }}</dt><dd>{% if m.fic_origin != blank %}{{ m.fic_origin.value }}{% else %}<span class="fic__missing">{{ missing }}</span>{% endif %}</dd></div>
+  <div><dt>{{ 'product.fic_operator' | t }}</dt><dd>{{ operator }}</dd></div>
+</dl>
+{%- if m.fic_nutrition != blank -%}
+  {%- assign n = m.fic_nutrition.value -%}
+  <table class="fic__nutrition">
+    <caption>{{ 'product.fic_nutrition' | t }} ({{ n.per | default: '100 g' }})</caption>
+    <tbody>
+      {%- for row in n.rows -%}<tr><th scope="row">{{ row.label }}</th><td class="tabular">{{ row.value }}</td></tr>{%- endfor -%}
+    </tbody>
+  </table>
+{%- else -%}
+  <p class="small muted">{{ 'product.fic_nutrition' | t }}: <span class="fic__missing">{{ missing }}</span></p>
+{%- endif -%}

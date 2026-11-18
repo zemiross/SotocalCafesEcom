@@ -1,0 +1,29 @@
+{%- comment -%}
+  "Bolacha Maria" cookie banner (brief §9), wired to Shopify's Customer Privacy API in consent.js.
+  Accept, Reject and Choose have equal prominence (same style, same size). No pre-ticked boxes. Reopened from the
+  footer ("Preferências de cookies"). Shopify's own banner must be turned off in admin (ADMIN-SETUP).
+{%- endcomment -%}
+{%- if settings.cookie_banner_enabled -%}
+<section id="consent-banner" class="consent" role="region" aria-labelledby="ConsentTitle" hidden data-consent>
+  <div class="consent__head">
+    {% render 'biscuit-svg' %}
+    <h2 class="consent__title" id="ConsentTitle">{{ 'consent.title' | t }}</h2>
+  </div>
+  <p class="consent__body">{{ 'consent.body' | t }} <a class="link" href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'consent.policy_link' | t }}</a></p>
+  <form class="consent__prefs" data-consent-prefs hidden>
+    <fieldset style="border:0;padding:0;margin:0;display:grid;gap:4px">
+      <legend class="label">{{ 'consent.choose_legend' | t }}</legend>
+      <label class="checkbox"><input type="checkbox" checked disabled> <span>{{ 'consent.necessary' | t }}</span></label>
+      <label class="checkbox"><input type="checkbox" name="preferences" data-consent-pref> <span>{{ 'consent.preferences' | t }}</span></label>
+      <label class="checkbox"><input type="checkbox" name="analytics" data-consent-pref> <span>{{ 'consent.analytics' | t }}</span></label>
+      <label class="checkbox"><input type="checkbox" name="marketing" data-consent-pref> <span>{{ 'consent.marketing' | t }}</span></label>
+    </fieldset>
+    <button class="btn btn--solid" type="submit">{{ 'consent.save' | t }}</button>
+  </form>
+  <div class="consent__actions" data-consent-actions>
+    <button class="btn btn--solid" type="button" data-consent="accept">{{ 'consent.accept' | t }}</button>
+    <button class="btn btn--solid" type="button" data-consent="reject">{{ 'consent.reject' | t }}</button>
+    <button class="btn btn--solid" type="button" data-consent="choose" aria-expanded="false">{{ 'consent.choose' | t }}</button>
+  </div>
+</section>
+{%- endif -%}

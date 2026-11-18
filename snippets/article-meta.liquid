@@ -1,0 +1,14 @@
+{%- comment -%} Byline, date (dd/mm/aaaa) and reading time (≈ 200 words per minute). Param: article. {%- endcomment -%}
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign minutes = words | divided_by: 200 | floor
+  if minutes < 1
+    assign minutes = 1
+  endif
+  assign author = article.metafields.sotocal.author.value.name | default: article.author
+-%}
+<p class="article-meta small muted">
+  {{ 'blog.by' | t: author: author }},
+  <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time>,
+  {{ 'blog.reading_time' | t: minutes: minutes }}
+</p>

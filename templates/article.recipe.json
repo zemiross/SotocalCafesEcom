@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "settings": {
+        "layout": "recipe"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

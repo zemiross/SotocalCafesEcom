@@ -1,0 +1,28 @@
+{%- comment -%}
+  Shopify's default groups, unchanged, plus one explicit group per AI crawler (docs/seo/01-ws1-technical.md).
+  A crawler that has its own group ignores the "*" group, so each AI group repeats the "*" rules (cart, checkout,
+  search, sorted and tag URLs stay disallowed) and then adds "Allow: /". Nothing here blocks an AI crawler.
+{%- endcomment -%}
+{%- assign ai_bots = 'GPTBot,OAI-SearchBot,ChatGPT-User,ClaudeBot,PerplexityBot,Google-Extended,Applebot-Extended' | split: ',' -%}
+{%- for group in robots.default_groups -%}
+  {{- group.user_agent }}
+  {%- for rule in group.rules %}
+{{ rule }}
+  {%- endfor -%}
+  {%- if group.sitemap != blank %}
+{{ group.sitemap }}
+  {%- endif %}
+
+{% endfor -%}
+{%- for bot in ai_bots -%}
+User-agent: {{ bot }}
+  {%- for group in robots.default_groups -%}
+    {%- if group.user_agent.value == '*' -%}
+      {%- for rule in group.rules %}
+{{ rule }}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor %}
+Allow: /
+
+{% endfor -%}

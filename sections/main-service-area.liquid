@@ -1,0 +1,97 @@
+{%- comment -%}
+  Local supplier page ("fornecedor de café em <cidade>"), docs/seo/15-local-pages.md. Renders a `service_area` metaobject at
+  /pages/fornecedor-de-cafe/<handle>. Everything specific comes from the entry and from consenting partner cafés in the same district;
+  the shared part is one sentence and a link to the business page, so pages stay distinct. snippets/robots-meta.liquid keeps a page
+  out of the index unless Sotocal confirms it serves the area and the page has local content (D111). No invented local text.
+{%- endcomment -%}
+{%- liquid
+  assign m = metaobject
+  assign area = m.name.value
+  assign district = m.district.value
+  assign place = m.in_name.value
+  if place == blank
+    assign place = 'service_area.in_default' | t: name: area
+  endif
+  assign heading = 'service_area.heading' | t: place: place
+  assign reviewed = m.reviewed_on.value | date: '%d/%m/%Y'
+  assign faq_items = m.faq.value
+  assign cafe_count = 0
+  for c in shop.metaobjects.partner_cafe.values
+    assign cd = c.district.value
+    if cd == blank
+      assign cd = c.district
+    endif
+    if c.consent_publish.value and cd == district
+      assign cafe_count = cafe_count | plus: 1
+    endif
+  endfor
+  assign base = routes.root_url
+  if base == '/'
+    assign base = ''
+  endif
+-%}
+<section class="section page-hero" data-theme="ink" aria-labelledby="AreaTitle">
+  <div class="container">
+    {% render 'breadcrumbs' %}
+    <div class="grid page-hero__grid">
+      <h1 class="h-display page-hero__title" id="AreaTitle">{{ heading }}</h1>
+      <div class="page-hero__body">
+        {%- if m.short_answer.value contains '[[TBC' -%}
+          <p class="lead">{% render 'tbc', note: 'resposta curta desta zona (Sotocal): serve a zona? como e quando entrega?' %}</p>
+        {%- else -%}
+          <p class="lead">{{ m.short_answer.value }}</p>
+        {%- endif -%}
+        <a class="btn btn--primary" href="#contacto">{{ 'service_area.cta' | t }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight service-area" data-theme="cream" aria-label="{{ heading }}">
+  <div class="container grid">
+    <div class="col-left stack">
+      {%- if m.local_facts.value != blank -%}
+        <h2 class="h3">{{ 'service_area.facts_heading' | t: place: place }}</h2>
+        <div class="rte"><p>{{ m.local_facts.value | newline_to_br }}</p></div>
+      {%- endif -%}
+      {%- if m.delivery.value != blank -%}
+        <h2 class="h3">{{ 'service_area.delivery_heading' | t: place: place }}</h2>
+        <div class="rte"><p>{{ m.delivery.value | newline_to_br }}</p></div>
+      {%- elsif request.design_mode or settings.show_tbc_markers -%}
+        <p>{% render 'tbc', note: 'entregas nesta zona: dias, frequência ou prazo (Sotocal)' %}</p>
+      {%- endif -%}
+      {%- if m.local_contact.value != blank -%}<p class="small">{{ 'service_area.contact' | t: who: m.local_contact.value }}</p>{%- endif -%}
+    </div>
+    <div class="col-right stack">
+      <h2 class="h3">{{ 'service_area.supply_heading' | t }}</h2>
+      <p>{{ 'service_area.supply_text' | t }} <a class="text-link" href="{{ base }}/pages/profissional">{{ 'service_area.supply_link' | t }}</a></p>
+      {%- if cafe_count > 0 -%}
+        <h2 class="h3">{{ 'service_area.cafes_heading' | t: place: place }}</h2>
+        <ul class="hairlines" role="list">
+          {%- for c in shop.metaobjects.partner_cafe.values -%}
+            {%- assign cd = c.district.value -%}{%- if cd == blank -%}{%- assign cd = c.district -%}{%- endif -%}
+            {%- if c.consent_publish.value and cd == district -%}<li>{{ c.name }}, {{ c.city }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+        <p><a class="text-link" href="{{ base }}/pages/onde-beber-sotocal">{{ 'service_area.locator_link' | t }}</a></p>
+      {%- endif -%}
+      {%- if reviewed != blank -%}<p class="small muted">{{ 'hubs.reviewed' | t: date: reviewed }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if faq_items.size > 0 -%}
+<section class="section section--tight product-faq" data-theme="ink" aria-labelledby="AreaFaq">
+  <div class="container grid">
+    <h2 class="h2 col-left" id="AreaFaq">{{ 'hubs.faq_heading' | t }}</h2>
+    <div class="col-right">{% render 'faq-list', items: faq_items, limit: 6 %}</div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.main_service_area.name",
+  "settings": []
+}
+{% endschema %}

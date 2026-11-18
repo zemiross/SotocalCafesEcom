@@ -1,0 +1,13 @@
+{%- if settings.social_facebook != blank or settings.social_instagram != blank or settings.social_google_maps != blank -%}
+<ul class="social" role="list" style="margin-top: 16px">
+  {%- if settings.social_facebook != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_facebook }}" rel="noopener" target="_blank">{% render 'icon', name: 'facebook' %}<span class="visually-hidden">Facebook ({{ 'general.new_window' | t }})</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_instagram != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">{% render 'icon', name: 'instagram' %}<span class="visually-hidden">Instagram ({{ 'general.new_window' | t }})</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_google_maps != blank -%}
+    <li><a class="icon-btn" href="{{ settings.social_google_maps }}" rel="noopener" target="_blank">{% render 'icon', name: 'pin' %}<span class="visually-hidden">Google Maps ({{ 'general.new_window' | t }})</span></a></li>
+  {%- endif -%}
+</ul>
+{%- endif -%}

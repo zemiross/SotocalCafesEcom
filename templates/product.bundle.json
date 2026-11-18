@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "layout": "bundle",
+        "show_subscription": false,
+        "show_intensity": false,
+        "fic_open": false
+      }
+    },
+    "contents": {
+      "type": "gift-box-contents",
+      "settings": {
+        "heading": ""
+      }
+    },
+    "faq": {
+      "type": "product-faq",
+      "settings": {
+        "theme": "ink",
+        "heading": "",
+        "limit": 3
+      }
+    },
+    "pairings": {
+      "type": "product-pairings",
+      "settings": {
+        "heading": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contents",
+    "faq",
+    "pairings"
+  ]
+}

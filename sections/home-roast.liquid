@@ -1,0 +1,144 @@
+{%- comment -%}
+  Fold 2, the roast (ink + grain). Beans left, text right, stream on the spine.
+  Each bean is a pair of aligned images (green, roasted) at a depth; far beans use pre-blurred files (no CSS blur).
+  beans.js starts once the fold's top reaches the top of the viewport. On desktop the fold is one viewport tall and pinned
+  for --pin-vh of scroll (sections-home.css); the four stages get a quarter each: green → roasted crossing at 0.5,
+  scale 1 → 1.18, ±12°, parallax by depth, ember glow, three beans "pop" as the indicator reaches "Primeiro crack".
+  Static state = roasted, last stage.
+{%- endcomment -%}
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'home.roast.heading' | t
+  endif
+  assign body = section.settings.body
+  if body == blank
+    assign body = 'home.roast.body' | t
+  endif
+  assign quote = section.settings.quote
+  if quote == blank
+    assign quote = 'home.roast.quote' | t
+  endif
+  assign quote_by = section.settings.quote_attribution
+  if quote_by == blank
+    assign quote_by = 'home.roast.quote_attribution' | t
+  endif
+  assign cta_label = section.settings.cta_label
+  if cta_label == blank
+    assign cta_label = 'home.roast.cta' | t
+  endif
+  assign cta_url = section.settings.cta_link
+  if cta_url == blank
+    if routes.root_url == '/'
+      assign cta_url = '/pages/a-torra'
+    else
+      assign cta_url = routes.root_url | append: '/pages/a-torra'
+    endif
+  endif
+-%}
+<section class="section roast" data-theme="ink" data-motion="roast" id="a-torra" aria-labelledby="RoastTitle-{{ section.id }}">
+  {% render 'stream' %}
+  <div class="container grid roast__grid">
+    <div class="col-left roast__beans" data-beans aria-hidden="true">
+      <div class="roast__glow" data-ember></div>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign depth = block.settings.depth
+          assign i = forloop.index0 | modulo: 6 | plus: 1
+          assign j = forloop.index0 | modulo: 3 | plus: 1
+          if depth == 'far'
+            assign g_src = 'bean-' | append: j | append: '-green-far.webp' | asset_url
+            assign r_src = 'bean-' | append: j | append: '-roasted-far.webp' | asset_url
+          else
+            assign g_src = 'bean-' | append: i | append: '-green.webp' | asset_url
+            assign r_src = 'bean-' | append: i | append: '-roasted.webp' | asset_url
+          endif
+          if block.settings.image_green != blank
+            assign g_src = block.settings.image_green | image_url: width: 400
+          endif
+          if block.settings.image_roasted != blank
+            assign r_src = block.settings.image_roasted | image_url: width: 400
+          endif
+        -%}
+        <div class="bean bean--{{ depth }}{% if forloop.index > 5 %} bean--desktop{% endif %}" data-bean data-depth="{{ depth }}"
+             style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%; --size: {{ block.settings.size }}%; --rot: {{ block.settings.rotation }}deg;" {{ block.shopify_attributes }}>
+          <div class="bean__pop" data-bean-pop>
+            <img class="bean__img bean__img--green" src="{{ g_src }}" alt="" width="400" height="400" loading="lazy" decoding="async">
+            <img class="bean__img bean__img--roasted" src="{{ r_src }}" alt="" width="400" height="400" loading="lazy" decoding="async">
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="col-right roast__text">
+      <h2 class="h2" id="RoastTitle-{{ section.id }}">{{ heading }}</h2>
+      <p class="roast__body">{{ body }}</p>
+
+      <ol class="stages" role="list" data-stages aria-label="{{ 'home.roast.stages_label' | t }}">
+        {%- for n in (1..4) -%}
+          {%- assign key = 'stage_' | append: n -%}
+          {%- assign label = section.settings[key] -%}
+          {%- if label == blank -%}{%- assign tkey = 'home.roast.stage_' | append: n -%}{%- assign label = tkey | t -%}{%- endif -%}
+          <li class="stage" data-stage{% if forloop.last %} aria-current="step"{% endif %}>
+            <span class="stage__num tabular" aria-hidden="true">{{ n }}</span>
+            <span class="stage__label">{{ label }}</span>
+          </li>
+        {%- endfor -%}
+      </ol>
+
+      <figure class="roast__quote">
+        <blockquote><p>{{ 'general.quote_open' | t }}{{ quote }}{{ 'general.quote_close' | t }}</p></blockquote>
+        <figcaption>{{ quote_by }}</figcaption>
+      </figure>
+
+      <a class="btn btn--outline" href="{{ cta_url }}">{{ cta_label }}</a>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'stream.js' | asset_url }}" defer></script>
+<script src="{{ 'beans.js' | asset_url }}" defer></script>
+<script src="{{ 'sequence.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.roast.name",
+  "class": "section-home-roast",
+  "max_blocks": 9,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "body", "label": "t:settings.text", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "stage_1", "label": "t:sections.roast.stage_1", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "stage_2", "label": "t:sections.roast.stage_2", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "stage_3", "label": "t:sections.roast.stage_3", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "stage_4", "label": "t:sections.roast.stage_4", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "quote", "label": "t:sections.roast.quote", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "quote_attribution", "label": "t:sections.roast.quote_attribution", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "cta_label", "label": "t:settings.cta_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "cta_link", "label": "t:settings.cta_link" },
+    { "type": "header", "content": "t:sections.sequence.header" },
+    { "type": "paragraph", "content": "t:sections.sequence.info" },
+    { "type": "text", "id": "sequence_base_url", "label": "t:sections.sequence.base_url" },
+    { "type": "number", "id": "sequence_frame_count", "label": "t:sections.sequence.frame_count" },
+    { "type": "number", "id": "sequence_pad", "label": "t:sections.sequence.pad", "default": 4 },
+    { "type": "select", "id": "sequence_ext", "label": "t:sections.sequence.ext", "default": "webp", "options": [ { "value": "webp", "label": "WebP" }, { "value": "avif", "label": "AVIF" }, { "value": "jpg", "label": "JPG" } ] }
+  ],
+  "blocks": [
+    {
+      "type": "bean",
+      "name": "t:sections.roast.bean",
+      "settings": [
+        { "type": "image_picker", "id": "image_green", "label": "t:sections.roast.image_green" },
+        { "type": "image_picker", "id": "image_roasted", "label": "t:sections.roast.image_roasted", "info": "t:sections.roast.image_pair_info" },
+        { "type": "select", "id": "depth", "label": "t:sections.roast.depth", "default": "mid", "options": [ { "value": "near", "label": "t:sections.roast.near" }, { "value": "mid", "label": "t:sections.roast.mid" }, { "value": "far", "label": "t:sections.roast.far" } ] },
+        { "type": "range", "id": "x", "label": "t:sections.roast.x", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "y", "label": "t:sections.roast.y", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "size", "label": "t:sections.roast.size", "min": 8, "max": 40, "step": 1, "unit": "%", "default": 22 },
+        { "type": "range", "id": "rotation", "label": "t:sections.roast.rotation", "min": -45, "max": 45, "step": 1, "unit": "°", "default": 0 }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["index"] },
+  "presets": [{ "name": "t:sections.roast.name" }]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "ink",
+        "preset": "giftbox"
+      }
+    },
+    "featured": {
+      "type": "featured-product",
+      "settings": {
+        "product": "despensa-do-norte",
+        "theme": "cream"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "tight": true,
+        "theme": "cream"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured",
+    "main"
+  ]
+}

@@ -1,0 +1,32 @@
+{%- comment -%}
+  One fold's segment of "o fio de café" (brief §6). Each homepage fold renders its own segment; stream.js reveals
+  .stream__liquid (yPercent −100 → 0) between "top 62%" and "bottom 62%" of the segment, so the leading edge sits
+  ≈ 62% down the viewport. Lighting comes from the fold's data-theme (CSS).
+  Params:
+    variant: 'default' | 'hero' (starts at the spout, tapered neck) | 'cup' (ends at the top of the cup SVG; has a tail)
+    ribbon:  'out' (mobile: centred spout → left rail, hero) | 'in' (mobile: rail → centred cup, fold 5)
+  Reveals and the tail use transforms only: the ribbon is uncovered by a scaling clip rect, not by dash offsets.
+{%- endcomment -%}
+{%- assign v = variant | default: 'default' -%}
+{%- if ribbon == 'out' or ribbon == 'in' -%}
+  {%- if ribbon == 'out' -%}
+    {%- assign d = 'M100 0C100 58 0 42 0 100' -%}
+  {%- else -%}
+    {%- assign d = 'M0 0C0 58 100 42 100 100' -%}
+  {%- endif -%}
+  <svg class="stream-ribbon stream-ribbon--{{ ribbon }}" data-stream-ribbon="{{ ribbon }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="RibbonReveal-{{ ribbon }}" clipPathUnits="userSpaceOnUse"><rect class="stream-ribbon__reveal" data-ribbon-reveal x="-20" y="0" width="140" height="100"/></clipPath>
+      <clipPath id="RibbonTail-{{ ribbon }}" clipPathUnits="userSpaceOnUse"><rect class="stream-ribbon__tail" data-ribbon-tail x="-20" y="0" width="140" height="100"/></clipPath>
+    </defs>
+    <g clip-path="url(#RibbonTail-{{ ribbon }})"><g clip-path="url(#RibbonReveal-{{ ribbon }})">
+      <path class="stream-ribbon__glow" d="{{ d }}"/>
+      <path class="stream-ribbon__edge" d="{{ d }}"/>
+      <path class="stream-ribbon__core" d="{{ d }}"/>
+      <path class="stream-ribbon__spec" d="{{ d }}"/>
+    </g></g>
+  </svg>
+{%- endif -%}
+<div class="stream stream--{{ v }}" data-stream data-variant="{{ v }}" aria-hidden="true">
+  <div class="stream__tail" data-stream-tail><div class="stream__liquid"></div></div>
+</div>

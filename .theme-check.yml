@@ -1,0 +1,12 @@
+# Shopify Theme Check configuration (run with `npm run check:theme`).
+extends: theme-check:recommended
+root: .
+ignore:
+  - node_modules/**
+  - prototype/**
+  - reference/**
+  - docs/**
+  - tests/**
+  - scripts/**
+  - store-setup/**
+  - qa/**

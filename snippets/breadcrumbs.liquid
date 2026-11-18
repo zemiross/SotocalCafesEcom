@@ -1,0 +1,104 @@
+{%- comment -%}
+  Visible breadcrumbs + BreadcrumbList JSON-LD (all pages except home, brief §11).
+  Products are always linked as /products/<handle> (never "within: collection"); the parent crumb is the
+  product's first non-"all" collection, coffee products fall back to /collections/cafe.
+{%- endcomment -%}
+{%- liquid
+  assign home_label = 'breadcrumbs.home' | t
+  assign names = home_label
+  assign urls = routes.root_url
+  case request.page_type
+    when 'product'
+      assign parent = nil
+      for c in product.collections
+        unless c.handle == 'all' or c.handle == 'frontpage'
+          assign parent = c
+          break
+        endunless
+      endfor
+      if parent
+        assign names = names | append: '||' | append: parent.title
+        assign urls = urls | append: '||' | append: parent.url
+      endif
+      assign names = names | append: '||' | append: product.title
+      assign urls = urls | append: '||' | append: product.url
+    when 'collection'
+      assign names = names | append: '||' | append: collection.title
+      assign urls = urls | append: '||' | append: collection.url
+    when 'blog'
+      assign names = names | append: '||' | append: blog.title
+      assign urls = urls | append: '||' | append: blog.url
+    when 'article'
+      assign names = names | append: '||' | append: blog.title | append: '||' | append: article.title
+      assign urls = urls | append: '||' | append: blog.url | append: '||' | append: article.url
+    when 'page'
+      assign names = names | append: '||' | append: page.title
+      assign urls = urls | append: '||' | append: page.url
+    when 'search'
+      assign label = 'search.title' | t
+      assign names = names | append: '||' | append: label
+      assign urls = urls | append: '||' | append: routes.search_url
+    when 'list-collections'
+      assign label = 'collections.all_title' | t
+      assign names = names | append: '||' | append: label
+      assign urls = urls | append: '||' | append: routes.collections_url
+  endcase
+  assign hub_type = metaobject.system.type
+  if hub_type == 'service_area'
+    assign area_place = metaobject.in_name.value
+    if area_place == blank
+      assign area_place = 'service_area.in_default' | t: name: metaobject.name.value
+    endif
+    assign b2b_label = 'service_area.breadcrumb_parent' | t
+    assign b2b_url = routes.root_url | append: '/pages/profissional' | replace: '//', '/'
+    assign area_label = 'service_area.heading' | t: place: area_place
+    assign names = names | append: '||' | append: b2b_label | append: '||' | append: area_label
+    assign urls = urls | append: '||' | append: b2b_url | append: '||' | append: metaobject.system.url
+  endif
+  if hub_type == 'method' or hub_type == 'machine'
+    assign cafe_collection = collections['cafe']
+    if cafe_collection != blank
+      assign names = names | append: '||' | append: cafe_collection.title
+      assign urls = urls | append: '||' | append: cafe_collection.url
+    endif
+  endif
+  if hub_type == 'method'
+    assign names = names | append: '||' | append: metaobject.name.value
+    assign urls = urls | append: '||' | append: metaobject.system.url
+  elsif hub_type == 'machine'
+    assign parent = metaobject.method.value
+    if parent != blank and parent.system.url != blank
+      assign names = names | append: '||' | append: parent.name.value
+      assign urls = urls | append: '||' | append: parent.system.url
+    endif
+    assign names = names | append: '||' | append: metaobject.name.value
+    assign urls = urls | append: '||' | append: metaobject.system.url
+  endif
+  assign names = names | split: '||'
+  assign urls = urls | split: '||'
+-%}
+<nav class="breadcrumbs {{ class }}" aria-label="{{ 'breadcrumbs.label' | t }}">
+  <ol>
+    {%- for n in names -%}
+      <li>
+        {%- if forloop.last -%}
+          <span aria-current="page">{{ n }}</span>
+        {%- else -%}
+          <a href="{{ urls[forloop.index0] }}">{{ n }}</a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ol>
+</nav>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": {{ canonical_url | append: '#breadcrumb' | json }},
+  "itemListElement": [
+    {%- for n in names -%}
+    { "@type": "ListItem", "position": {{ forloop.index }}, "name": {{ n | json }}, "item": {{ shop.url | append: urls[forloop.index0] | json }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>

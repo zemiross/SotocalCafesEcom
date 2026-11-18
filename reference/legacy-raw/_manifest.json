@@ -1,0 +1,944 @@
+{
+  "fetchedAt": "2026-10-28T12:34:20.798Z",
+  "pages": {
+    "index.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/index.php",
+      "bytes": 6958
+    },
+    "empresa.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/empresa.php",
+      "bytes": 11036
+    },
+    "missao.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/missao.php",
+      "bytes": 7036
+    },
+    "valores.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/valores.php",
+      "bytes": 6317
+    },
+    "tipos-de-cafe.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/tipos-de-cafe.php",
+      "bytes": 7668
+    },
+    "cafe-e-a-saude.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/cafe-e-a-saude.php",
+      "bytes": 9812
+    },
+    "produtos-super-milano.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/produtos-super-milano.php",
+      "bytes": 7314
+    },
+    "produtos-super-torrado.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/produtos-super-torrado.php",
+      "bytes": 7285
+    },
+    "produtos-reggio.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/produtos-reggio.php",
+      "bytes": 7233
+    },
+    "produtos-descafeinado.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/produtos-descafeinado.php",
+      "bytes": 7273
+    },
+    "complementares-acucar.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/complementares-acucar.php",
+      "bytes": 7522
+    },
+    "complementares-adocante.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/complementares-adocante.php",
+      "bytes": 7524
+    },
+    "complementares-descafeinado.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/complementares-descafeinado.php",
+      "bytes": 7528
+    },
+    "complementares-cha.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/complementares-cha.php",
+      "bytes": 7519
+    },
+    "complementares-amendoins.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/complementares-amendoins.php",
+      "bytes": 7525
+    },
+    "conservas.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/conservas.php",
+      "bytes": 6610
+    },
+    "sucedaneos-bom-dia.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/sucedaneos-bom-dia.php",
+      "bytes": 7520
+    },
+    "sucedaneos-sako.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/sucedaneos-sako.php",
+      "bytes": 7476
+    },
+    "sucedaneos-cevada.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/sucedaneos-cevada.php",
+      "bytes": 7366
+    },
+    "sucedaneos-cevada-oriente.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/sucedaneos-cevada-oriente.php",
+      "bytes": 7366
+    },
+    "colorau.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/colorau.php",
+      "bytes": 8395
+    },
+    "pimenta.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/pimenta.php",
+      "bytes": 8214
+    },
+    "piri-piri.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/piri-piri.php",
+      "bytes": 7951
+    },
+    "canela.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/canela.php",
+      "bytes": 8016
+    },
+    "cravinho.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/cravinho.php",
+      "bytes": 8565
+    },
+    "cominhos.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/cominhos.php",
+      "bytes": 8451
+    },
+    "vantagens.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/vantagens.php",
+      "bytes": 7200
+    },
+    "expresso.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/expresso.php",
+      "bytes": 7627
+    },
+    "melhor-cafe.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/melhor-cafe.php",
+      "bytes": 8243
+    },
+    "profissional.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/profissional.php",
+      "bytes": 7783
+    },
+    "curiosidades.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/curiosidades.php",
+      "bytes": 8191
+    },
+    "contactos.php": {
+      "status": 200,
+      "finalUrl": "https://sotocalcafes.pt/contactos.php",
+      "bytes": 8975
+    }
+  },
+  "images": {
+    "logo-sotocal.png": {
+      "url": "https://sotocalcafes.pt/images/logo-sotocal.png",
+      "bytes": 65629,
+      "w": 400,
+      "h": 285,
+      "usedOn": [
+        "index.php",
+        "empresa.php",
+        "missao.php",
+        "valores.php",
+        "tipos-de-cafe.php",
+        "cafe-e-a-saude.php",
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php",
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php",
+        "conservas.php",
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php",
+        "colorau.php",
+        "pimenta.php",
+        "piri-piri.php",
+        "canela.php",
+        "cravinho.php",
+        "cominhos.php",
+        "vantagens.php",
+        "expresso.php",
+        "melhor-cafe.php",
+        "profissional.php",
+        "curiosidades.php",
+        "contactos.php"
+      ]
+    },
+    "home-mobile.jpg": {
+      "url": "https://sotocalcafes.pt/images/home-mobile.jpg",
+      "bytes": 268701,
+      "h": 551,
+      "w": 500,
+      "usedOn": [
+        "index.php"
+      ]
+    },
+    "home.jpg": {
+      "url": "https://sotocalcafes.pt/images/home.jpg",
+      "bytes": 474436,
+      "h": 551,
+      "w": 1000,
+      "usedOn": [
+        "index.php"
+      ]
+    },
+    "confraria.png": {
+      "url": "https://sotocalcafes.pt/images/confraria.png",
+      "bytes": 69070,
+      "w": 788,
+      "h": 200,
+      "usedOn": [
+        "index.php",
+        "empresa.php",
+        "missao.php",
+        "valores.php",
+        "tipos-de-cafe.php",
+        "cafe-e-a-saude.php",
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php",
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php",
+        "conservas.php",
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php",
+        "colorau.php",
+        "pimenta.php",
+        "piri-piri.php",
+        "canela.php",
+        "cravinho.php",
+        "cominhos.php",
+        "vantagens.php",
+        "expresso.php",
+        "melhor-cafe.php",
+        "profissional.php",
+        "curiosidades.php",
+        "contactos.php"
+      ]
+    },
+    "diamante.png": {
+      "url": "https://sotocalcafes.pt/images/diamante.png",
+      "bytes": 4854,
+      "w": 60,
+      "h": 58,
+      "usedOn": [
+        "index.php",
+        "empresa.php",
+        "missao.php",
+        "valores.php",
+        "tipos-de-cafe.php",
+        "cafe-e-a-saude.php",
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php",
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php",
+        "conservas.php",
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php",
+        "colorau.php",
+        "pimenta.php",
+        "piri-piri.php",
+        "canela.php",
+        "cravinho.php",
+        "cominhos.php",
+        "vantagens.php",
+        "expresso.php",
+        "melhor-cafe.php",
+        "profissional.php",
+        "curiosidades.php",
+        "contactos.php"
+      ]
+    },
+    "projeto.png": {
+      "url": "https://sotocalcafes.pt/images/projeto.png",
+      "bytes": 32535,
+      "w": 1411,
+      "h": 335,
+      "usedOn": [
+        "index.php",
+        "empresa.php",
+        "missao.php",
+        "valores.php",
+        "tipos-de-cafe.php",
+        "cafe-e-a-saude.php",
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php",
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php",
+        "conservas.php",
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php",
+        "colorau.php",
+        "pimenta.php",
+        "piri-piri.php",
+        "canela.php",
+        "cravinho.php",
+        "cominhos.php",
+        "vantagens.php",
+        "expresso.php",
+        "melhor-cafe.php",
+        "profissional.php",
+        "curiosidades.php",
+        "contactos.php"
+      ]
+    },
+    "livro-reclamacoes-logo.jpg": {
+      "url": "https://sotocalcafes.pt/images/livro-reclamacoes-logo.jpg",
+      "bytes": 8848,
+      "h": 201,
+      "w": 500,
+      "usedOn": [
+        "index.php",
+        "empresa.php",
+        "missao.php",
+        "valores.php",
+        "tipos-de-cafe.php",
+        "cafe-e-a-saude.php",
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php",
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php",
+        "conservas.php",
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php",
+        "colorau.php",
+        "pimenta.php",
+        "piri-piri.php",
+        "canela.php",
+        "cravinho.php",
+        "cominhos.php",
+        "vantagens.php",
+        "expresso.php",
+        "melhor-cafe.php",
+        "profissional.php",
+        "curiosidades.php",
+        "contactos.php"
+      ]
+    },
+    "pic04.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic04.jpg",
+      "bytes": 250957,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "empresa.php"
+      ]
+    },
+    "pme-excelencia.jpg": {
+      "url": "https://sotocalcafes.pt/images/pme-excelencia.jpg",
+      "bytes": 93815,
+      "h": 424,
+      "w": 600,
+      "usedOn": [
+        "empresa.php"
+      ]
+    },
+    "pme-lider.jpg": {
+      "url": "https://sotocalcafes.pt/images/pme-lider.jpg",
+      "bytes": 117687,
+      "h": 600,
+      "w": 424,
+      "usedOn": [
+        "empresa.php"
+      ]
+    },
+    "pic02.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic02.jpg",
+      "bytes": 188945,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "missao.php"
+      ]
+    },
+    "pic05.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic05.jpg",
+      "bytes": 172462,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "valores.php"
+      ]
+    },
+    "valores.png": {
+      "url": "https://sotocalcafes.pt/images/valores.png",
+      "bytes": 629192,
+      "w": 500,
+      "h": 313,
+      "usedOn": [
+        "valores.php"
+      ]
+    },
+    "pic01.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic01.jpg",
+      "bytes": 80124,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "tipos-de-cafe.php"
+      ]
+    },
+    "pic06-arabica.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic06-arabica.jpg",
+      "bytes": 51844,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "tipos-de-cafe.php"
+      ]
+    },
+    "pic06-robusta.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic06-robusta.jpg",
+      "bytes": 104871,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "tipos-de-cafe.php"
+      ]
+    },
+    "pic08.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic08.jpg",
+      "bytes": 471432,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "cafe-e-a-saude.php"
+      ]
+    },
+    "pic07.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic07.jpg",
+      "bytes": 213881,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "cafe-e-a-saude.php"
+      ]
+    },
+    "lote-super-milano-01.png": {
+      "url": "https://sotocalcafes.pt/images/lote-super-milano-01.png",
+      "bytes": 85888,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php"
+      ]
+    },
+    "lote-super-torrado-01.png": {
+      "url": "https://sotocalcafes.pt/images/lote-super-torrado-01.png",
+      "bytes": 73504,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php"
+      ]
+    },
+    "lote-descafeinado-01.png": {
+      "url": "https://sotocalcafes.pt/images/lote-descafeinado-01.png",
+      "bytes": 63144,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php"
+      ]
+    },
+    "lote-reggio-01.png": {
+      "url": "https://sotocalcafes.pt/images/lote-reggio-01.png",
+      "bytes": 67621,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "produtos-super-milano.php",
+        "produtos-super-torrado.php",
+        "produtos-reggio.php",
+        "produtos-descafeinado.php"
+      ]
+    },
+    "lote-super-milano.png": {
+      "url": "https://sotocalcafes.pt/images/lote-super-milano.png",
+      "bytes": 288821,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "produtos-super-milano.php"
+      ]
+    },
+    "lote-super-torrado.png": {
+      "url": "https://sotocalcafes.pt/images/lote-super-torrado.png",
+      "bytes": 267169,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "produtos-super-torrado.php"
+      ]
+    },
+    "lote-reggio.png": {
+      "url": "https://sotocalcafes.pt/images/lote-reggio.png",
+      "bytes": 249874,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "produtos-reggio.php"
+      ]
+    },
+    "lote-descafeinado.png": {
+      "url": "https://sotocalcafes.pt/images/lote-descafeinado.png",
+      "bytes": 260410,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "produtos-descafeinado.php"
+      ]
+    },
+    "acucar-01.png": {
+      "url": "https://sotocalcafes.pt/images/acucar-01.png",
+      "bytes": 56276,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php"
+      ]
+    },
+    "adocante-01.png": {
+      "url": "https://sotocalcafes.pt/images/adocante-01.png",
+      "bytes": 53207,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php"
+      ]
+    },
+    "descafeinado-01.png": {
+      "url": "https://sotocalcafes.pt/images/descafeinado-01.png",
+      "bytes": 67529,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php"
+      ]
+    },
+    "cha-01.png": {
+      "url": "https://sotocalcafes.pt/images/cha-01.png",
+      "bytes": 45539,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php"
+      ]
+    },
+    "amendoins-01.png": {
+      "url": "https://sotocalcafes.pt/images/amendoins-01.png",
+      "bytes": 65928,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "complementares-acucar.php",
+        "complementares-adocante.php",
+        "complementares-descafeinado.php",
+        "complementares-cha.php",
+        "complementares-amendoins.php"
+      ]
+    },
+    "acucar.png": {
+      "url": "https://sotocalcafes.pt/images/acucar.png",
+      "bytes": 646384,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "complementares-acucar.php"
+      ]
+    },
+    "adocante.png": {
+      "url": "https://sotocalcafes.pt/images/adocante.png",
+      "bytes": 198964,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "complementares-adocante.php"
+      ]
+    },
+    "descafeinado.png": {
+      "url": "https://sotocalcafes.pt/images/descafeinado.png",
+      "bytes": 646966,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "complementares-descafeinado.php"
+      ]
+    },
+    "cha.png": {
+      "url": "https://sotocalcafes.pt/images/cha.png",
+      "bytes": 229625,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "complementares-cha.php"
+      ]
+    },
+    "amendoins.png": {
+      "url": "https://sotocalcafes.pt/images/amendoins.png",
+      "bytes": 190825,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "complementares-amendoins.php"
+      ]
+    },
+    "conservas.png": {
+      "url": "https://sotocalcafes.pt/images/conservas.png",
+      "bytes": 137232,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "conservas.php"
+      ]
+    },
+    "cafe-mistura-bom-dia-01.png": {
+      "url": "https://sotocalcafes.pt/images/cafe-mistura-bom-dia-01.png",
+      "bytes": 70083,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php"
+      ]
+    },
+    "cafe-mistura-sako-01.png": {
+      "url": "https://sotocalcafes.pt/images/cafe-mistura-sako-01.png",
+      "bytes": 61570,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php"
+      ]
+    },
+    "cevada-sotocal-01.png": {
+      "url": "https://sotocalcafes.pt/images/cevada-sotocal-01.png",
+      "bytes": 71075,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php"
+      ]
+    },
+    "cevada-oriente-01.png": {
+      "url": "https://sotocalcafes.pt/images/cevada-oriente-01.png",
+      "bytes": 68458,
+      "w": 160,
+      "h": 320,
+      "usedOn": [
+        "sucedaneos-bom-dia.php",
+        "sucedaneos-sako.php",
+        "sucedaneos-cevada.php",
+        "sucedaneos-cevada-oriente.php"
+      ]
+    },
+    "cafe-mistura-bom-dia.png": {
+      "url": "https://sotocalcafes.pt/images/cafe-mistura-bom-dia.png",
+      "bytes": 213761,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "sucedaneos-bom-dia.php"
+      ]
+    },
+    "cafe-mistura-sako.png": {
+      "url": "https://sotocalcafes.pt/images/cafe-mistura-sako.png",
+      "bytes": 270377,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "sucedaneos-sako.php"
+      ]
+    },
+    "cevada-sotocal.png": {
+      "url": "https://sotocalcafes.pt/images/cevada-sotocal.png",
+      "bytes": 960528,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "sucedaneos-cevada.php"
+      ]
+    },
+    "cevada-oriente.png": {
+      "url": "https://sotocalcafes.pt/images/cevada-oriente.png",
+      "bytes": 286966,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "sucedaneos-cevada-oriente.php"
+      ]
+    },
+    "colorau.jpg": {
+      "url": "https://sotocalcafes.pt/images/colorau.jpg",
+      "bytes": 81732,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "colorau.php"
+      ]
+    },
+    "colorau.png": {
+      "url": "https://sotocalcafes.pt/images/colorau.png",
+      "bytes": 1134576,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "colorau.php"
+      ]
+    },
+    "pimenta.jpg": {
+      "url": "https://sotocalcafes.pt/images/pimenta.jpg",
+      "bytes": 82273,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "pimenta.php"
+      ]
+    },
+    "pimenta.png": {
+      "url": "https://sotocalcafes.pt/images/pimenta.png",
+      "bytes": 312909,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "pimenta.php"
+      ]
+    },
+    "piri-piri.jpg": {
+      "url": "https://sotocalcafes.pt/images/piri-piri.jpg",
+      "bytes": 113965,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "piri-piri.php"
+      ]
+    },
+    "piri-piri.png": {
+      "url": "https://sotocalcafes.pt/images/piri-piri.png",
+      "bytes": 261494,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "piri-piri.php"
+      ]
+    },
+    "canela.jpg": {
+      "url": "https://sotocalcafes.pt/images/canela.jpg",
+      "bytes": 102370,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "canela.php"
+      ]
+    },
+    "canela.png": {
+      "url": "https://sotocalcafes.pt/images/canela.png",
+      "bytes": 260302,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "canela.php"
+      ]
+    },
+    "cravinho.jpg": {
+      "url": "https://sotocalcafes.pt/images/cravinho.jpg",
+      "bytes": 89507,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "cravinho.php"
+      ]
+    },
+    "cravinho.png": {
+      "url": "https://sotocalcafes.pt/images/cravinho.png",
+      "bytes": 931118,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "cravinho.php"
+      ]
+    },
+    "cominhos.jpg": {
+      "url": "https://sotocalcafes.pt/images/cominhos.jpg",
+      "bytes": 149624,
+      "h": 221,
+      "w": 600,
+      "usedOn": [
+        "cominhos.php"
+      ]
+    },
+    "cominhos.png": {
+      "url": "https://sotocalcafes.pt/images/cominhos.png",
+      "bytes": 319814,
+      "w": 868,
+      "h": 774,
+      "usedOn": [
+        "cominhos.php"
+      ]
+    },
+    "pic03.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic03.jpg",
+      "bytes": 303016,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "vantagens.php",
+        "contactos.php"
+      ]
+    },
+    "pic09.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic09.jpg",
+      "bytes": 241309,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "expresso.php"
+      ]
+    },
+    "pic11.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic11.jpg",
+      "bytes": 185047,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "melhor-cafe.php"
+      ]
+    },
+    "pic10.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic10.jpg",
+      "bytes": 135270,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "profissional.php"
+      ]
+    },
+    "pic12.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic12.jpg",
+      "bytes": 217987,
+      "h": 370,
+      "w": 1000,
+      "usedOn": [
+        "curiosidades.php"
+      ]
+    },
+    "maps.png": {
+      "url": "https://sotocalcafes.pt/images/maps.png",
+      "bytes": 32441,
+      "w": 140,
+      "h": 140,
+      "usedOn": [
+        "contactos.php"
+      ]
+    },
+    "pic06.jpg": {
+      "url": "https://sotocalcafes.pt/images/pic06.jpg",
+      "status": "failed",
+      "error": "HTTP 404",
+      "usedOn": []
+    }
+  },
+  "pdf": {
+    "status": 200,
+    "bytes": 140549
+  }
+}

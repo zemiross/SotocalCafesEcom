@@ -1,0 +1,10 @@
+{%- comment -%} Theme block: rich text (≤ 64ch measure). {%- endcomment -%}
+<div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+
+{% schema %}
+{
+  "name": "t:blocks.text.name",
+  "settings": [ { "type": "richtext", "id": "text", "label": "t:settings.text" } ],
+  "presets": [{ "name": "t:blocks.text.name" }]
+}
+{% endschema %}

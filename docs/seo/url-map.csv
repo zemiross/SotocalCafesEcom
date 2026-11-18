@@ -1,0 +1,86 @@
+﻿url,type,template,primary_keyword,also_answers,status,indexable_at_launch,blockers,in_repo,notes
+/,home,index,sotocal,comprar café online,launch,yes,,yes,"Brand SERP. Also answers ""comprar café online"" (transactional, same page)."
+/collections/cafe,collection,collection,café português,,launch-blocked,yes,"prices Q1, FIC Q3",yes,"Lotes overview (parent of the two format collections). Hypothesis keyword, unmeasured."
+/collections/cafe-em-grao,collection,collection,café em grão,café em grão 1kg; onde comprar café em grão,launch-blocked,yes,prices Q1,yes,"Also the target for ""café em grão 1kg"" (no separate 1 kg URL, D13)."
+/collections/cafe-moido,collection,collection,café moído,café moído 1 kg,launch-blocked,yes,prices Q1,yes,SD 49.
+/products/lote-super-milano,product,product,lote super milano (brand + product),,launch-blocked,yes (after tag removal),"price Q1, GTIN Q2, FIC Q3, intensity/ratio Q7",yes,"Carries the 1 kg grain/ground variants for ""café em grão 1kg"" and ""café moído 1 kg""."
+/products/lote-super,product,product,lote super (brand + product),,launch-blocked,yes (after tag removal),"price Q1, GTIN Q2, FIC Q3, intensity/ratio Q7",yes,"Carries the 1 kg grain/ground variants for ""café em grão 1kg"" and ""café moído 1 kg""."
+/products/lote-reggio,product,product,lote reggio (brand + product),,launch-blocked,yes (after tag removal),"price Q1, GTIN Q2, FIC Q3, intensity/ratio Q7",yes,"Carries the 1 kg grain/ground variants for ""café em grão 1kg"" and ""café moído 1 kg""."
+/products/cafe-descafeinado,product,product,café descafeinado (brand + product),,launch-blocked,yes (after tag removal),"price Q1, GTIN Q2, FIC Q3, intensity/ratio Q7, decaf wording Q8",yes,"Carries the 1 kg grain/ground variants for ""café em grão 1kg"" and ""café moído 1 kg""."
+/products/pack-2-x-1-kg,product,product.bundle,pack 2 x 1 kg (brand + product),,conditional,no,"Bundles app, blends and price Q13",yes,Not in the launch set.
+/collections/sucedaneos-do-cafe,collection,collection,chicória,cevada; chicória café; cevada café,launch-blocked,yes,"Sako ingredient order Q49, Cevada vs Oriente Q9",yes,"One page for the cevada/chicória family, as in the prompt IA. D1 confirmed 17/11/2026: Sotocal still produces the substitutes."
+/products/mistura-bom-dia,product,product.substitute,mistura bom dia (brand + product),café com chicória,launch-blocked,yes,"price, FIC",yes,D1 confirmed 17/11/2026: Sotocal still produces the substitutes.
+/products/mistura-sako,product,product.substitute,mistura sako (brand + product),,launch-blocked,yes,"price, FIC, ingredient order Q49",yes,D1 confirmed 17/11/2026: Sotocal still produces the substitutes.
+/products/cevada-sotocal,product,product.substitute,cevada sotocal (brand + product),cevada em grão,launch-blocked,yes,"price, FIC",yes,D1 confirmed 17/11/2026: Sotocal still produces the substitutes.
+/products/cevada-oriente,product,product.substitute,cevada oriente (brand + product),,launch-blocked,yes,"price, FIC, what distinguishes it Q9",yes,D1 confirmed 17/11/2026: Sotocal still produces the substitutes.
+/collections/especiarias,collection,collection,especiarias sotocal (brand),,launch-blocked,yes,prices Q1,yes,No measured query. Real products satisfy gate 3.
+/products/colorau,product,product.spice,colorau sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,
+/products/pimenta,product,product.spice,pimenta sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3, white/black and ground/whole Q52",yes,
+/products/piri-piri,product,product.spice,piri-piri sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,
+/products/canela,product,product.spice,canela sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3, Ceylon or cassia Q10",yes,
+/products/cravinho,product,product.spice,cravinho sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,
+/products/cominhos,product,product.spice,cominhos sotocal (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,
+/collections/complementares,collection,collection,complementares sotocal (brand),,launch-blocked,yes,prices Q1,yes,
+/products/acucar-sotocal,product,product.simple,açúcar sotocal em carteiras (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/adocante-sotocal,product,product.simple,adoçante sotocal em saquetas (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/descafeinado-unidoses,product,product.simple,descafeinado em unidoses (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3, ESE pods? Q8",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/cha-verde,product,product.simple,chá verde (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3, tea range Q11",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/cha-preto,product,product.simple,chá preto (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3, tea range Q11",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/infusao-camomila,product,product.simple,infusão de camomila (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/infusao-cidreira,product,product.simple,infusão de cidreira (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/products/amendoins-jumbo-torrados,product,product.simple,amendoim jumbo torrado (brand + product),,launch-blocked,yes (after tag removal),"price Q1, FIC Q3",yes,Low search value; kept because they are real products sold to consumers at one price (D53).
+/collections/conservas,collection,collection,,,merge,no,"range, brand and supplier undefined Q11; empty intro",yes,Keep unpublished until a range exists. No products in store-setup.
+/collections/presentes,collection,collection,cabaz de natal,cabaz de natal para oferecer; cabaz de natal gourmet,conditional,yes (if D5 and Q12 resolved),"D5, gift box contents/price/photo Q12",yes,"Evergreen URL, no year. Prompt IA name /collections/cabazes-e-presentes is not adopted (D12)."
+/products/despensa-do-norte,product,product.bundle,despensa do norte (brand + product),,conditional,yes (if D5 and Q12 resolved),"contents, price, photo Q12",yes,
+/pages/despensa-do-norte,page,page.gift-box,,,noindex,no,,yes,"Supports the product (same intent). noindex, or drop and redirect to the product."
+/pages/historia,page,page.historia,sotocal história (entity),,launch-blocked,yes,"José Barbosa title Q31, confraria Q32, portraits Q33",yes,"About page, E-E-A-T. Drop unconfirmed lines instead of waiting."
+/pages/sobre-a-sotocal,page,page.facts,"sobre a sotocal (entity, GEO)",,launch,yes,"title Q31, Maps URL Q40",yes,Fact sheet for AI answers. AboutPage + FAQPage.
+/pages/a-torra,page,page.a-torra,torrefação,torrefação porto,launch,yes,,yes,Also torrefação porto (hypothesis).
+/pages/arabica-e-robusta,page,page,diferença entre arábica e robusta (hypothesis),,launch,yes,,yes,"Honest Robusta explanation (prompt WS11 item 3), not a spec lead."
+/pages/cafe-e-saude,page,page,,,noindex,no,legal review of the page Q26,yes,"noindex until legal review. EFSA figures only, no benefit claims."
+/pages/profissional,page,page.profissional,fornecedor de café para restaurantes,cabaz de natal empresas; café para empresas; máquina de café para restaurante; máquinas de café para empresas,launch,yes,sales mailbox/response time Q20,yes,"B2B lead page, no public HoReCa prices. ""café para empresas"" only if D6. D6 yes 17/11/2026: Sotocal also serves companies and offices (""café para empresas"")."
+/pages/subscricao,page,page.subscription,subscrição de café (hypothesis),,launch-blocked,yes,"discount and terms Q16, Subscriptions app",yes,
+/pages/perguntas-frequentes,page,page.faq,perguntas frequentes café sotocal (brand),,launch,yes,shipping answers Q6,yes,"FAQ on freshness, Robusta, islands, subscriptions, returns."
+/pages/contactos,page,page.contact,,,launch,yes,hours Q41,yes,Not targeted.
+/pages/declaracao-de-acessibilidade,page,page.accessibility,,,launch,yes,EAA exemption Q27,yes,Legal; not targeted.
+/pages/onde-beber-sotocal,page,page.locator,onde comprar café sotocal (brand),,conditional,no,"D3 cafés and written consent Q17, Q18",yes,"Keep hidden until at least one consenting café. Functional, not marketing."
+/pages/levantar-no-cafe,page,page.pickup,,,conditional,no,"D3, pickup operations Q17",yes,As above.
+/pages/q-chavena,page,page.qr,,,noindex,no,,optional (store-setup --qr-pages),QR landing; UTM; measurement only.
+/pages/q-acucar,page,page.qr,,,noindex,no,,optional (store-setup --qr-pages),As above.
+/policies/privacy-policy,policy,Shopify policy,,,launch-blocked,yes,legal texts Q25,placeholder,Shopify templates are placeholders.
+/policies/refund-policy,policy,Shopify policy,,,launch-blocked,yes,legal texts Q25,placeholder,Shopify templates are placeholders.
+/policies/shipping-policy,policy,Shopify policy,,,launch-blocked,yes,legal texts Q25,placeholder,Shopify templates are placeholders.
+/policies/terms-of-service,policy,Shopify policy,,,launch-blocked,yes,legal texts Q25,placeholder,Shopify templates are placeholders.
+/pages/metodo/maquina-automatica,method hub,NEW metaobject page,máquina de café automática,máquina de café em grão,conditional,yes (if built),Q14 dose/grind/blend; method metaobject and template to build,no,Quality gate: needs a Sotocal recommendation.
+/pages/metodo/cafeteira-italiana,method hub,NEW metaobject page,cafeteira italiana,como fazer café cafeteira italiana; como usar cafeteira italiana,conditional,yes (if built),Q14; metaobject and template,no,"Pot-buying intent; hub targets ""café para cafeteira italiana""."
+/pages/metodo/maquina-expresso,method hub,NEW metaobject page,máquina café moído,,conditional,yes (if built),Q14; metaobject and template,no,Third launch hub in the prompt (manual espresso machine).
+/pages/metodo/moagem,method hub,NEW metaobject page,moinho de café,moinho de café manual / elétrico,phase3,no,Q14 grind guidance,no,Seventh hub in the prompt; not at launch.
+/pages/metodo/prensa-francesa,method hub,NEW metaobject page,como fazer café na prensa francesa,,phase3,no,Q14; 30 searches a month: fold into another hub if thin,no,
+/collections/capsulas-compativeis-nespresso,collection,collection,cápsulas compatíveis nespresso,cápsulas nespresso; café cápsulas nespresso; cápsulas nespresso compatível; cápsulas nespresso preço; máquinas de café compatíveis com cápsulas nespresso,launch-blocked,yes (after the first capsule product),"capsule product data: name, blend, units per box, capsule weight, price, EAN, ingredients, Nespresso line (Original or Vertuo); trademark wording",collection scaffold only (no products),"D2 answered 17/11/2026: capsules are subcontracted, the coffee is Sotocal's own, Nespresso-compatible. Not part of the 40-URL launch set; its own batch after the first capsule product exists. Empty collections are noindex."
+/pages/calculadora-custo-chavena,tool,page.calculator,preço café em grão,,launch,yes,consumer prices D8; dated competitor data,yes,Built in WS6; real dated competitor prices (D113). 18/11/2026.
+/pages/qual-o-cafe-para-a-minha-maquina,tool,NEW page,melhor café para máquina,,conditional,"quiz page yes, result page no","blend recommendations Q14, prices",no,Result page noindex.
+/blogs/guia-do-cafe,blog index,blog,,,launch,yes,,yes,Must exist at launch because the two legacy-redirect articles live under it.
+/blogs/guia-do-cafe/melhor-cafe-em-grao-portugal,listicle,article,melhor café em grão portugal,melhor café em grão; qual o melhor café em grão; café em grão qual o melhor,phase3,no,"8 sourced brands, disclosure, review date",yes (draft copy),"Same URL for melhor café em grão, qual o melhor café em grão."
+/blogs/guia-do-cafe/melhor-cafe-em-grao-para-maquina-automatica,guide,article,melhor café em grão para máquina automática,,phase3,no,recommended blend Q14,yes (draft copy),Links to the method hub.
+/blogs/guia-do-cafe/como-tirar-o-melhor-expresso,guide,article,como tirar o melhor expresso (legacy page),,launch,yes,espresso advice check Q14,yes (draft copy),"Exception to the launch set: redirect target of /expresso.php, so it must exist at cutover."
+/blogs/guia-do-cafe/curiosidades-do-cafe,guide,article,curiosidades do café (legacy page),,launch,yes,unconfirmed legacy facts Q36,yes (draft copy),Exception to the launch set: redirect target of /curiosidades.php.
+/blogs/guia-do-cafe/cimbalino-ou-bica,guide,article,cimbalino (hypothesis),cimbalino,phase3,no,source for the term Q39,yes (draft copy),
+/blogs/guia-do-cafe/cevada-tem-cafeina,guide,article,cevada tem cafeína,,phase3,no,D1 and a cited source,no,Factual only.
+/blogs/guia-do-cafe/cevada-tem-gluten,guide,article,cevada tem glúten,chicória tem glúten,phase3,no,D1 and a cited source,no,Also answers chicória tem glúten.
+/blogs/guia-do-cafe/o-que-e-a-chicoria,guide,article,o que é chicória,,phase3,no,D1 and a cited source,no,
+/blogs/guia-do-cafe/cafe-delta-alternativas,comparison,article,café delta grão,café em grão delta; café delta grão 1kg; qual o melhor café delta / melhor café delta grão,phase3,no,"D14, dated competitor data",no,Objective table only.
+/blogs/guia-do-cafe/melhores-torrefacoes-do-norte,listicle,article,torrefação bracarense,,phase3,no,"disclosure, sourced list",no,
+/blogs/guia-do-cafe/como-fazer-cafe-gelado,recipe guide,article.recipe,como fazer café gelado,,phase3,no,real Sotocal recipe,no,Summer.
+/blogs/guia-do-cafe/cabaz-de-natal-produtos-portugueses,guide,article,cabaz de natal ideias,cabaz de natal produtos portugueses,phase3,no,"D5, real gift products",no,Evergreen URL.
+/blogs/receitas,blog index,blog,,,phase3,no,,yes,
+/blogs/receitas/cabrito-assado,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/blogs/receitas/bife-do-lombo-com-molho-de-duas-pimentas,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/blogs/receitas/frango-assado-com-piri-piri,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/blogs/receitas/pasteis-de-nata-simples,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/blogs/receitas/peras-em-calda-de-vinho-do-porto,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/blogs/receitas/rojoes,recipe,article.recipe,,,phase3,no,"yields, times, metric conversions Q45",yes (draft copy),Spice-led recipe; no measured query. Publish as one batch of at most 10.
+/pages/maquina/delonghi-magnifica-start,machine model,NEW metaobject page,máquina de café automática delonghi magnifica start,máquina de café automática delonghi ecam220 (Magnifica Start),phase3,no,manual-sourced settings; fresh volume check,no,Doorway risk if built without model-specific settings.
+/pages/maquina/delonghi-magnifica-evo,machine model,NEW metaobject page,máquina de café automática delonghi magnifica evo,,phase3,no,manual-sourced settings; fresh volume check,no,Doorway risk if built without model-specific settings.
+/pages/maquina/philips-2200,machine model,NEW metaobject page,máquina de café automática philips 2200,,phase3,no,manual-sourced settings; fresh volume check,no,Doorway risk if built without model-specific settings.
+/pages/fornecedor-de-cafe/porto,metaobject,metaobject/service_area,fornecedor de café porto,torrefação porto; café para restaurantes porto,launch,yes,,yes,"Real local facts (roastery since 1960, HQ collection point). D111."
+/pages/fornecedor-de-cafe/<distrito>,metaobject,metaobject/service_area,fornecedor de café <distrito>,,gated,no,"Q68: which districts does Sotocal serve, how and how often it delivers",yes,"19 DRAFT entries, noindex until served = true and local content exists. Not doorway pages: no page goes live with only the city name swapped. D111."

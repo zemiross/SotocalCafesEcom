@@ -1,0 +1,48 @@
+{%- comment -%}
+  Price group (proximity): price, compare-at, unit price €/kg and "IVA incluído" together; Omnibus line when discounted.
+  Params: product, variant (optional), show_from (bool), size ('lg'), id (optional, for live updates on the product page).
+{%- endcomment -%}
+{%- liquid
+  if variant == blank
+    assign variant = product.selected_or_first_available_variant
+  endif
+  assign amount = variant.price
+  assign compare = variant.compare_at_price
+  assign unit_variant = variant
+  assign is_from = false
+  if show_from and product.price_varies
+    assign is_from = true
+    assign amount = product.price_min
+    assign compare = blank
+    for v in product.variants
+      if v.price == product.price_min
+        assign unit_variant = v
+        break
+      endif
+    endfor
+  endif
+  assign lowest = product.metafields.sotocal.lowest_price_30d.value
+-%}
+<div class="price{% if size == 'lg' %} price--lg{% endif %}" data-price{% if id %} id="{{ id }}"{% endif %}>
+  <span class="price__current">
+    {%- if is_from -%}<span class="price__from">{{ 'product.price_from' | t }} </span>{%- endif -%}
+    <span data-price-amount>{{ amount | money }}</span>
+  </span>
+  {%- if compare > amount -%}
+    <s class="price__compare"><span class="visually-hidden">{{ 'product.price_was' | t }} </span><span data-price-compare>{{ compare | money }}</span></s>
+  {%- endif -%}
+  {% render 'unit-price', variant: unit_variant %}
+  <span class="price__tax">{{ 'product.tax_included' | t }}</span>
+  {%- if compare > amount -%}
+    <span class="price__omnibus" data-price-omnibus>
+      {%- if lowest != blank -%}
+        {{ 'product.omnibus' | t: price: lowest }}
+      {%- else -%}
+        {% render 'tbc', note: 'preço mais baixo nos últimos 30 dias (metafield sotocal.lowest_price_30d)' %}
+      {%- endif -%}
+    </span>
+  {%- endif -%}
+  {%- if product.tags contains 'preco-provisorio' -%}
+    <span class="price__note">{% render 'tbc', note: 'preço provisório' %}</span>
+  {%- endif -%}
+</div>

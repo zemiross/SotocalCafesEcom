@@ -1,0 +1,20 @@
+{%- comment -%}
+  Sources and review date for a guide (WS7). Param: article. Shows sotocal.last_reviewed and the list in sotocal.sources
+  (URLs of every third-party fact). Prints nothing when both are empty.
+{%- endcomment -%}
+{%- liquid
+  assign m = article.metafields.sotocal
+  assign reviewed = m.last_reviewed.value | date: '%d/%m/%Y'
+  assign sources = m.sources.value
+-%}
+{%- if reviewed != blank or sources.size > 0 -%}
+<aside class="article-sources" aria-labelledby="Sources-{{ article.id }}">
+  <h2 class="h3" id="Sources-{{ article.id }}">{{ 'blog.sources_heading' | t }}</h2>
+  {%- if reviewed != blank -%}<p class="small">{{ 'blog.last_reviewed' | t: date: reviewed }}</p>{%- endif -%}
+  {%- if sources.size > 0 -%}
+    <ul class="hairlines small" role="list">
+      {%- for url in sources -%}<li><a class="link" href="{{ url }}" rel="noopener nofollow">{{ url | remove: 'https://' | remove: 'http://' | split: '/' | first }}</a></li>{%- endfor -%}
+    </ul>
+  {%- endif -%}
+</aside>
+{%- endif -%}

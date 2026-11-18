@@ -1,0 +1,68 @@
+{%- comment -%}
+  Café locator (brief §9). List grouped by district and city with search; only cafés with consent_publish = true.
+  The map (Leaflet + OpenStreetMap, vendored) loads only after "Mostrar mapa" (no third-party request before that).
+  "Levantar aqui" appears for pickup_enabled cafés and remembers the café for the cart (Tesler).
+{%- endcomment -%}
+{%- paginate shop.metaobjects.partner_cafe.values by 250 -%}
+{%- liquid
+  assign all = shop.metaobjects.partner_cafe.values
+  assign districts = ''
+  for c in all
+    if c.consent_publish.value
+      assign districts = districts | append: c.district | append: '|'
+    endif
+  endfor
+  assign districts = districts | split: '|' | uniq | sort
+-%}
+<section class="section locator" data-theme="cream" data-locator aria-labelledby="Locator-{{ section.id }}">
+  <div class="container">
+    <div class="locator__head grid">
+      <h2 class="h2 col-left" id="Locator-{{ section.id }}">{{ 'pages.locator.list_heading' | t }}</h2>
+      <div class="col-right locator__tools">
+        <label class="label" for="LocatorSearch">{{ 'pages.locator.search_label' | t }}</label>
+        <input class="input" id="LocatorSearch" type="search" placeholder="{{ 'pages.locator.search_placeholder' | t }}" autocomplete="off" data-locator-search aria-describedby="LocatorCount">
+        <p class="small muted" id="LocatorCount" role="status" aria-live="polite" data-locator-count></p>
+        <button class="btn btn--outline" type="button" data-map-toggle aria-controls="LocatorMap" aria-expanded="false">{% render 'icon', name: 'map', class: 'icon--sm' %}{{ 'pages.locator.show_map' | t }}</button>
+        <p class="small muted">{{ 'pages.locator.map_privacy' | t }}</p>
+      </div>
+    </div>
+    <div id="LocatorMap" class="locator__map" data-map hidden role="region" aria-label="{{ 'pages.locator.map_label' | t }}"></div>
+
+    {%- if districts.size > 0 -%}
+      <div class="locator__list" data-locator-list>
+        {%- for d in districts -%}
+          <section class="locator__district" data-district aria-labelledby="District-{{ forloop.index }}">
+            <h3 class="h3" id="District-{{ forloop.index }}">{{ d }}</h3>
+            <ul class="locator__cafes" role="list">
+              {%- for c in all -%}
+                {%- if c.consent_publish.value and c.district == d -%}
+                  <li class="cafe" data-cafe data-search-text="{{ c.name | downcase | escape }} {{ c.city | downcase | escape }} {{ c.district | downcase | escape }} {{ c.postal_code }}"
+                      data-lat="{{ c.lat.value }}" data-lng="{{ c.lng.value }}" data-name="{{ c.name | escape }}" data-city="{{ c.city | escape }}" data-id="{{ c.system.handle }}">
+                    <p class="cafe__name">{{ c.name }}</p>
+                    <p class="cafe__meta small">{{ c.address }}, {{ c.postal_code }} {{ c.city }}</p>
+                    {%- if c.opening_hours != blank -%}<p class="cafe__meta small muted">{{ c.opening_hours.value | newline_to_br }}</p>{%- endif -%}
+                    <div class="cafe__actions">
+                      <a class="text-link" href="https://www.openstreetmap.org/?mlat={{ c.lat.value }}&mlon={{ c.lng.value }}#map=17/{{ c.lat.value }}/{{ c.lng.value }}" rel="noopener" target="_blank">{{ 'pages.locator.directions' | t }}<span class="visually-hidden"> {{ c.name }} ({{ 'general.new_window' | t }})</span></a>
+                      {%- if c.pickup_enabled.value -%}
+                        <button class="btn btn--outline btn--sm" type="button" data-pickup-here>{{ 'pages.locator.pickup_here' | t }}<span class="visually-hidden">: {{ c.name }}</span></button>
+                      {%- endif -%}
+                    </div>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </section>
+        {%- endfor -%}
+      </div>
+      <p class="form-status" role="status" aria-live="polite" data-pickup-saved hidden></p>
+    {%- else -%}
+      <p class="h3">{{ 'pages.locator.none' | t }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+<script src="{{ 'locator.js' | asset_url }}" defer></script>
+
+{% schema %}
+{ "name": "t:sections.locator.name", "settings": [], "presets": [{ "name": "t:sections.locator.name" }] }
+{% endschema %}

@@ -1,0 +1,9 @@
+{
+  "type": "footer",
+  "name": "t:sections.footer.group",
+  "sections": {
+    "newsletter": { "type": "newsletter", "settings": { "theme": "cream", "heading": "", "text": "" } },
+    "footer": { "type": "footer", "settings": { "menu": "footer" } }
+  },
+  "order": ["newsletter", "footer"]
+}

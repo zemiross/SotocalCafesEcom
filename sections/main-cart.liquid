@@ -1,0 +1,54 @@
+{%- comment -%} Cart page (no-JS fallback and direct /cart visits). Same rules as the drawer: €/kg, IVA incluído, pickup note. {%- endcomment -%}
+<section class="section" data-theme="cream" aria-labelledby="CartTitle">
+  <div class="container">
+    <h1 class="h-display" id="CartTitle" style="margin-bottom: 48px">{{ 'cart.title' | t }}</h1>
+    {%- if cart.item_count == 0 -%}
+      <div class="stack">
+        <p class="h3">{{ 'cart.empty' | t }}</p>
+        <p class="muted">{{ 'cart.empty_text' | t }}</p>
+        <a class="btn btn--primary" href="{% if routes.root_url != '/' %}{{ routes.root_url }}{% endif %}/collections/cafe">{{ 'home.hero.cta' | t }}</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" class="grid cart-page">
+        <div class="cart-page__lines">
+          <ul class="cart-lines" role="list">
+            {%- for item in cart.items -%}
+              <li class="cart-line">
+                <div class="cart-line__media">{%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '', width: 80, height: 80 }}{%- endif -%}</div>
+                <div>
+                  <a class="cart-line__title" href="{{ item.url }}">{{ item.product.title }}</a>
+                  {%- unless item.product.has_only_default_variant -%}<p class="cart-line__meta">{{ item.variant.title }}</p>{%- endunless -%}
+                  {%- for prop in item.properties -%}{%- assign prop_first = prop.first | slice: 0 -%}{%- unless prop_first == '_' or prop.last == blank -%}<p class="cart-line__meta">{{ prop.first }}: {{ prop.last }}</p>{%- endunless -%}{%- endfor -%}
+                  <p class="cart-line__meta">{% render 'unit-price', variant: item.variant %}</p>
+                  <label class="field" style="margin-top:8px;max-width:120px">
+                    <span class="small">{{ 'cart.quantity_for' | t: title: item.product.title }}</span>
+                    <input class="input" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                  </label>
+                  <a class="cart-line__remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}<span class="visually-hidden">: {{ item.product.title }}</span></a>
+                </div>
+                <p class="cart-line__price">{{ item.final_line_price | money }}</p>
+              </li>
+            {%- endfor -%}
+          </ul>
+          <button class="btn btn--outline" type="submit" name="update" style="margin-top: 24px">{{ 'cart.update' | t }}</button>
+        </div>
+        <div class="cart-page__summary stack">
+          {%- if cart.attributes.pickup_cafe_name != blank -%}
+            <p class="form-status">{{ 'cart.pickup_selected' | t: cafe: cart.attributes.pickup_cafe_name }} ({{ cart.attributes.pickup_cafe_city }})</p>
+          {%- endif -%}
+          <label class="field">
+            <span>{{ 'cart.note' | t }}</span>
+            <textarea class="textarea" name="note">{{ cart.note }}</textarea>
+          </label>
+          <p class="price" style="justify-content: space-between"><span>{{ 'cart.subtotal' | t }}</span><span><span class="price__current">{{ cart.total_price | money }}</span> <span class="price__tax">{{ 'product.tax_included' | t }}</span></span></p>
+          <p class="small muted">{{ 'cart.shipping_at_checkout' | t }}</p>
+          <button class="btn btn--primary btn--block" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "t:sections.main_cart.name", "settings": [] }
+{% endschema %}

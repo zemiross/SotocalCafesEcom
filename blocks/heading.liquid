@@ -1,0 +1,13 @@
+{%- comment -%} Theme block: heading (DM Serif only at ≥ 28 px; smaller levels use Inter). {%- endcomment -%}
+<{{ block.settings.level }} class="{% if block.settings.level == 'h2' %}h2{% else %}h3{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.text }}</{{ block.settings.level }}>
+
+{% schema %}
+{
+  "name": "t:blocks.heading.name",
+  "settings": [
+    { "type": "text", "id": "text", "label": "t:settings.heading" },
+    { "type": "select", "id": "level", "label": "t:blocks.heading.level", "default": "h2", "options": [ { "value": "h2", "label": "H2" }, { "value": "h3", "label": "H3" } ] }
+  ],
+  "presets": [{ "name": "t:blocks.heading.name" }]
+}
+{% endschema %}

@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "calculator"
+      }
+    },
+    "calculator": {
+      "type": "tool-calculator",
+      "settings": {
+        "collection": "cafe",
+        "default_dose": 7
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "calculator"
+  ]
+}

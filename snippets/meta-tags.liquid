@@ -1,0 +1,134 @@
+{%- comment -%}
+  Titles ≤ 60 characters, unique descriptions 140–155 (brief §11). Templates live in the locale files (seo.*).
+  og:url always uses canonical_url (fixes the legacy "sotocoal.pt" typo).
+{%- endcomment -%}
+{%- liquid
+  assign seo_title = page_title
+  assign seo_description = page_description
+  case request.page_type
+    when 'index'
+      assign seo_title = 'seo.home_title' | t
+      assign seo_description = 'seo.home_description' | t
+      assign og_type = 'website'
+    when 'product'
+      if product.template_suffix == blank
+        assign seo_title = 'seo.product_title_coffee' | t: title: page_title
+      else
+        assign seo_title = 'seo.product_title' | t: title: page_title
+      endif
+      assign og_type = 'product'
+    when 'collection'
+      assign seo_title = 'seo.collection_title' | t: title: page_title
+      assign og_type = 'website'
+    when 'article'
+      if blog.handle == 'receitas'
+        assign seo_title = 'seo.recipe_title' | t: title: page_title
+      else
+        assign seo_title = 'seo.article_title' | t: title: page_title
+      endif
+      assign og_type = 'article'
+    else
+      unless page_title contains shop.name
+        assign seo_title = 'seo.generic_title' | t: title: page_title
+      endunless
+      assign og_type = 'website'
+  endcase
+  # Shopify fills page_description from the SEO fields; when those are empty, describe the resource itself.
+  if seo_description == blank
+    case request.page_type
+      when 'product'
+        assign seo_description = product.metafields.sotocal.character.value | default: product.description
+      when 'collection'
+        assign seo_description = collection.metafields.sotocal.intro.value | default: collection.description
+      when 'article'
+        assign seo_description = article.excerpt_or_content
+      when 'blog'
+        assign seo_description = 'blog.guide_intro' | t
+      when 'page'
+        assign seo_description = page.content
+    endcase
+    if seo_description == blank
+      assign seo_description = 'seo.home_description' | t
+    endif
+    assign seo_description = seo_description | strip_html | strip_newlines | truncate: 155
+  endif
+  assign hub_type = metaobject.system.type
+  if hub_type == 'service_area'
+    assign area_place = metaobject.in_name.value
+    if area_place == blank
+      assign area_place = 'service_area.in_default' | t: name: metaobject.name.value
+    endif
+    assign area_title = 'service_area.heading' | t: place: area_place
+    assign seo_title = metaobject.seo_title.value | default: area_title
+    if seo_title.size < 50 and metaobject.seo_title.value == blank
+      assign seo_title = seo_title | append: ' | ' | append: shop.name
+    endif
+    assign seo_description = metaobject.seo_description.value | default: metaobject.short_answer.value | strip_html | strip_newlines | truncate: 155
+    assign og_type = 'website'
+  endif
+  if hub_type == 'method' or hub_type == 'machine'
+    assign seo_title = metaobject.seo_title.value | default: metaobject.name.value
+    if seo_title.size < 49
+      assign seo_title = seo_title | append: ' | ' | append: shop.name
+    endif
+    assign seo_description = metaobject.seo_description.value | default: metaobject.short_answer.value | strip_html | strip_newlines | truncate: 155
+    assign og_type = 'article'
+  endif
+  # Quality gate 7: titles stay under 60 characters. A long suffix ("| Guia do café Sotocal") falls back to "| Sotocal", then to the bare title.
+  if seo_title.size > 60 and page_title != blank
+    assign seo_title = page_title | append: ' | ' | append: shop.name
+    if seo_title.size > 60
+      assign seo_title = page_title
+    endif
+  endif
+  if current_page > 1
+    assign page_suffix = 'seo.page_suffix' | t: page: current_page
+    assign seo_title = seo_title | append: page_suffix
+  endif
+  if current_tags
+    assign tag_list = current_tags | join: ', '
+    assign seo_title = seo_title | append: ' – ' | append: tag_list
+  endif
+
+  if page_image
+    assign og_image = page_image | image_url: width: 1200, height: 630, crop: 'center'
+  elsif settings.share_image != blank
+    assign og_image = settings.share_image | image_url: width: 1200, height: 630, crop: 'center'
+  else
+    case request.page_type
+      when 'product' or 'collection' or 'list-collections'
+        assign og_image = 'og-shop.png' | asset_url
+      when 'article' or 'blog'
+        assign og_image = 'og-guide.png' | asset_url
+      else
+        assign og_image = 'og-home.png' | asset_url
+    endcase
+  endif
+  unless og_image contains 'https:'
+    assign og_image = 'https:' | append: og_image
+  endunless
+-%}
+<title>{{ seo_title | strip }}</title>
+{%- if seo_description != blank %}
+<meta name="description" content="{{ seo_description | strip_html | escape }}">
+{%- endif %}
+{%- if settings.google_site_verification != blank %}
+<meta name="google-site-verification" content="{{ settings.google_site_verification | escape }}">
+{%- endif %}
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="{{ seo_title | strip | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ seo_description | default: shop.description | strip_html | escape }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{% if request.locale.iso_code == 'en' %}en_GB{% else %}pt_PT{% endif %}">
+{%- if request.page_type == 'product' %}
+<meta property="product:price:amount" content="{{ product.price | divided_by: 100.0 | round: 2 }}">
+<meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo_title | strip | escape }}">
+<meta name="twitter:description" content="{{ seo_description | default: shop.description | strip_html | escape }}">
+{%- render 'robots-meta' -%}

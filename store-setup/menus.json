@@ -1,0 +1,50 @@
+{
+  "$comment": "Menus for scripts/store-setup.mjs --menus. Items pointing at /collections, /pages, /products or /blogs are linked as resources, so Shopify serves the translated EN handles under /en. Translate item titles in Translate & Adapt (Navigation). Order follows brief §5.7 serial position: Loja first, Profissional last.",
+  "menus": [
+    {
+      "handle": "main-menu", "title": "Menu principal",
+      "items": [
+        { "title": "Loja", "url": "/collections/cafe", "items": [
+          { "title": "Café", "url": "/collections/cafe" },
+          { "title": "Especiarias", "url": "/collections/especiarias" },
+          { "title": "Sucedâneos", "url": "/collections/sucedaneos-do-cafe" },
+          { "title": "Complementares", "url": "/collections/complementares" },
+          { "title": "Conservas", "url": "/collections/conservas" },
+          { "title": "Presentes", "url": "/collections/presentes" }
+        ] },
+        { "title": "Os lotes", "url": "/collections/cafe" },
+        { "title": "A torra", "url": "/pages/a-torra" },
+        { "title": "A Sotocal", "url": "/pages/historia", "items": [
+          { "title": "História", "url": "/pages/historia" },
+          { "title": "Contactos", "url": "/pages/contactos" }
+        ] },
+        { "title": "Guia do café", "url": "/blogs/guia-do-cafe" },
+        { "title": "Profissional", "url": "/pages/profissional" }
+      ]
+    },
+    {
+      "handle": "footer", "title": "Rodapé",
+      "items": [
+        { "title": "Loja", "url": "/collections/cafe", "items": [
+          { "title": "Café", "url": "/collections/cafe" },
+          { "title": "Presentes", "url": "/collections/presentes" },
+          { "title": "Subscrição", "url": "/pages/subscricao" }
+        ] },
+        { "title": "A Sotocal", "url": "/pages/historia", "items": [
+          { "title": "História", "url": "/pages/historia" },
+          { "title": "Sobre a Sotocal", "url": "/pages/sobre-a-sotocal" },
+          { "title": "Profissional", "url": "/pages/profissional" }
+        ] },
+        { "title": "Ajuda", "url": "/pages/perguntas-frequentes", "items": [
+          { "title": "Perguntas frequentes", "url": "/pages/perguntas-frequentes" },
+          { "title": "Envios", "url": "/policies/shipping-policy" },
+          { "title": "Devoluções", "url": "/policies/refund-policy" },
+          { "title": "Privacidade", "url": "/policies/privacy-policy" },
+          { "title": "Termos e condições", "url": "/policies/terms-of-service" },
+          { "title": "Declaração de acessibilidade", "url": "/pages/declaracao-de-acessibilidade" },
+          { "title": "Contactos", "url": "/pages/contactos" }
+        ] }
+      ]
+    }
+  ]
+}

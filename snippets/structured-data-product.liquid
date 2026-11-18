@@ -1,0 +1,111 @@
+{%- comment -%}
+  Product / ProductGroup JSON-LD node (no leading comma). Offers use real Liquid prices.
+  shippingDetails appear only once the shipping rate settings are filled (they are [[TBC]] today).
+{%- endcomment -%}
+{%- liquid
+  assign group = false
+  if product.has_only_default_variant == false and product.variants.size > 1
+    assign group = true
+  endif
+  assign brand = '{"@type":"Brand","name":"Sotocal"}'
+  assign currency = cart.currency.iso_code | default: 'EUR'
+  if settings.schema_return_days != blank
+    assign return_days = settings.schema_return_days
+  else
+    assign return_days = 14
+  endif
+-%}
+{%- capture offer_extras -%}
+  "hasMerchantReturnPolicy": {
+    "@type": "MerchantReturnPolicy",
+    "applicableCountry": "PT",
+    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+    "merchantReturnDays": {{ return_days }},
+    "returnMethod": "https://schema.org/ReturnByMail"
+  }
+  {%- if settings.shipping_rate_pt != blank -%},
+  "shippingDetails": {
+    "@type": "OfferShippingDetails",
+    "shippingRate": { "@type": "MonetaryAmount", "value": {{ settings.shipping_rate_pt }}, "currency": {{ currency | json }} },
+    "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "PT" },
+    "deliveryTime": {
+      "@type": "ShippingDeliveryTime",
+      "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": {{ settings.shipping_handling_days | default: 1 }}, "unitCode": "DAY" },
+      "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": {{ settings.shipping_transit_days | default: 3 }}, "unitCode": "DAY" }
+    }
+  }
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture variant_nodes -%}
+  {%- for v in product.variants -%}
+    {
+      "@type": "Product",
+      {%- if group %}"@id": {{ shop.url | append: v.url | append: '#product' | json }},{% endif %}
+      "name": {{ product.title | append: ' – ' | append: v.title | json }},
+      "sku": {{ v.sku | default: v.id | json }},
+      {%- if v.barcode != blank %}"gtin": {{ v.barcode | json }},{% endif %}
+      {%- if v.featured_image %}"image": {{ v.featured_image | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
+      {%- if group -%}
+        {%- for o in product.options_with_values -%}
+          {%- assign oi = forloop.index0 -%}
+          {%- if o.name == 'Peso' or o.name == 'Weight' -%}"weight": {{ v.options[oi] | json }},{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      "offers": {
+        "@type": "Offer",
+        "url": {{ shop.url | append: v.url | json }},
+        "price": {{ v.price | divided_by: 100.0 | round: 2 }},
+        "priceCurrency": {{ currency | json }},
+        "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+        "itemCondition": "https://schema.org/NewCondition",
+        {%- if v.unit_price_measurement %}
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": {{ v.unit_price | divided_by: 100.0 | round: 2 }},
+          "priceCurrency": {{ currency | json }},
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": {{ v.unit_price_measurement.reference_value | default: 1 }}, "unitCode": {% if v.unit_price_measurement.reference_unit == 'kg' %}"KGM"{% elsif v.unit_price_measurement.reference_unit == 'g' %}"GRM"{% else %}{{ v.unit_price_measurement.reference_unit | upcase | json }}{% endif %} }
+        },
+        {%- endif %}
+        "seller": { "@id": {{ org_id | json }} },
+        {{ offer_extras }}
+      }
+    }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if group -%}
+{
+  "@type": "ProductGroup",
+  "@id": {{ page_url | append: '#product' | json }},
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | strip | truncate: 500 | json }},
+  "url": {{ page_url | json }},
+  "brand": {{ brand }},
+  "productGroupID": {{ product.id | json }},
+  {%- if product.featured_image %}"image": {{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
+  "variesBy": [{%- for o in product.options -%}{% if o == 'Peso' or o == 'Weight' %}"https://schema.org/weight"{% else %}{{ o | json }}{% endif %}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+  "hasVariant": [{{ variant_nodes }}]
+}
+{%- else -%}
+{
+  "@type": "Product",
+  "@id": {{ page_url | append: '#product' | json }},
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | strip | truncate: 500 | json }},
+  "url": {{ page_url | json }},
+  "brand": {{ brand }},
+  {%- if product.featured_image %}"image": {{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
+  {%- assign v = product.selected_or_first_available_variant -%}
+  "sku": {{ v.sku | default: v.id | json }},
+  {%- if v.barcode != blank %}"gtin": {{ v.barcode | json }},{% endif %}
+  "offers": {
+    "@type": "Offer",
+    "url": {{ page_url | json }},
+    "price": {{ v.price | divided_by: 100.0 | round: 2 }},
+    "priceCurrency": {{ currency | json }},
+    "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": { "@id": {{ org_id | json }} },
+    {{ offer_extras }}
+  }
+}
+{%- endif -%}

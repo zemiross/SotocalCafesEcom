@@ -1,0 +1,121 @@
+{%- comment -%}
+  "Que café para a minha máquina?" quiz (docs/seo/06-ws6-tools.md). Four questions: machine, milk, intensity, decaf.
+  Nothing is invented: a blend is matched against Sotocal's own product data. The answers become tokens that must equal the chips in
+  `sotocal.best_for` (machine, "Com leite") and a target on the `sotocal.intensity` 1-5 scale. A blend is a decaf blend when
+  `sotocal.blend` is "Descafeinado". Products are rendered here (with the normal tile and quick add) and revealed by assets/quiz.js.
+  The page is noindexed until at least two blends have intensity and best_for filled (snippets/robots-meta.liquid).
+  The result is shown on the same URL (no separate result page to index).
+{%- endcomment -%}
+{%- liquid
+  assign col = section.settings.collection | default: collections['cafe']
+  assign ready_count = 0
+  for p in col.products
+    if p.metafields.sotocal.intensity != blank and p.metafields.sotocal.best_for != blank
+      assign ready_count = ready_count | plus: 1
+    endif
+  endfor
+-%}
+<section class="section tool quiz" data-theme="cream" data-quiz aria-labelledby="QuizTitle-{{ section.id }}">
+  <div class="container">
+    {%- if ready_count < 2 -%}
+      {%- if request.design_mode or settings.show_tbc_markers -%}
+        <p>{% render 'tbc', note: 'questionário: preencher intensidade (1–5) e «ideal para» em pelo menos dois lotes (pergunta 7)' %}</p>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if ready_count >= 2 or request.design_mode or settings.show_tbc_markers -%}
+    <form class="quiz__form stack" data-quiz-form novalidate aria-labelledby="QuizTitle-{{ section.id }}">
+      <h2 class="visually-hidden" id="QuizTitle-{{ section.id }}">{{ 'tools.quiz.form_heading' | t }}</h2>
+
+      <fieldset class="radio-pills" data-quiz-q="machine">
+        <legend class="label">{{ 'tools.quiz.q_machine' | t }}</legend>
+        <label class="radio-pill"><input type="radio" name="machine" value="{{ section.settings.token_automatic }}"><span>{{ 'tools.quiz.machine_auto' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="machine" value="{{ section.settings.token_moka }}"><span>{{ 'tools.quiz.machine_moka' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="machine" value="{{ section.settings.token_espresso }}"><span>{{ 'tools.quiz.machine_espresso' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="machine" value=""><span>{{ 'tools.quiz.machine_other' | t }}</span></label>
+      </fieldset>
+
+      <fieldset class="radio-pills" data-quiz-q="milk">
+        <legend class="label">{{ 'tools.quiz.q_milk' | t }}</legend>
+        <label class="radio-pill"><input type="radio" name="milk" value="{{ section.settings.token_milk }}"><span>{{ 'tools.quiz.milk_yes' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="milk" value=""><span>{{ 'tools.quiz.milk_no' | t }}</span></label>
+      </fieldset>
+
+      <fieldset class="radio-pills" data-quiz-q="intensity">
+        <legend class="label">{{ 'tools.quiz.q_intensity' | t }}</legend>
+        <label class="radio-pill"><input type="radio" name="intensity" value="{{ section.settings.target_soft }}"><span>{{ 'tools.quiz.int_soft' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="intensity" value="{{ section.settings.target_mid }}"><span>{{ 'tools.quiz.int_mid' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="intensity" value="{{ section.settings.target_strong }}"><span>{{ 'tools.quiz.int_strong' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="intensity" value=""><span>{{ 'tools.quiz.int_any' | t }}</span></label>
+      </fieldset>
+
+      <fieldset class="radio-pills" data-quiz-q="decaf">
+        <legend class="label">{{ 'tools.quiz.q_decaf' | t }}</legend>
+        <label class="radio-pill"><input type="radio" name="decaf" value="yes"><span>{{ 'tools.quiz.decaf_yes' | t }}</span></label>
+        <label class="radio-pill"><input type="radio" name="decaf" value="no"><span>{{ 'tools.quiz.decaf_no' | t }}</span></label>
+      </fieldset>
+
+      <p class="field-error" role="alert" data-quiz-error hidden>{{ 'tools.quiz.incomplete' | t }}</p>
+      <div class="quiz__actions">
+        <button class="btn btn--primary" type="submit">{{ 'tools.quiz.submit' | t }}</button>
+        <button class="btn btn--outline" type="button" data-quiz-reset hidden>{{ 'tools.quiz.reset' | t }}</button>
+      </div>
+      <noscript><p class="small"><a class="text-link" href="{{ col.url }}">{{ 'tools.quiz.see_all' | t }}</a></p></noscript>
+    </form>
+
+    <div class="quiz__result stack" data-quiz-result tabindex="-1" role="region" aria-labelledby="QuizResult-{{ section.id }}" hidden>
+      <h2 class="h2" id="QuizResult-{{ section.id }}">{{ 'tools.quiz.result_heading' | t }}</h2>
+      <p class="muted" data-quiz-none hidden>{{ 'tools.quiz.none' | t }} <a class="text-link" href="{{ col.url }}">{{ 'tools.quiz.see_all' | t }}</a></p>
+      <div data-quiz-best></div>
+      <p class="small" data-quiz-why></p>
+      <div data-quiz-others-wrap hidden>
+        <h3 class="quiz__sub">{{ 'tools.quiz.others_heading' | t }}</h3>
+        <div class="tiles" data-quiz-others></div>
+      </div>
+      <div class="quiz__newsletter">
+        <h3 class="quiz__sub">{{ 'tools.quiz.newsletter_heading' | t }}</h3>
+        {% render 'newsletter-form', id: 'QuizNewsletter', tag: 'newsletter,quiz' %}
+      </div>
+    </div>
+
+    <div hidden data-quiz-products>
+      {%- for p in col.products -%}
+        {%- assign pm = p.metafields.sotocal -%}
+        {%- assign is_decaf = false -%}
+        {%- if pm.blend.value == 'Descafeinado' -%}{%- assign is_decaf = true -%}{%- endif -%}
+        <div data-quiz-product data-handle="{{ p.handle }}" data-title="{{ p.title | escape }}"
+             data-intensity="{{ pm.intensity.value }}" data-tokens="{{ pm.best_for.value | join: '|' | escape }}" data-decaf="{{ is_decaf }}">
+          {% render 'product-tile', product: p, loading: 'lazy', heading: 'h3' %}
+        </div>
+      {%- endfor -%}
+    </div>
+    <script type="application/json" data-quiz-strings>
+      {
+        "whyMachine": {{ 'tools.quiz.why_machine' | t: machine: '__M__' | json }},
+        "whyMilk": {{ 'tools.quiz.why_milk' | t | json }},
+        "whyIntensity": {{ 'tools.quiz.why_intensity' | t: value: '__V__' | json }},
+        "why": {{ 'tools.quiz.why' | t | json }}
+      }
+    </script>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'quiz.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.tool_quiz.name",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "t:sections.tool_quiz.collection", "info": "t:sections.tool_quiz.collection_info" },
+    { "type": "paragraph", "content": "t:sections.tool_quiz.tokens_info" },
+    { "type": "text", "id": "token_automatic", "label": "t:sections.tool_quiz.token_automatic", "default": "Máquina automática" },
+    { "type": "text", "id": "token_moka", "label": "t:sections.tool_quiz.token_moka", "default": "Moka" },
+    { "type": "text", "id": "token_espresso", "label": "t:sections.tool_quiz.token_espresso", "default": "Expresso" },
+    { "type": "text", "id": "token_milk", "label": "t:sections.tool_quiz.token_milk", "default": "Com leite" },
+    { "type": "range", "id": "target_soft", "label": "t:sections.tool_quiz.target_soft", "min": 1, "max": 5, "step": 1, "default": 2 },
+    { "type": "range", "id": "target_mid", "label": "t:sections.tool_quiz.target_mid", "min": 1, "max": 5, "step": 1, "default": 3 },
+    { "type": "range", "id": "target_strong", "label": "t:sections.tool_quiz.target_strong", "min": 1, "max": 5, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "t:sections.tool_quiz.name" }]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+{%- comment -%}
+  Testimonials (Profissional). Disabled in the template and renders nothing without blocks: no invented quotes (§0.1).
+  Each block needs a real quote, a name, a business and written permission.
+{%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<section class="section testimonials" data-theme="ink" aria-labelledby="Testimonials-{{ section.id }}">
+  <div class="container">
+    <h2 class="h2" id="Testimonials-{{ section.id }}">{{ section.settings.heading }}</h2>
+    <ul class="testimonials__list" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <figure>
+            <blockquote><p>{{ 'general.quote_open' | t }}{{ block.settings.quote }}{{ 'general.quote_close' | t }}</p></blockquote>
+            <figcaption>{{ block.settings.name }}, {{ block.settings.business }}</figcaption>
+          </figure>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.testimonials.name",
+  "settings": [ { "type": "text", "id": "heading", "label": "t:settings.heading" } ],
+  "blocks": [
+    { "type": "testimonial", "name": "t:sections.testimonials.item", "settings": [
+      { "type": "textarea", "id": "quote", "label": "t:sections.testimonials.quote" },
+      { "type": "text", "id": "name", "label": "t:sections.testimonials.person" },
+      { "type": "text", "id": "business", "label": "t:sections.testimonials.business" },
+      { "type": "paragraph", "content": "t:sections.testimonials.permission" } ] }
+  ],
+  "presets": [{ "name": "t:sections.testimonials.name" }]
+}
+{% endschema %}

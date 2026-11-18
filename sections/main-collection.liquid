@@ -1,0 +1,143 @@
+{%- comment -%}
+  Collection (brief §8): H1 + intro ≤ 60 words above the grid (sotocal.intro), Search & Discovery filters
+  (Formato, Peso, Lote, Tipo) and sort, 24 products per page, longer SEO text (collection.description) below on ink.
+  Filters work as a plain GET form; collection.js upgrades them to the Section Rendering API.
+{%- endcomment -%}
+{%- liquid
+  assign intro = collection.metafields.sotocal.intro.value
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+-%}
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="section collection" data-theme="cream" data-collection-section data-section-id="{{ section.id }}" aria-labelledby="CollectionTitle">
+  <div class="container">
+    {% render 'breadcrumbs' %}
+    <header class="collection__head">
+      <h1 class="h-display" id="CollectionTitle">{{ collection.title }}</h1>
+      {%- if intro != blank -%}<p class="lead collection__intro">{{ intro }}</p>{%- endif -%}
+    </header>
+
+    <form class="filters" action="{{ collection.url }}" method="get" data-filters aria-label="{{ 'collections.filters_label' | t }}">
+      <div class="filters__row">
+        {%- for filter in collection.filters -%}
+          <details class="filters__group" data-filter-group>
+            <summary class="filters__summary">
+              {{ filter.label }}
+              {%- if filter.active_values.size > 0 -%} <span class="filters__count tabular">({{ filter.active_values.size }})</span>{%- endif -%}
+              {% render 'icon', name: 'chevron', class: 'icon--sm' %}
+            </summary>
+            <fieldset class="filters__panel">
+              <legend class="visually-hidden">{{ filter.label }}</legend>
+              {%- case filter.type -%}
+                {%- when 'price_range' -%}
+                  <div class="filters__price">
+                    <label class="field"><span>{{ 'collections.price_from' | t }}</span>
+                      <input class="input" type="number" inputmode="decimal" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '.' }}" min="0"></label>
+                    <label class="field"><span>{{ 'collections.price_to' | t }}</span>
+                      <input class="input" type="number" inputmode="decimal" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '.' }}" min="0"></label>
+                  </div>
+                {%- else -%}
+                  {%- for value in filter.values -%}
+                    <label class="checkbox">
+                      <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                      <span>{{ value.label }} <span class="muted tabular">({{ value.count }})</span></span>
+                    </label>
+                  {%- endfor -%}
+              {%- endcase -%}
+            </fieldset>
+          </details>
+        {%- endfor -%}
+        <div class="filters__sort">
+          <label class="label" for="SortBy">{{ 'collections.sort' | t }}</label>
+          <select class="select" id="SortBy" name="sort_by">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+        <noscript><button class="btn btn--solid btn--sm" type="submit">{{ 'collections.apply' | t }}</button></noscript>
+      </div>
+      <p class="filters__meta small muted" role="status" aria-live="polite" data-results-count>{{ 'collections.count' | t: count: collection.products_count }}</p>
+    </form>
+
+    <div data-collection-results>
+      {%- if collection.products.size > 0 -%}
+        <ul class="tiles" role="list">
+          {%- for product in collection.products -%}
+            <li>{% render 'product-tile', product: product, loading: 'lazy', heading: 'h2' %}</li>
+          {%- endfor -%}
+        </ul>
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <div class="collection__empty stack">
+          <p class="h3">{{ 'collections.empty' | t }}</p>
+          <a class="text-link" href="{{ collection.url }}">{{ 'collections.clear' | t }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+{%- comment -%}
+  Buying guide, links to method hubs and FAQ (docs/seo/04-ws4-templates.md). First page only, so the FAQPage schema
+  and the guide are not repeated on page 2+. Each block appears only when its metafield is filled.
+{%- endcomment -%}
+{%- liquid
+  assign guide = collection.metafields.sotocal.buying_guide.value
+  assign methods = collection.metafields.sotocal.related_methods.value
+  assign faq_items = collection.metafields.sotocal.faq.value
+  assign show_extra = false
+  if current_page == 1
+    if guide != blank
+      assign show_extra = true
+    endif
+    if methods.size > 0
+      assign show_extra = true
+    endif
+  endif
+-%}
+{%- if show_extra -%}
+<section class="section section--tight collection-guide" data-theme="cream" aria-labelledby="CollectionGuide">
+  <div class="container grid">
+    <h2 class="h3 col-left" id="CollectionGuide">{{ 'collections.guide_heading' | t }}</h2>
+    <div class="col-right stack">
+      {%- if guide != blank -%}<p>{{ guide | newline_to_br }}</p>{%- endif -%}
+      {%- if methods.size > 0 -%}
+        <p>{{ 'collections.methods_intro' | t }}</p>
+        <ul class="collection-guide__methods" role="list">
+          {%- for method in methods -%}
+            <li>{%- if method.system.url != blank -%}<a class="text-link" href="{{ method.system.url }}">{{ method.name.value }}</a>{%- else -%}{{ method.name.value }}{%- endif -%}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- if current_page == 1 and faq_items.size > 0 -%}
+<section class="section section--tight collection-faq" data-theme="cream" aria-labelledby="CollectionFaq">
+  <div class="container grid">
+    <h2 class="h3 col-left" id="CollectionFaq">{{ 'collections.faq_heading' | t }}</h2>
+    <div class="col-right">{% render 'faq-list', items: faq_items %}</div>
+  </div>
+</section>
+{%- endif -%}
+
+{%- if collection.description != blank -%}
+<section class="section section--tight collection-seo" data-theme="ink" aria-labelledby="CollectionAbout">
+  <div class="container grid">
+    <h2 class="h3 col-left" id="CollectionAbout">{{ 'collections.about' | t: title: collection.title }}</h2>
+    <div class="rte col-right">{{ collection.description }}</div>
+  </div>
+</section>
+{%- endif -%}
+<script src="{{ 'collection.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.main_collection.name",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "t:sections.main_collection.per_page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

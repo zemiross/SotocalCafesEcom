@@ -1,0 +1,127 @@
+{%- comment -%}
+  Ink footer (brief §8, §14): legal name, NIF, address, phone with call-cost note, email, social, policies,
+  accessibility statement, Livro de Reclamações Eletrónico (mandatory), RAL entity, payment icons, co-funding badge.
+{%- endcomment -%}
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  if routes.root_url == '/'
+    assign prefix = ''
+  else
+    assign prefix = routes.root_url
+  endif
+-%}
+<footer class="site-footer section" data-theme="ink" aria-labelledby="FooterTitle">
+  <h2 id="FooterTitle" class="visually-hidden">{{ 'footer.title' | t }}</h2>
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        {% render 'logo', width: 150 %}
+        <p class="footer__tagline">{{ 'footer.tagline' | t }}</p>
+      </div>
+
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links limit: 3 -%}
+          <nav aria-label="{{ link.title | escape }}">
+            <p class="footer__heading">{{ link.title }}</p>
+            <ul class="footer__list" role="list">
+              {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+            </ul>
+          </nav>
+        {%- endfor -%}
+      {%- else -%}
+        <nav aria-label="{{ 'nav.shop' | t }}">
+          <p class="footer__heading">{{ 'nav.shop' | t }}</p>
+          <ul class="footer__list" role="list">
+            <li><a href="{{ prefix }}/collections/cafe">{{ 'nav.coffee' | t }}</a></li>
+            <li><a href="{{ prefix }}/collections/especiarias">{{ 'nav.spices' | t }}</a></li>
+            <li><a href="{{ prefix }}/collections/sucedaneos-do-cafe">{{ 'nav.substitutes' | t }}</a></li>
+            <li><a href="{{ prefix }}/collections/complementares">{{ 'nav.accompaniments' | t }}</a></li>
+            <li><a href="{{ prefix }}/collections/conservas">{{ 'nav.conservas' | t }}</a></li>
+            <li><a href="{{ prefix }}/collections/presentes">{{ 'nav.gifts' | t }}</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="{{ 'nav.about' | t }}">
+          {%- capture n_cafes_raw -%}{% render 'cafe-count' %}{%- endcapture -%}
+          {%- capture n_pickup_raw -%}{% render 'cafe-count', pickup: true %}{%- endcapture -%}
+          {%- assign n_cafes = n_cafes_raw | plus: 0 -%}
+          {%- assign n_pickup = n_pickup_raw | plus: 0 -%}
+          <p class="footer__heading">{{ 'nav.about' | t }}</p>
+          <ul class="footer__list" role="list">
+            <li><a href="{{ prefix }}/pages/historia">{{ 'nav.history' | t }}</a></li>
+            <li><a href="{{ prefix }}/pages/a-torra">{{ 'nav.roast' | t }}</a></li>
+            {%- if n_cafes > 0 -%}<li><a href="{{ prefix }}/pages/onde-beber-sotocal">{{ 'nav.where' | t }}</a></li>{%- endif -%}
+            <li><a href="{{ prefix }}/pages/profissional">{{ 'nav.business' | t }}</a></li>
+            <li><a href="{{ prefix }}/pages/sobre-a-sotocal">{{ 'nav.facts' | t }}</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="{{ 'footer.help' | t }}">
+          <p class="footer__heading">{{ 'footer.help' | t }}</p>
+          <ul class="footer__list" role="list">
+            <li><a href="{{ prefix }}/pages/perguntas-frequentes">{{ 'nav.faq' | t }}</a></li>
+            {%- if n_pickup > 0 and settings.pickup_enabled -%}<li><a href="{{ prefix }}/pages/levantar-no-cafe">{{ 'nav.pickup' | t }}</a></li>{%- endif -%}
+            <li><a href="{{ prefix }}/pages/subscricao">{{ 'nav.subscription' | t }}</a></li>
+            <li><a href="{{ prefix }}/blogs/guia-do-cafe">{{ 'nav.guide' | t }}</a></li>
+            <li><a href="{{ prefix }}/pages/contactos">{{ 'nav.contact' | t }}</a></li>
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      <div>
+        <p class="footer__heading">{{ 'nav.contact' | t }}</p>
+        <address class="footer__address">
+          Rua Engenheiro Ferreira Dias, n.º 398<br>
+          4100-246 Porto, Portugal<br>
+          <a href="tel:+351226167020">+351 226 167 020</a><br>
+          <span class="small">{{ 'contact.call_cost' | t }}</span><br>
+          <a href="mailto:sotocalcafes@sotocalcafes.pt">sotocalcafes@sotocalcafes.pt</a>
+        </address>
+        {% render 'social-links' %}
+      </div>
+    </div>
+
+    <div class="footer__legal">
+      <div class="stack" style="--stack: 8px">
+        <p>Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda. {{ 'footer.nif' | t }} 500 275 068</p>
+        <div class="footer__legal-links">
+          {%- for policy in shop.policies -%}
+            <a href="{{ policy.url }}">{{ policy.title }}</a>
+          {%- endfor -%}
+          <a href="{{ prefix }}/pages/declaracao-de-acessibilidade">{{ 'footer.accessibility' | t }}</a>
+          <button type="button" data-consent-open>{{ 'consent.reopen' | t }}</button>
+        </div>
+        <p>
+          {{ 'footer.ral_intro' | t }}
+          {%- if settings.ral_entity_name != blank -%}
+            {%- if settings.ral_entity_url != blank %} <a class="link" href="{{ settings.ral_entity_url }}" rel="noopener">{{ settings.ral_entity_name }}</a>{% else %} {{ settings.ral_entity_name }}{% endif -%}
+          {%- else %} {% render 'tbc', note: 'entidade RAL' %}{%- endif -%}.
+          <a class="link" href="https://www.consumidor.gov.pt/" rel="noopener">{{ 'footer.ral_portal' | t }}</a>
+        </p>
+      </div>
+      <div class="footer__badges">
+        <a class="livro-reclamacoes" href="https://www.livroreclamacoes.pt/" rel="noopener" target="_blank">
+          <img src="{{ 'livro-reclamacoes.png' | asset_url }}" alt="{{ 'footer.complaints_book' | t }}" width="120" height="50" loading="lazy">
+          <span class="visually-hidden">{{ 'general.new_window' | t }}</span>
+        </a>
+        {%- comment -%} projeto.pdf is an EU co-funding notice (Norte 2020 / Portugal 2020 / FEDER), so the logos stay visible. {%- endcomment -%}
+        {%- if settings.cofunding_link != blank -%}<a class="footer__cofunding" href="{{ settings.cofunding_link }}" rel="noopener">{%- else -%}<span class="footer__cofunding">{%- endif -%}
+          {%- if settings.cofunding_image != blank -%}
+            {{ settings.cofunding_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: settings.cofunding_image.alt }}
+          {%- else -%}
+            <img src="{{ 'cofunding-projeto.png' | asset_url }}" alt="{{ 'footer.cofunding_alt' | t }}" width="900" height="214" loading="lazy">
+          {%- endif -%}
+        {%- if settings.cofunding_link != blank -%}</a>{%- else -%}</span>{%- endif -%}
+        {% render 'payment-icons' %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:sections.footer.name",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "t:sections.footer.menu", "default": "footer" }
+  ]
+}
+{% endschema %}

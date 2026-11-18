@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "per_page": 24
+      }
+    },
+    "compare": {
+      "type": "blend-compare",
+      "settings": {
+        "heading": "",
+        "collection": "cafe"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "compare"
+  ]
+}

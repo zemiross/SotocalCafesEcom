@@ -1,0 +1,39 @@
+﻿old_path,wayback_capture,wayback_mime,live_status_17nov2026,proposed_new_url,redirect_type,in_docs_redirects_csv,target_exists,notes
+/,20131107,text/html,200,/,,n/a,yes (home),"Homepage stays at /; no redirect needed. Host variants (www, http) are handled by Shopify domain settings."
+/cafe-e-a-saude.php,20140101,text/html,200,/pages/cafe-e-saude,301,yes,yes (store-setup),
+/canela.php,20140101,text/html,200,/products/canela,301,yes,yes (store-setup),
+/colorau.php,20140101,text/html,200,/products/colorau,301,yes,yes (store-setup),
+/cominhos.php,20140101,text/html,200,/products/cominhos,301,yes,yes (store-setup),
+/complementares-acucar.php,20140101,text/html,200,/products/acucar-sotocal,301,yes,yes (store-setup),
+/complementares-adocante.php,20140929,text/html,200,/products/adocante-sotocal,301,yes,yes (store-setup),
+/complementares-amendoins.php,20140929,text/html,200,/products/amendoins-jumbo-torrados,301,yes,yes (store-setup),
+/complementares-cha.php,20140929,text/html,200,/collections/complementares,301,yes,yes (store-setup),
+/complementares-descafeinado.php,20140929,text/html,200,/products/descafeinado-unidoses,301,yes,yes (store-setup),
+/conservas.php,20140101,text/html,200,/collections/conservas,301,yes,yes (store-setup),
+/contactos.php,20140101,text/html,200,/pages/contactos,301,yes,yes (store-setup),
+/cravinho.php,20140101,text/html,200,/products/cravinho,301,yes,yes (store-setup),
+/curiosidades.php,20140101,text/html,200,/blogs/guia-do-cafe/curiosidades-do-cafe,301,yes,article not yet created (see docs/CONTENT.md),
+/empresa.php,20140101,text/html,200,/pages/historia,301,yes,yes (store-setup),
+/expresso.php,20140101,text/html,200,/blogs/guia-do-cafe/como-tirar-o-melhor-expresso,301,yes,article not yet created (see docs/CONTENT.md),
+/index.php,20140101,text/html,200,/,301,yes,yes (home),Duplicate of the homepage.
+/melhor-cafe.php,20140101,text/html,200,/pages/a-torra,301,yes,yes (store-setup),
+/missao.php,20140101,text/html,200,/pages/historia,301,yes,yes (store-setup),
+/pimenta.php,20140101,text/html,200,/products/pimenta,301,yes,yes (store-setup),
+/piri-piri.php,20140101,text/html,200,/products/piri-piri,301,yes,yes (store-setup),
+/produtos-descafeinado.php,20140101,text/html,200,/products/cafe-descafeinado,301,yes,yes (store-setup),
+/produtos-reggio.php,20140101,text/html,200,/products/lote-reggio,301,yes,yes (store-setup),
+/produtos-super-milano.php,20131230,text/html,200,/products/lote-super-milano,301,yes,yes (store-setup),
+/produtos-super-torrado.php,20140101,text/html,200,/products/lote-super,301,yes,yes (store-setup),
+/profissional.php,20140101,text/html,200,/pages/profissional,301,yes,yes (store-setup),Prompt IA calls this /pages/para-empresas; repo handle is /pages/profissional (decision D12).
+/projeto.pdf,20171212,application/pdf,200,/pages/sobre-a-sotocal,301,yes,yes (store-setup),Co-funding notice PDF (Norte 2020). Re-upload to Shopify Files and point the redirect at the CDN URL once the PDF exists.
+/sucedaneos-bom-dia.php,20140101,text/html,200,/products/mistura-bom-dia,301,yes,yes (store-setup),
+/sucedaneos-cevada-oriente.php,20140929,text/html,200,/products/cevada-oriente,301,yes,yes (store-setup),
+/sucedaneos-cevada.php,20140929,text/html,200,/products/cevada-sotocal,301,yes,yes (store-setup),
+/sucedaneos-sako.php,20140929,text/html,200,/products/mistura-sako,301,yes,yes (store-setup),
+/tipos-de-cafe.php,20140101,text/html,200,/pages/arabica-e-robusta,301,yes,yes (store-setup),
+/valores.php,20140101,text/html,200,/pages/historia,301,yes,yes (store-setup),
+/vantagens.php,20140101,text/html,200,/pages/profissional,301,yes,yes (store-setup),Prompt IA calls this /pages/para-empresas; repo handle is /pages/profissional (decision D12).
+/q/chavena,,,"(new, not legacy)",/collections/cafe?utm_source=chavena&utm_medium=qr&utm_campaign=horeca,301,yes,yes (store-setup),QR path for printed cups. Query string in the redirect target is unverified on Shopify (docs/SEO.md §9); fallback is a noindex /pages/q-chavena.
+/q/acucar,,,"(new, not legacy)",/collections/cafe?utm_source=acucar&utm_medium=qr&utm_campaign=horeca,301,yes,yes (store-setup),QR path for sugar sachets. Same caveat as /q/chavena.
+/sitemap.xml,2023-06-07,text/xml,200,(none),,n/a,n/a,"Legacy file lists http://www. URLs. Shopify serves its own /sitemap.xml, a live route, so no redirect is needed or possible."
+/robots.txt,,,200,(none),,n/a,n/a,Shopify serves /robots.txt from templates/robots.txt.liquid. Live route.

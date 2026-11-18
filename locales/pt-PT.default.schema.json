@@ -1,0 +1,369 @@
+{
+  "blocks": {
+    "button": {
+      "name": "Botão",
+      "outline": "Contorno",
+      "primary": "Principal (cor de destaque)",
+      "style": "Estilo"
+    },
+    "heading": {
+      "level": "Nível",
+      "name": "Título"
+    },
+    "image": {
+      "caption": "Legenda",
+      "name": "Imagem"
+    },
+    "quote": {
+      "attribution": "Autoria",
+      "name": "Citação"
+    },
+    "text": {
+      "name": "Texto"
+    }
+  },
+  "sections": {
+    "announcement": {
+      "enabled": "Mostrar aviso",
+      "link": "Ligação",
+      "name": "Barra de aviso",
+      "text": "Texto",
+      "text_info": "Em branco: «Envio grátis a partir de …» com o valor definido nas definições do tema."
+    },
+    "audiences": {
+      "business": "Para o seu negócio",
+      "home": "Para casa",
+      "name": "Para casa | negócio",
+      "points": "Pontos (um por linha)",
+      "points_info": "Em branco: usa os pontos por defeito, em PT e EN.",
+      "years_info": "Use %years% para os anos desde 1960. Em branco: texto por defeito."
+    },
+    "benefits": {
+      "name": "Vantagens (Profissional)"
+    },
+    "blends": {
+      "blend": "Lote",
+      "character": "Frase de carácter",
+      "chips": "Descritores",
+      "chips_info": "Separados por vírgulas, no máximo três.",
+      "fallback": "Lote de referência (texto e imagem por defeito)",
+      "fallback_handle": "Handle do produto (sem produto escolhido)",
+      "ideal_for": "Ideal para",
+      "image": "Packshot",
+      "name": "Quatro lotes",
+      "product": "Produto",
+      "step_vh": "Scroll por lote (desktop)",
+      "title": "Nome"
+    },
+    "cart_drawer": {
+      "name": "Carrinho lateral"
+    },
+    "compare": {
+      "collection": "Coleção a comparar",
+      "name": "Comparar lotes"
+    },
+    "contact": {
+      "hours": "Horário de atendimento",
+      "name": "Contactos"
+    },
+    "content": {
+      "name": "Conteúdo"
+    },
+    "cup": {
+      "name": "A chávena",
+      "pin_vh": "Duração da sequência (scroll)"
+    },
+    "facts": {
+      "name": "Ficha factual",
+      "source": "Fonte",
+      "source_label": "Nome da fonte",
+      "source_url": "Endereço",
+      "updated": "Atualizado em (dd/mm/aaaa)",
+      "updated_info": "Em branco: data da última edição da página."
+    },
+    "faq": {
+      "all": "Todas",
+      "category": "Categoria",
+      "name": "Perguntas frequentes"
+    },
+    "featured_product": {
+      "name": "Produto em destaque"
+    },
+    "footer": {
+      "group": "Rodapé",
+      "menu": "Menu do rodapé",
+      "name": "Rodapé"
+    },
+    "giftbox": {
+      "name": "Conteúdo do cabaz"
+    },
+    "header": {
+      "group": "Cabeçalho",
+      "menu": "Menu principal",
+      "name": "Cabeçalho",
+      "overlay": "Transparente sobre o topo da página inicial"
+    },
+    "hero": {
+      "info": "O H1 é texto real. Sem imagem, o tema mostra uma cafeteira italiana que se inclina e verte o café. Uma imagem carregada deve ter o bico exatamente ao centro.",
+      "machine": "Cafeteira",
+      "machine_image": "Imagem recortada (substitui a cafeteira)",
+      "machine_image_info": "WebP/AVIF com transparência, 2400 × 3000, bico ao centro e a ~58% da altura (asset A1).",
+      "machine_shadow": "Camada de sombra",
+      "name": "Topo da página inicial",
+      "note": "Nota de envio",
+      "show_note": "Mostrar nota de envio",
+      "spout_y": "Altura do bico na imagem carregada"
+    },
+    "image_band": {
+      "cafeeiro": "Cerejas de café",
+      "chavena": "Expresso na chávena Sotocal",
+      "fallback": "Fotografia por defeito",
+      "name": "Fotografia",
+      "torrefacao": "Café verde e moinho antigo"
+    },
+    "lead_form": {
+      "name": "Formulário profissional"
+    },
+    "list_collections": {
+      "name": "Todas as coleções"
+    },
+    "locator": {
+      "name": "Onde beber Sotocal"
+    },
+    "main_404": {
+      "name": "Página não encontrada"
+    },
+    "main_article": {
+      "article": "Artigo",
+      "name": "Artigo",
+      "recipe": "Receita"
+    },
+    "main_blog": {
+      "name": "Blog"
+    },
+    "main_cart": {
+      "name": "Carrinho"
+    },
+    "main_collection": {
+      "name": "Coleção",
+      "per_page": "Produtos por página"
+    },
+    "main_hub": {
+      "name": "Método ou máquina"
+    },
+    "tool_calculator": {"name": "Calculadora de custo", "collection": "Coleção dos lotes", "collection_info": "Os lotes (sem preço provisório) aparecem como pré-definições.", "default_dose": "Dose predefinida (g)"},
+    "tool_quiz": {"name": "Questionário", "collection": "Coleção dos lotes", "collection_info": "Só lotes desta coleção são sugeridos.", "tokens_info": "Cada resposta compara-se com os chips de «Ideal para» do produto. Escreva aqui exatamente o texto usado nesses chips.", "token_automatic": "Chip: máquina automática", "token_moka": "Chip: cafeteira italiana", "token_espresso": "Chip: expresso manual", "token_milk": "Chip: com leite", "target_soft": "Intensidade «Suave» (1–5)", "target_mid": "Intensidade «Equilibrado» (1–5)", "target_strong": "Intensidade «Intenso» (1–5)"},
+    "gift_season": {
+      "name": "Época de Natal"
+    },
+    "corporate_gifts": {
+      "name": "Presentes para empresas"
+    },
+    "horeca_equipment": {
+      "name": "Equipamento (máquinas)"
+    },
+    "horeca_supply": {
+      "name": "O que fornecemos"
+    },
+    "main_service_area": {
+      "name": "Fornecedor por zona"
+    },
+    "main_customer": {
+      "name": "Conta de cliente",
+      "view": "Vista"
+    },
+    "main_page": {
+      "name": "Conteúdo da página",
+      "show_title": "Mostrar título",
+      "tight": "Espaçamento reduzido"
+    },
+    "main_password": {
+      "name": "Página de palavra-passe"
+    },
+    "main_product": {
+      "fic_open": "Abrir a informação alimentar por defeito",
+      "layout": "Tipo",
+      "layout_bundle": "Cabaz ou pack",
+      "layout_coffee": "Café",
+      "layout_simple": "Complementar ou conserva",
+      "layout_spice": "Especiaria",
+      "layout_substitute": "Sucedâneo",
+      "name": "Produto",
+      "show_intensity": "Mostrar intensidade",
+      "show_subscription": "Mostrar subscrição"
+    },
+    "main_search": {
+      "name": "Pesquisa"
+    },
+    "newsletter": {
+      "name": "Newsletter"
+    },
+    "page_hero": {
+      "heading_info": "Em branco: título da página (ou o do modelo escolhido).",
+      "name": "Topo de página",
+      "preset": "Texto por defeito",
+      "preset_none": "Nenhum"
+    },
+    "pairings": {
+      "collection": "Coleção alternativa",
+      "collection_info": "Usada quando o produto não tem «Combina com» definido.",
+      "name": "Combina com"
+    },
+    "people": {
+      "name": "Pessoas"
+    },
+    "product_faq": {
+      "limit": "Número de perguntas",
+      "name": "Perguntas do produto"
+    },
+    "qr": {
+      "name": "Entrada por QR",
+      "source": "Origem do QR",
+      "offer_text": "Oferta da primeira encomenda",
+      "offer_text_info": "Texto mostrado na página. Em branco = sem oferta.",
+      "discount_code": "Código de desconto",
+      "discount_code_info": "Aplicado automaticamente pela ligação /discount/. Crie o código em Descontos; em branco = sem desconto."
+    },
+    "roast": {
+      "bean": "Grão",
+      "depth": "Profundidade",
+      "far": "Longe (imagem desfocada)",
+      "image_green": "Grão verde",
+      "image_pair_info": "Mesma pose e escala que o grão verde (asset A2).",
+      "image_roasted": "Grão torrado",
+      "mid": "Meio",
+      "name": "A torra",
+      "near": "Perto",
+      "quote": "Citação",
+      "quote_attribution": "Autoria da citação",
+      "rotation": "Rotação",
+      "size": "Tamanho",
+      "stage_1": "Etapa 1",
+      "stage_2": "Etapa 2",
+      "stage_3": "Etapa 3",
+      "stage_4": "Etapa 4",
+      "x": "Posição horizontal",
+      "y": "Posição vertical"
+    },
+    "sequence": {
+      "base_url": "Endereço base das imagens (Shopify Files)",
+      "ext": "Formato",
+      "frame_count": "Número de imagens",
+      "header": "Sequência de imagens (opcional)",
+      "info": "Substitui a imagem fixa por uma sequência controlada pelo scroll. Nomes: base + número com zeros + extensão (ex.: hero_0001.webp).",
+      "pad": "Dígitos do número"
+    },
+    "steps": {
+      "name": "Passos numerados",
+      "preset": "Processo",
+      "step": "Passo"
+    },
+    "testimonials": {
+      "business": "Estabelecimento",
+      "item": "Testemunho",
+      "name": "Testemunhos",
+      "permission": "Só testemunhos reais, com autorização escrita da pessoa.",
+      "person": "Nome",
+      "quote": "Testemunho"
+    },
+    "timeline": {
+      "name": "Cronologia"
+    },
+    "values": {
+      "name": "Valores e distinções",
+      "values": "Valores",
+      "values_info": "Separados por vírgulas. Em branco: valores por defeito."
+    }
+  },
+  "settings": {
+    "blank_uses_default": "Em branco: usa o texto por defeito, em PT e EN.",
+    "blank_uses_product": "Em branco: usa os dados do produto.",
+    "cream": "Creme",
+    "cta_label": "Texto do botão",
+    "cta_link": "Ligação do botão",
+    "heading": "Título",
+    "ink": "Tinta (escuro)",
+    "link_label": "Texto da ligação",
+    "link_url": "Ligação",
+    "subheading": "Subtítulo",
+    "text": "Texto",
+    "theme": "Cor de fundo"
+  },
+  "settings_schema": {
+    "brand": {
+      "favicon": "Favicon",
+      "locked_info": "As cores e os tipos de letra da marca estão fixos no código (não são editáveis aqui).",
+      "logo": "Logótipo",
+      "logo_info": "Usado como máscara: a cor muda com o fundo. Prefira um SVG ou PNG com transparência.",
+      "logo_width": "Largura do logótipo",
+      "name": "Marca",
+      "share_image": "Imagem para redes sociais",
+      "share_image_info": "1200 × 630. Em branco: imagens Open Graph do tema por tipo de página."
+    },
+    "commerce": {
+      "free_shipping_threshold": "Envio grátis a partir de (€)",
+      "free_shipping_threshold_info": "Usado na barra de aviso e na barra de progresso do carrinho. [[TBC]] 40 €.",
+      "name": "Comércio",
+      "pickup_enabled": "Levantamento em cafés parceiros",
+      "schema_return_days": "Dias para devolução (dados estruturados)",
+      "shipping_handling_days": "Dias de preparação (dados estruturados)",
+      "shipping_rate_pt": "Portes para Portugal continental (€)",
+      "shipping_rate_pt_info": "Só para os dados estruturados do produto. Em branco: não é publicado.",
+      "shipping_transit_days": "Dias de transporte (dados estruturados)",
+      "upsell_product": "Sugestão no carrinho",
+      "upsell_product_info": "Por exemplo, a Despensa do Norte ou o pack 2 × 1 kg."
+    },
+    "legal": {
+      "cofunding_image": "Logótipos de cofinanciamento",
+      "cofunding_info": "Em branco: usa a faixa do projeto Norte 2020 / Portugal 2020 / FEDER.",
+      "cofunding_link": "Ligação da ficha do projeto",
+      "cookie_banner_enabled": "Mostrar o aviso de cookies do tema",
+      "cookie_banner_info": "Desative o aviso de cookies do Shopify para não aparecerem dois.",
+      "name": "Legal",
+      "ral_entity_name": "Entidade de resolução alternativa de litígios",
+      "ral_entity_url": "Site da entidade RAL",
+      "ral_info": "Obrigatório em Portugal. [[TBC]]"
+    },
+    "prelaunch": {
+      "name": "Pré-lançamento",
+      "show_tbc_markers": "Mostrar marcadores [[TBC]]",
+      "show_tbc_markers_info": "Mostra os conteúdos em falta para revisão. Desligue antes de abrir a loja."
+    },
+    "gifts": {
+      "cutoff_info": "Data e hora-limite para chegar antes do Natal, por exemplo «18 de dezembro». Atualize todos os anos. Em branco = a data não é mostrada.",
+      "cutoff_islands": "Última encomenda para os Açores e a Madeira",
+      "cutoff_mainland": "Última encomenda para Portugal continental",
+      "force": "Época de Natal",
+      "force_auto": "Automática (1 nov a 24 dez)",
+      "force_off": "Sempre desligada",
+      "force_on": "Sempre ativa",
+      "info": "A época de Natal vai de 1 de novembro a 24 de dezembro, todos os anos, sem mudar nenhum endereço.",
+      "name": "Presentes de Natal"
+    },
+    "leads": {
+      "endpoint": "Endereço do serviço de envio de pedidos",
+      "endpoint_info": "URL do serviço descrito em store-setup/lead-endpoint/README.md. Só preencher depois de o serviço estar publicado e testado.",
+      "info": "Os pedidos do formulário profissional chegam por email através de um serviço de envio (Resend), com cópia ao responsável. Em branco = o formulário normal da Shopify, como até agora.",
+      "name": "Pedidos de contacto"
+    },
+    "local": {
+      "hq_hours": "Horário da sede",
+      "hq_hours_info": "Um intervalo por linha, no formato do schema.org, por exemplo: Mo-Fr 09:00-18:00. Só é usado se «A sede recebe público» estiver marcado.",
+      "hq_open": "A sede recebe público",
+      "hq_open_info": "Marque só se o público pode visitar a sede ou levantar encomendas lá (decisão D4). Sem isto, nenhum horário é publicado.",
+      "info": "Só afeta o Google e os dados estruturados. Enquanto a sede não receber público, a Sotocal é uma empresa com área de serviço: sem horário e sem LocalBusiness.",
+      "name": "Presença local"
+    },
+    "seo": {
+      "entity_base_url": "Domínio canónico da marca",
+      "entity_base_url_info": "Base dos @id dos dados estruturados.",
+      "google_site_verification": "Verificação do Google Search Console",
+      "name": "SEO"
+    },
+    "social": {
+      "maps_info": "[[TBC]] endereço canónico do Google Maps.",
+      "name": "Redes sociais",
+      "wikidata_info": "Endereço do item Wikidata, quando existir (sameAs)."
+    }
+  }
+}

@@ -1,0 +1,597 @@
+{
+  "$comment": "Product manifest. store-setup/products-csv.mjs turns it into products.csv (Shopify product CSV import); scripts/store-setup.mjs --products then sets template suffix, sotocal.* metafields, unit price per kg and EN translations. Descriptions use only verified facts (brief §2). All prices are placeholders (1,00 €), every product is imported as draft and tagged preco-provisorio. The 2 × 1 kg pack is created in the Shopify Bundles app, not by CSV (see docs/ADMIN-SETUP.md). Product texts and compositions updated from the client leaflet (store-setup/apply-leaflet.py).",
+  "placeholderPrice": "1.00",
+  "products": [
+    {
+      "handle": "lote-super-milano",
+      "title": "Lote Super Milano",
+      "type": "Café",
+      "templateSuffix": "",
+      "tags": [
+        "cafe",
+        "formato-grao",
+        "formato-moido",
+        "preco-provisorio"
+      ],
+      "options": {
+        "Formato": [
+          "Grão",
+          "Moído"
+        ],
+        "Peso": [
+          "250 g",
+          "1 kg"
+        ]
+      },
+      "unitPriceFromOption": "Peso",
+      "body_html": "<p><strong>100% café.</strong> O Lote Super Milano junta finos e suaves cafés arábica de montanha com intensos robustas africanos. Desta seleção cuidadosa e de uma torra profissional resulta um café de sabor intenso e persistente, aroma agradavelmente suave e um expresso de creme aveludado e persistente.</p>",
+      "seo_description": "Lote Super Milano da Sotocal: arábicas de montanha e robustas africanos. Intenso e persistente, com creme aveludado. Torrado no Porto desde 1960.",
+      "metafields": {
+        "subtitle": "Café em grão e moído",
+        "character": "Intenso e persistente, com creme aveludado.",
+        "tasting_notes": [
+          "Intenso",
+          "Aroma suave",
+          "Creme aveludado"
+        ],
+        "origins": "Finos arábicas de montanha e intensos robustas africanos.",
+        "blend": "Super Milano",
+        "fic_origin": "Torrado em Portugal",
+        "fic_ingredients": "Café torrado (100% café).",
+        "arabica_robusta": "Arábicas de montanha e robustas africanos",
+        "roast_date_policy": "impressa-na-embalagem"
+      },
+      "en": {
+        "title": "Super Milano blend",
+        "handle": "super-milano-blend",
+        "body_html": "<p><strong>100% coffee.</strong> Super Milano brings together fine, smooth mountain Arabicas and intense African Robustas. Careful selection and a professional roast give an intense, lingering taste, a pleasantly soft aroma and an espresso with a velvety, lasting crema.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "lote-super",
+      "title": "Lote Super",
+      "type": "Café",
+      "templateSuffix": "",
+      "tags": [
+        "cafe",
+        "formato-grao",
+        "formato-moido",
+        "preco-provisorio"
+      ],
+      "options": {
+        "Formato": [
+          "Grão",
+          "Moído"
+        ],
+        "Peso": [
+          "250 g",
+          "1 kg"
+        ]
+      },
+      "unitPriceFromOption": "Peso",
+      "body_html": "<p><strong>100% café.</strong> Lote preparado com suaves cafés arábica da América Central e do Brasil e com os melhores cafés robusta da África Ocidental. Desta seleção cuidadosa e de uma torra profissional resulta um café de sabor forte, aroma revigorante e um expresso encorpado, com um creme que persiste.</p>",
+      "seo_description": "Lote Super da Sotocal: arábicas da América Central e do Brasil com robustas da África Ocidental. Forte e encorpado, com um creme que persiste.",
+      "metafields": {
+        "subtitle": "Café em grão e moído",
+        "character": "Forte e encorpado, com creme que persiste.",
+        "tasting_notes": [
+          "Forte",
+          "Revigorante",
+          "Encorpado"
+        ],
+        "origins": "Arábicas suaves da América Central e do Brasil e robustas da África Ocidental.",
+        "blend": "Super",
+        "fic_origin": "Torrado em Portugal",
+        "fic_ingredients": "Café torrado (100% café).",
+        "arabica_robusta": "Arábicas da América Central e do Brasil, robustas da África Ocidental",
+        "roast_date_policy": "impressa-na-embalagem"
+      },
+      "en": {
+        "title": "Super blend",
+        "handle": "super-blend",
+        "body_html": "<p><strong>100% coffee.</strong> A blend of smooth Arabicas from Central America and Brazil with the best West African Robustas. Careful selection and a professional roast give a strong flavour, an invigorating aroma and a full-bodied espresso with a lasting crema.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "lote-reggio",
+      "title": "Lote Reggio",
+      "type": "Café",
+      "templateSuffix": "",
+      "tags": [
+        "cafe",
+        "formato-grao",
+        "formato-moido",
+        "preco-provisorio"
+      ],
+      "options": {
+        "Formato": [
+          "Grão",
+          "Moído"
+        ],
+        "Peso": [
+          "250 g",
+          "1 kg"
+        ]
+      },
+      "unitPriceFromOption": "Peso",
+      "body_html": "<p><strong>100% café.</strong> Os mais aromáticos cafés de montanha, combinados com os cafés intensos e fortes das plantações africanas, numa torra intensa de tipo italiano. O resultado é um café enérgico e vigoroso, de sabor forte e aroma ativo: um expresso revigorante, de creme firme.</p>",
+      "seo_description": "Lote Reggio da Sotocal: cafés de montanha e cafés fortes africanos, em torra intensa de estilo italiano. Vigoroso, de aroma vivo e creme firme.",
+      "metafields": {
+        "subtitle": "Café em grão e moído",
+        "character": "Torra intensa de estilo italiano. Vigoroso, de creme firme.",
+        "tasting_notes": [
+          "Vigoroso",
+          "Aroma ativo",
+          "Creme firme"
+        ],
+        "roast": "Torra intensa de tipo italiano",
+        "origins": "Cafés aromáticos de montanha e cafés fortes africanos.",
+        "blend": "Reggio",
+        "fic_origin": "Torrado em Portugal",
+        "fic_ingredients": "Café torrado (100% café).",
+        "arabica_robusta": "Cafés de montanha e cafés africanos",
+        "roast_date_policy": "impressa-na-embalagem"
+      },
+      "en": {
+        "title": "Reggio blend",
+        "handle": "reggio-blend",
+        "body_html": "<p><strong>100% coffee.</strong> The most aromatic mountain coffees, combined with intense, strong coffees from African plantations, in an intense Italian-style roast. The result is an energetic, vigorous coffee with a strong flavour and a lively aroma: an invigorating espresso with a firm crema.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cafe-descafeinado",
+      "title": "Café Descafeinado",
+      "type": "Café",
+      "templateSuffix": "",
+      "tags": [
+        "cafe",
+        "formato-grao",
+        "formato-moido",
+        "descafeinado",
+        "preco-provisorio"
+      ],
+      "options": {
+        "Formato": [
+          "Grão",
+          "Moído"
+        ],
+        "Peso": [
+          "250 g",
+          "1 kg"
+        ]
+      },
+      "unitPriceFromOption": "Peso",
+      "body_html": "<p>Como todos os lotes Sotocal, o Descafeinado nasce de uma seleção criteriosa das melhores origens e de uma torra feita por profissionais experientes, mas sem cafeína. Foi pensado para quem quer todo o sabor e o aroma de um café Sotocal, sem cafeína.</p>",
+      "seo_description": "Café descafeinado Sotocal: a mesma seleção de cafés e o mesmo cuidado na torra dos nossos lotes, mas sem cafeína. Torrado no Porto desde 1960.",
+      "metafields": {
+        "subtitle": "Café em grão e moído",
+        "character": "Todo o sabor Sotocal, sem cafeína.",
+        "tasting_notes": [
+          "Sem cafeína"
+        ],
+        "blend": "Descafeinado",
+        "fic_origin": "Torrado em Portugal",
+        "fic_ingredients": "Café descafeinado torrado.",
+        "roast_date_policy": "impressa-na-embalagem"
+      },
+      "en": {
+        "title": "Decaffeinated coffee",
+        "handle": "decaffeinated-coffee",
+        "body_html": "<p>Like every Sotocal blend, the Decaf starts with a careful selection of the best origins and a roast by experienced professionals, only without the caffeine. It is made for anyone who wants all the flavour and aroma of a Sotocal coffee, without caffeine.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "acucar-sotocal",
+      "title": "Açúcar Sotocal em carteiras",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Açúcar Sotocal em carteiras. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Sotocal sugar packets",
+        "handle": "sotocal-sugar-sachets",
+        "body_html": "<p>Sotocal sugar in packets. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "adocante-sotocal",
+      "title": "Adoçante Sotocal em saquetas",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Adoçante Sotocal em saquetas. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Sotocal sweetener sachets",
+        "handle": "sotocal-sweetener-sachets",
+        "body_html": "<p>Sotocal sweetener in sachets. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "descafeinado-unidoses",
+      "title": "Descafeinado em unidoses",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "descafeinado",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Café descafeinado Sotocal em unidoses. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Decaf single-serve doses",
+        "handle": "decaf-single-serve-doses",
+        "body_html": "<p>Sotocal decaffeinated coffee in single doses. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cha-verde",
+      "title": "Chá verde",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "chas-e-infusoes",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Chá verde Sotocal. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Green tea",
+        "handle": "green-tea",
+        "body_html": "<p>Sotocal green tea. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cha-preto",
+      "title": "Chá preto",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "chas-e-infusoes",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Chá preto Sotocal. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Black tea",
+        "handle": "black-tea",
+        "body_html": "<p>Sotocal black tea. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "infusao-camomila",
+      "title": "Infusão de camomila",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "chas-e-infusoes",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Infusão de camomila Sotocal. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Chamomile infusion",
+        "handle": "chamomile-infusion",
+        "body_html": "<p>Sotocal chamomile infusion. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "infusao-cidreira",
+      "title": "Infusão de cidreira",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "chas-e-infusoes",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Infusão de cidreira Sotocal (<em>Melissa officinalis</em>). Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Lemon balm infusion",
+        "handle": "lemon-balm-infusion",
+        "body_html": "<p>Sotocal lemon balm infusion (<em>Melissa officinalis</em>). From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "amendoins-jumbo-torrados",
+      "title": "Amendoim Jumbo torrado",
+      "type": "Complementar",
+      "templateSuffix": "simple",
+      "tags": [
+        "complementares",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Amendoim Jumbo torrado Sotocal. Da gama de produtos complementares que a Sotocal criou para cafés, restaurantes e hotéis, e que também pode comprar para casa.</p>",
+      "en": {
+        "title": "Roasted Jumbo peanuts",
+        "handle": "roasted-jumbo-peanuts",
+        "body_html": "<p>Sotocal roasted Jumbo peanuts. From the range of accompaniments Sotocal created for cafés, restaurants and hotels, which you can also buy for home.</p>"
+      },
+      "metafields": {
+        "fic_allergens": [
+          "Amendoim"
+        ]
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "mistura-bom-dia", "seo_title": "Mistura Bom Dia: café com chicória",
+      "title": "Mistura Bom Dia",
+      "type": "Sucedâneo",
+      "templateSuffix": "substitute",
+      "tags": [
+        "sucedaneos",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Mistura de 25% de café e 75% de chicória: encorpada, com um aroma forte graças à generosa parte de café. Simples ou com leite.</p>",
+      "metafields": {
+        "subtitle": "Mistura de café e chicória",
+        "character": "25% café e 75% chicória.",
+        "fic_ingredients": "Chicória torrada (75%), café torrado (25%)."
+      },
+      "en": {
+        "title": "Bom Dia blend",
+        "handle": "bom-dia-coffee-and-chicory-blend",
+        "body_html": "<p>A blend of 25% coffee and 75% chicory: full-bodied, with a strong aroma from its generous share of coffee. Black or with milk.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "mistura-sako",
+      "title": "Mistura Sako",
+      "type": "Sucedâneo",
+      "templateSuffix": "substitute",
+      "tags": [
+        "sucedaneos",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Mistura de 20% de café e 80% de cereais torrados: cevada, chicória e grão preto.</p>",
+      "en": {
+        "title": "Sako blend",
+        "handle": "sako-blend",
+        "body_html": "<p>A blend of 20% coffee and 80% roasted cereals: barley, chicory and grão preto.</p>"
+      },
+      "metafields": {
+        "subtitle": "Mistura de café e cereais torrados",
+        "character": "20% café e 80% cereais torrados.",
+        "fic_ingredients": "Cereais torrados (80%): cevada, chicória e grão preto; café torrado (20%).",
+        "fic_allergens": [
+          "Cevada (cereal que contém glúten)"
+        ]
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cevada-sotocal", "seo_title": "Cevada Sotocal: cevada torrada moída",
+      "title": "Cevada Sotocal",
+      "type": "Sucedâneo",
+      "templateSuffix": "substitute",
+      "tags": [
+        "sucedaneos",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Cevada torrada e moída Sotocal, para preparar como o café. Simples ou com leite.</p>",
+      "metafields": {
+        "subtitle": "Cevada torrada moída",
+        "fic_ingredients": "Cevada torrada.",
+        "fic_allergens": [
+          "Cevada (cereal que contém glúten)"
+        ]
+      },
+      "en": {
+        "title": "Sotocal roasted barley",
+        "handle": "sotocal-roasted-barley",
+        "body_html": "<p>Sotocal roasted ground barley, made like coffee. Black or with milk.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cevada-oriente",
+      "title": "Cevada Oriente",
+      "type": "Sucedâneo",
+      "templateSuffix": "substitute",
+      "tags": [
+        "sucedaneos",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Cevada torrada Oriente, da Sotocal, para preparar como o café. Simples ou com leite.</p>",
+      "metafields": {
+        "subtitle": "Cevada torrada",
+        "fic_ingredients": "Cevada torrada.",
+        "fic_allergens": [
+          "Cevada (cereal que contém glúten)"
+        ]
+      },
+      "en": {
+        "title": "Oriente roasted barley",
+        "handle": "oriente-roasted-barley",
+        "body_html": "<p>Oriente roasted barley by Sotocal, made like coffee. Black or with milk.</p>"
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "colorau",
+      "title": "Colorau",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Também chamado pimentão doce ou paprica, o colorau obtém-se do fruto do pimenteiro doce, seco e moído. Realça a cor e intensifica o sabor dos cozinhados e entra na confeção de alguns enchidos.</p>",
+      "en": {
+        "title": "Colorau (Portuguese paprika)",
+        "handle": "colorau-paprika",
+        "body_html": "<p>Also called sweet pepper or paprika, colorau is made from the fruit of the sweet pepper plant, dried and ground. It brings out the colour and deepens the flavour of cooked dishes, and is used in some cured sausages.</p>"
+      },
+      "metafields": {
+        "fic_ingredients": "Pimentão doce moído."
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "pimenta",
+      "title": "Pimenta",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>A pimenta branca e a pimenta preta vêm da mesma planta, a <em>Piper nigrum</em>. De sabor levemente picante, tem um uso quase universal na cozinha: carne, peixe, aves e molhos.</p>",
+      "en": {
+        "title": "Pepper",
+        "handle": "pepper",
+        "body_html": "<p>White and black pepper come from the same plant, <em>Piper nigrum</em>. Slightly hot, it is used almost everywhere in the kitchen: meat, fish, poultry and sauces.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "piri-piri",
+      "title": "Piri-piri",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>O piri-piri, ou pimenta malagueta (<em>Capsicum frutescens</em>), usa-se seco para temperar e dar picante a muitos pratos, com destaque para o frango de churrasco e as caldeiradas de peixe e marisco.</p>",
+      "en": {
+        "title": "Piri-piri",
+        "handle": "piri-piri",
+        "body_html": "<p>Piri-piri, or bird’s eye chilli (<em>Capsicum frutescens</em>), is used dried to season and add heat to many dishes, above all barbecued chicken and fish and seafood stews.</p>"
+      },
+      "metafields": {
+        "fic_ingredients": "Malagueta seca."
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "canela",
+      "title": "Canela",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>De aroma forte e quente e sabor levemente adocicado, a canela usa-se sobretudo em doces, mas também para aromatizar o leite ou até o café.</p>",
+      "en": {
+        "title": "Cinnamon",
+        "handle": "cinnamon",
+        "body_html": "<p>With a strong, warm aroma and a slightly sweet taste, cinnamon is used mostly in desserts, but also to flavour milk or even coffee.</p>"
+      },
+      "metafields": {},
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cravinho",
+      "title": "Cravinho",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>De aroma intenso e sabor forte e ardente, o cravinho usa-se em pratos doces e salgados, em marinadas de carne e caça, para temperar legumes e até para aromatizar licores e sangria.</p>",
+      "en": {
+        "title": "Cloves",
+        "handle": "cloves",
+        "body_html": "<p>With an intense aroma and a strong, hot taste, cloves are used in sweet and savoury dishes, in marinades for meat and game, to season vegetables and even to flavour liqueurs and sangria.</p>"
+      },
+      "metafields": {
+        "fic_ingredients": "Cravinho."
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "cominhos",
+      "title": "Cominhos",
+      "type": "Especiaria",
+      "templateSuffix": "spice",
+      "tags": [
+        "especiarias",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Obtidos das sementes secas e moídas da planta <em>Cuminum cyminum</em>, os cominhos temperam pratos de carne, sobretudo de porco, e entram na confeção de enchidos.</p>",
+      "en": {
+        "title": "Cumin",
+        "handle": "cumin",
+        "body_html": "<p>Made from the dried, ground seeds of <em>Cuminum cyminum</em>, cumin seasons meat dishes, especially pork, and is used in cured sausages.</p>"
+      },
+      "metafields": {
+        "fic_ingredients": "Cominhos moídos."
+      },
+      "source": "Desdobrável Sotocal (cliente)"
+    },
+    {
+      "handle": "despensa-do-norte",
+      "title": "Despensa do Norte",
+      "type": "Presente",
+      "templateSuffix": "bundle",
+      "tags": [
+        "presente",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Cabaz de presente da Sotocal, com café e produtos da nossa despensa.</p>",
+      "metafields": {
+        "subtitle": "Cabaz de presente"
+      },
+      "en": {
+        "title": "Despensa do Norte gift box",
+        "handle": "despensa-do-norte-gift-box",
+        "body_html": "<p>A Sotocal gift box with coffee and other products from our pantry.</p>"
+      }
+    },
+    {
+      "handle": "pack-2-x-1-kg",
+      "title": "Pack 2 × 1 kg",
+      "type": "Café",
+      "templateSuffix": "bundle",
+      "csv": false,
+      "tags": [
+        "cafe",
+        "pack",
+        "formato-grao",
+        "formato-moido",
+        "preco-provisorio"
+      ],
+      "body_html": "<p>Dois sacos de 1 kg do mesmo lote Sotocal.</p>",
+      "metafields": {
+        "subtitle": "Dois sacos de 1 kg",
+        "roast_date_policy": "impressa-na-embalagem"
+      },
+      "en": {
+        "title": "2 × 1 kg pack",
+        "handle": "2-x-1-kg-coffee-pack",
+        "body_html": "<p>Two 1 kg bags of the same Sotocal blend.</p>"
+      },
+      "unitPriceTotal": "2 kg"
+    }
+  ],
+  "placeholderPricePerKgCoffee": 40
+}

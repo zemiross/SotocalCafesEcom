@@ -1,0 +1,42 @@
+{%- comment -%}
+  Values (transcribed from the legacy valores.png) and awards (PME Excelência Indústria 2001, PME Líder 2011).
+  Values are a statement, so they flow as words rather than as a scan list. Awards read award metaobjects first.
+{%- endcomment -%}
+{%- liquid
+  assign values = section.settings.values | split: ','
+  if section.settings.values == blank
+    assign values = 'pages.historia.values_list' | t | split: ','
+  endif
+  assign awards = shop.metaobjects.award.values
+-%}
+<section class="section section--tight values" data-theme="cream" aria-labelledby="Values-{{ section.id }}">
+  <div class="container grid">
+    <div class="col-left">
+      <h2 class="h2" id="Values-{{ section.id }}">{{ 'pages.historia.values_heading' | t }}</h2>
+    </div>
+    <ul class="values__list col-right" role="list">
+      {%- for v in values -%}<li>{{ v | strip }}</li>{%- endfor -%}
+    </ul>
+  </div>
+  <div class="container grid awards">
+    <h2 class="h3 col-left">{{ 'pages.historia.awards_heading' | t }}</h2>
+    <ul class="awards__list col-right" role="list">
+      {%- if awards.size > 0 -%}
+        {%- for a in awards -%}
+          <li><figure>{%- if a.image != blank -%}{{ a.image.value | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}<figcaption>{{ a.name.value }}, {{ a.year.value }}</figcaption></figure></li>
+        {%- endfor -%}
+      {%- else -%}
+        <li><figure><img src="{{ 'award-pme-excelencia-2001.webp' | asset_url }}" alt="" width="480" height="339" loading="lazy"><figcaption>PME Excelência Indústria, 2001</figcaption></figure></li>
+        <li><figure><img src="{{ 'award-pme-lider-2011.webp' | asset_url }}" alt="" width="339" height="480" loading="lazy"><figcaption>PME Líder, 2011</figcaption></figure></li>
+      {%- endif -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.values.name",
+  "settings": [ { "type": "textarea", "id": "values", "label": "t:sections.values.values", "info": "t:sections.values.values_info" } ],
+  "presets": [{ "name": "t:sections.values.name" }]
+}
+{% endschema %}

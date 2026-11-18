@@ -1,0 +1,48 @@
+{%- comment -%} BlogPosting, or Recipe for the "receitas" blog (no leading comma). {%- endcomment -%}
+{%- liquid
+  assign m = article.metafields.sotocal
+  assign author_name = m.author.value.name | default: article.author
+  assign words = article.content | strip_html | split: ' ' | size
+-%}
+{%- if blog.handle == 'receitas' -%}
+{
+  "@type": "Recipe",
+  "@id": {{ page_url | append: '#recipe' | json }},
+  "name": {{ article.title | json }},
+  "url": {{ page_url | json }},
+  {%- if article.image %}"image": [{{ article.image | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+  "description": {{ article.excerpt_or_content | strip_html | strip | truncate: 300 | json }},
+  "author": {% if m.author.value %}{ "@type": "Person", "name": {{ author_name | json }} }{% else %}{ "@id": {{ org_id | json }} }{% endif %},
+  "publisher": { "@id": {{ org_id | json }} },
+  "datePublished": {{ article.published_at | date: '%Y-%m-%d' | json }},
+  "inLanguage": {{ request.locale.iso_code | json }},
+  {%- if m.recipe_yield != blank %}"recipeYield": {{ m.recipe_yield.value | json }},{% endif %}
+  {%- if m.recipe_prep_minutes != blank %}"prepTime": "PT{{ m.recipe_prep_minutes.value }}M",{% endif %}
+  {%- if m.recipe_cook_minutes != blank %}"cookTime": "PT{{ m.recipe_cook_minutes.value }}M",{% endif %}
+  {%- if m.recipe_category != blank %}"recipeCategory": {{ m.recipe_category.value | json }},{% endif %}
+  "recipeCuisine": "Portuguesa",
+  "recipeIngredient": {% if m.recipe_ingredients.value %}{{ m.recipe_ingredients.value | json }}{% else %}[]{% endif %},
+  "recipeInstructions": [
+    {%- for step in m.recipe_steps.value -%}
+    { "@type": "HowToStep", "position": {{ forloop.index }}, "text": {{ step | json }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+{%- else -%}
+{
+  "@type": "BlogPosting",
+  "@id": {{ page_url | append: '#article' | json }},
+  "headline": {{ article.title | json }},
+  "url": {{ page_url | json }},
+  "mainEntityOfPage": {{ page_url | json }},
+  {%- if article.image %}"image": [{{ article.image | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+  "description": {{ article.excerpt_or_content | strip_html | strip | truncate: 300 | json }},
+  "author": {% if m.author.value %}{ "@type": "Person", "name": {{ author_name | json }}{% if m.author.value.same_as.value.size > 0 %}, "sameAs": {{ m.author.value.same_as.value | json }}{% endif %} }{% else %}{ "@id": {{ org_id | json }} }{% endif %},
+  "publisher": { "@id": {{ org_id | json }} },
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "dateModified": {% if m.last_reviewed != blank %}{{ m.last_reviewed.value | date: '%Y-%m-%d' | json }}{% else %}{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }}{% endif %},
+  "inLanguage": {{ request.locale.iso_code | json }},
+  "wordCount": {{ words }},
+  "isPartOf": { "@type": "Blog", "name": {{ blog.title | json }}, "url": {{ shop.url | append: blog.url | json }} }
+}
+{%- endif -%}

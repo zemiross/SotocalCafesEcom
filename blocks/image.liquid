@@ -1,0 +1,15 @@
+{%- comment -%} Theme block: image with required alt text from the file (decorative images: leave alt empty in Files). {%- endcomment -%}
+{%- if block.settings.image != blank -%}
+<figure class="media-plane" {{ block.shopify_attributes }}>
+  {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '400, 700, 1000, 1400', sizes: '(min-width: 1024px) 60vw, 92vw', loading: 'lazy' }}
+  {%- if block.settings.caption != blank -%}<figcaption class="small muted">{{ block.settings.caption }}</figcaption>{%- endif -%}
+</figure>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.image.name",
+  "settings": [ { "type": "image_picker", "id": "image", "label": "t:blocks.image.name" }, { "type": "text", "id": "caption", "label": "t:blocks.image.caption" } ],
+  "presets": [{ "name": "t:blocks.image.name" }]
+}
+{% endschema %}

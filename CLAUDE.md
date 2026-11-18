@@ -1,0 +1,80 @@
+# Sotocal theme: conventions for future sessions
+
+Shopify Online Store 2.0 theme for Sotocal (family coffee roaster, Porto, 1960). pt-PT at `/`, British English at `/en/`.
+Start with `docs/PLAN.md` (architecture, tokens, wireframes) and `docs/DECISIONS.md` (why things are the way they are).
+Unknowns are `[[TBC: …]]` and are listed in `docs/QUESTIONS-FOR-CLIENT.md`. Never invent facts, prices, reviews or people.
+
+## Commands
+
+```bash
+npm run prototype      # render the theme's Liquid with LiquidJS + mock data into /prototype
+npm run serve          # http://localhost:4173 (serves /prototype plus the real /assets)
+npm run check:theme    # Shopify Theme Check (must stay at 0 errors)
+npm run check:locales  # pt-PT ⇄ en parity + every literal 'key' | t exists
+npm run check:jsonld   # JSON-LD parse + required fields on every prototype page
+npm run check:seo      # quality gate §10 on indexable pages: title ≤ 60, description ≤ 155, one H1, canonical, ≥ 40 % unique vs siblings, links out
+npm run check:redirects
+npm run check:budgets  # homepage JS ≤ 120 KB gz, CSS ≤ 50 KB gz, ≤ 2 fonts ≤ 120 KB
+npm run check:events   # custom events: theme publishes, pixel subscribes, docs list them
+npm run check:guides   # guide drafts in docs/seo/drafts pass the quality gate
+npm run ledger         # docs/seo/ledger.csv → ledger.md, 70% indexed gate between batches
+npx playwright test    # screenshots (6 viewports × 2 languages × motion on/off) + axe-core + keyboard
+node scripts/lighthouse.mjs http://localhost:4175   # with `node scripts/serve.mjs 4175` running
+```
+
+Generated files: `snippets/cup-svg.liquid` (run `node scripts/build-cup.mjs`), placeholder images, favicon and OG images (`node scripts/make-placeholders.mjs`), vendored GSAP/Leaflet/fonts (`node scripts/vendor.mjs`), logo SVGs (`node scripts/ai-to-svg.mjs "reference/client-drive/originals/Sotocal - Logotipo.ai" assets/logo-sotocal.svg [--emblem] [--mono]`), product data from the client leaflet (`python store-setup/apply-leaflet.py`, then `node store-setup/products-csv.mjs`).
+
+Client source material (logo, Pantone sheet, leaflet, cup mockup and photos) is in `reference/client-drive/` and `reference/cup/`; each folder has a README.
+
+## Locked brand tokens
+
+Colours and type live in `assets/base.css` `:root` and are not theme-editor settings. Derive tints only with `color-mix(in oklab, …)` of the tokens. `--ink` is PANTONE 1545 C and `--cream` is PANTONE 466 C (client colour sheet).
+- Logo: `snippets/logo.liquid` shows `assets/logo-sotocal-emblem.svg` (the oval, legible on both themes) unless a logo is uploaded in theme settings. The full lock-up with "Est.1960" is for cream backgrounds only.
+- Folds set `data-theme="cream|ink"`; that switches `--bg --fg --fg-muted --line --focus --link --plane`.
+- `--accent` text only on cream, or ≥ 24 px (≥ 18.66 px bold) on ink. Never on `--sand`. Body text on ink is `--cream`.
+- Only the primary CTA uses the accent fill (`.btn--primary`); secondary is `.btn--outline`, text links are `.text-link`.
+- DM Serif Display only at ≥ 28 px (`.h-hero`, `.h-display`, `.h2`, `.h3`); everything else Inter. `font-synthesis: none`.
+- Banned: tracked all-caps eyebrows, single-word accent colouring, middle-dot meta strings, "→" in buttons, card containers for products, UI drop shadows, gradient washes. Numbered markers only for real sequences.
+
+## Copy and locales
+
+- Every storefront string goes through `locales/*.json` (`| t`). Section copy settings are blank by default and fall back to a locale key (pattern: `assign x = section.settings.x` / `if x == blank` / `assign x = 'key' | t`). Never `default: 'key' | t` (that translates the custom text too).
+- Never chain a filter after `t:` arguments (`'k' | t: amount: x | money` formats the translated string). Assign first.
+- pt-PT AO90 (pequeno-almoço, telemóvel, subscrição, encomenda, morada, carrinho). EN British (basket, colour). Prices `12,50 €`, dates `dd/mm/aaaa`, « » in PT, “ ” in EN (use `general.quote_open/close`).
+- Years since founding: `{% render 'years' %}`; never hard-code "66 anos". In merchant text use `%years%`.
+- Show gaps with `{% render 'tbc', note: '…' %}` (visible only while the "Mostrar marcadores [[TBC]]" setting is on, or in the editor).
+- Add locale keys to both `pt-PT.default.json` and `en.json` in the same change, then run `npm run check:locales`.
+
+## The stream API ("o fio de café")
+
+- Each homepage fold renders its own segment: `{% render 'stream' %}`, `{% render 'stream', variant: 'hero', ribbon: 'out' %}`, `{% render 'stream', variant: 'cup', ribbon: 'in' %}`. Markup: `.stream > .stream__tail > .stream__liquid`.
+- `assets/stream.js` gives every segment `yPercent −100 → 0` with ScrollTrigger `start: 'top 62%'`, `end: 'bottom 62%'`, `scrub: 0.8`. Mobile ribbons are revealed by scaling a clip rect. The hero waits for `load` + idle, tilts the moka pot (`assets/greca.svg`, `[data-hero-tilt]`) about its spout tip, plays a 1.1 s `power2.in` intro, then attaches the scrubbed tweens. The spout tip must stay at x = 50% of the viewport (`--spout-x`, `--spout-ratio` on `.hero`).
+- `assets/cup.js` owns fold 5 (pin, fill, crema, tail, reveal). Cup geometry constants live in `scripts/build-cup.mjs`; the SVG carries them in `data-geom`.
+- Lighting comes from the fold's `data-theme`; core width 6/5/4 px by breakpoint. The stream never crosses text: keep content out of the spine (columns 6–7 on desktop, x < 48 px on mobile).
+- Motion rules: animate only transform/opacity; GSAP loads only via `Sotocal.motion()` and never for reduced-motion visitors; use `gsap.matchMedia()`. The CSS default is the finished static state; `.motion-ok` sets start states. Don't put CSS transforms on SVG nodes GSAP drives (use `:not(.is-driven)`).
+
+## Naming
+
+- Sections `kebab-case.liquid`; homepage folds are `home-*`. Snippets are parameterised and isolated (`render`, never `include`).
+- JS: one IIFE per file, `data-*` hooks (`[data-cart-add]`, `[data-stream]`), guard with `dataset.wired` so a file included by several sections runs once. Shared helpers on `window.Sotocal` (`loadScript`, `motion`, `publish`, `openDialog`, `store`).
+- Metafields: namespace `sotocal` (see `docs/DATA-MODEL.md`). Custom events: `horeca_lead_submitted`, `newsletter_signup`, `pickup_cafe_selected`, `subscription_selected`, `qr_landing_view`.
+
+## How to add a blend
+
+1. Create the product (handle `lote-<name>`), template suffix blank (coffee), options Formato (Grão/Moído) and Peso (250 g/1 kg), unit-price fields per variant.
+2. Fill metafields: `sotocal.character`, `tasting_notes` (3 descriptors), `intensity`, `best_for`, `origins`, `roast`, `arabica_robusta`, all `fic_*`, `faq`, `pairings`.
+3. Add it to the `cafe` collection (and `cafe-em-grao` / `cafe-moido`).
+4. Homepage fold 3 shows four blends (max 4 blocks): swap a block's product in the theme editor, or raise `max_blocks` in `sections/home-blends.liquid` and add `home.blends.<key>.*` locale fallbacks plus an `assets/lote-<key>.webp` packshot.
+5. Run `npm run prototype && npm run check:locales`.
+
+## How to add a partner café
+
+Admin › Content › Metaobjects › Partner café: name, address, postal_code, city, district, lat, lng, opening_hours, `pickup_enabled`, and `consent_publish` (**only true with the café's written consent**). It then appears in the locator (`/pages/onde-beber-sotocal`) and, if pickup is enabled, in the cart pickup list. No theme change needed.
+
+## How to turn on a local supplier page
+
+Admin › Content › Metaobjects › Zona servida (`service_area`, `/pages/fornecedor-de-cafe/<distrito>`): tick `served`, write a district-specific short answer, add `delivery` and/or `local_facts` from Sotocal, set Active. The page stays noindex until all of that is true (D111, `docs/seo/15-local-pages.md`). Never publish a district with only the name swapped.
+
+## Don't
+
+- Don't add theme-editor colour or font pickers; don't use `within: collection` URLs; don't add pixels in the theme (Customer Events + official apps only); don't noindex EN pages; don't block AI crawlers in `robots.txt.liquid`; don't AI-generate people.

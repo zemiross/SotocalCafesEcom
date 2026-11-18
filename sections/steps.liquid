@@ -1,0 +1,59 @@
+{%- comment -%}
+  Numbered process (only for real sequences, §5.8): HoReCa (pedido de contacto → visita e prova → proposta e acordo →
+  instalação e formação), café pickup, or subscription. Blocks override the locale defaults chosen by `preset`.
+{%- endcomment -%}
+{%- liquid
+  assign base = 'pages.steps.' | append: section.settings.preset
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = base | append: '.heading' | t
+  endif
+-%}
+<section class="section steps" data-theme="{{ section.settings.theme }}" aria-labelledby="Steps-{{ section.id }}">
+  <div class="container">
+    <h2 class="h2" id="Steps-{{ section.id }}">{{ heading }}</h2>
+    <ol class="steps__list" role="list">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <li class="steps__item" {{ block.shopify_attributes }}>
+            <span class="steps__num tabular" aria-hidden="true">{{ forloop.index }}</span>
+            <h3 class="h4">{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for n in (1..4) -%}
+          {%- assign k = base | append: '.step_' | append: n -%}
+          {%- assign title = k | append: '_title' | t -%}
+          {%- unless title contains 'missing' or title == blank -%}
+            <li class="steps__item">
+              <span class="steps__num tabular" aria-hidden="true">{{ n }}</span>
+              <h3 class="h4">{{ title }}</h3>
+              <p>{{ k | append: '_text' | t }}</p>
+            </li>
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </ol>
+    {%- if section.settings.preset == 'horeca' and section.blocks.size == 0 -%}<p class="small">{% render 'tbc', note: 'confirmar as etapas do processo comercial' %}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.steps.name",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "select", "id": "preset", "label": "t:sections.steps.preset", "default": "horeca", "options": [
+      { "value": "horeca", "label": "Profissional" }, { "value": "pickup", "label": "Levantar no café" }, { "value": "subscription", "label": "Subscrição" } ] },
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] },
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "t:sections.steps.step", "settings": [
+      { "type": "text", "id": "title", "label": "t:settings.heading" },
+      { "type": "textarea", "id": "text", "label": "t:settings.text" } ] }
+  ],
+  "presets": [{ "name": "t:sections.steps.name" }]
+}
+{% endschema %}

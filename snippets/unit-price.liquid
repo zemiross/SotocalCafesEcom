@@ -1,0 +1,46 @@
+{%- comment -%}
+  Unit price per kg (EU price indication, brief §9). Uses Shopify's unit price fields; if they are empty, it derives
+  €/kg from a "Peso"/"Weight" option such as "250 g" or "1 kg" (net quantity), never from shipping weight.
+  Params: variant, price (optional, cents; e.g. a selling-plan price), class, plain (text only).
+  Outputs nothing if no quantity is known.
+{%- endcomment -%}
+{%- liquid
+  assign p = price | default: variant.price
+  assign label = ''
+  if variant.unit_price_measurement and price == blank
+    assign ref = variant.unit_price_measurement.reference_value
+    assign unit = variant.unit_price_measurement.reference_unit
+    assign amount = variant.unit_price | money
+    if ref == 1
+      assign label = amount | append: '/' | append: unit
+    else
+      assign label = amount | append: '/' | append: ref | append: ' ' | append: unit
+    endif
+  else
+    assign grams = 0
+    for opt in variant.options
+      assign o = opt | downcase | remove: ' '
+      if o contains 'kg'
+        assign num = o | remove: 'kg' | replace: ',', '.' | times: 1.0
+        assign grams = num | times: 1000
+      elsif o contains 'g'
+        assign last = o | slice: -1
+        if last == 'g'
+          assign num = o | remove: 'g' | replace: ',', '.' | times: 1.0
+          if num > 0
+            assign grams = num
+          endif
+        endif
+      endif
+    endfor
+    if grams > 0
+      assign per_kg = p | times: 1000.0 | divided_by: grams | round
+      assign label = per_kg | money | append: '/kg'
+    endif
+  endif
+-%}
+{%- if label != '' and plain -%}
+  {{- label -}}
+{%- elsif label != '' -%}
+  <span class="unit-price {{ class }}" data-unit-price><span class="visually-hidden">{{ 'product.unit_price_label' | t }} </span>{{ label }}</span>
+{%- endif -%}

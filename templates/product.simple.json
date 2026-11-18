@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "layout": "simple",
+        "show_subscription": false,
+        "show_intensity": false,
+        "fic_open": false
+      }
+    },
+    "pairings": {
+      "type": "product-pairings",
+      "settings": {
+        "heading": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pairings"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": true,
+        "tight": false,
+        "theme": "cream"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

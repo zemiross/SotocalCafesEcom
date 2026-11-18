@@ -1,0 +1,43 @@
+{%- comment -%} Contactos: NAP (name, address, phone), map link, hours [[TBC]], contact form. {%- endcomment -%}
+<section class="section contact" data-theme="cream" aria-labelledby="Contact-{{ section.id }}">
+  <div class="container grid">
+    <div class="col-left stack">
+      <h2 class="h3" id="Contact-{{ section.id }}">Sotocal</h2>
+      <address class="contact__nap">
+        Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda.<br>
+        Rua Engenheiro Ferreira Dias, n.º 398<br>
+        4100-246 Porto, Portugal
+      </address>
+      <p><a class="link" href="tel:+351226167020">+351 226 167 020</a><br><span class="small muted">{{ 'contact.call_cost' | t }}</span></p>
+      <p><a class="link" href="mailto:sotocalcafes@sotocalcafes.pt">sotocalcafes@sotocalcafes.pt</a></p>
+      <p><strong>{{ 'pages.contact.hours' | t }}</strong><br>{% if section.settings.hours != blank %}{{ section.settings.hours | newline_to_br }}{% else %}{% render 'tbc', note: 'horário de atendimento' %}{% endif %}</p>
+      {%- if settings.social_google_maps != blank -%}
+        <p><a class="text-link" href="{{ settings.social_google_maps }}" rel="noopener" target="_blank">{% render 'icon', name: 'map', class: 'icon--sm' %} {{ 'pages.contact.map' | t }}<span class="visually-hidden"> ({{ 'general.new_window' | t }})</span></a></p>
+      {%- endif -%}
+    </div>
+    <div class="col-right">
+      <h2 class="h3">{{ 'pages.contact.form_heading' | t }}</h2>
+      {%- form 'contact', id: 'ContactForm', class: 'contact__form stack', novalidate: 'novalidate' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-status" role="status" tabindex="-1">{{ 'pages.contact.success' | t }}</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="form-status" role="alert">{{ 'pages.contact.error' | t }}</p>{%- endif -%}
+          <div class="field"><label for="ContactName">{{ 'pages.lead.name' | t }}</label><input class="input" id="ContactName" name="contact[name]" autocomplete="name" type="text"></div>
+          <div class="field"><label for="ContactEmail">{{ 'pages.contact.email' | t }} <span aria-hidden="true">*</span></label><input class="input" id="ContactEmail" name="contact[email]" type="email" autocomplete="email" required{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}></div>
+          <div class="field"><label for="ContactPhone">{{ 'pages.contact.phone_optional' | t }}</label><input class="input" id="ContactPhone" name="contact[phone]" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="ContactBody">{{ 'pages.lead.message' | t }} <span aria-hidden="true">*</span></label><textarea class="textarea" id="ContactBody" name="contact[body]" required></textarea></div>
+          <p class="small muted">{{ 'pages.contact.privacy_html' | t: privacy_url: shop.privacy_policy.url }}</p>
+          <button class="btn btn--primary" type="submit">{{ 'pages.contact.submit' | t }}</button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.contact.name",
+  "settings": [ { "type": "textarea", "id": "hours", "label": "t:sections.contact.hours" } ],
+  "presets": [{ "name": "t:sections.contact.name" }]
+}
+{% endschema %}

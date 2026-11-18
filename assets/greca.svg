@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <!-- Hero art (D56): an unbranded octagonal aluminium moka pot ("greca", cafeteira italiana), tilted 32° to pour.
+       The pot is drawn upright with its spout tip at the origin, then turned about that tip, so the tip sits at
+       x = 570 (95%), y = 196 (32.7%): the start of the stream. stream.js tilts the image from upright (−32°) about the
+       same point before the pour. Original vector work, no logos. -->
+  <defs>
+    <linearGradient id="alu" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#4f4641"/>
+      <stop offset=".12" stop-color="#8f857e"/>
+      <stop offset=".3" stop-color="#eee8de"/>
+      <stop offset=".42" stop-color="#c9c0b6"/>
+      <stop offset=".58" stop-color="#887e77"/>
+      <stop offset=".74" stop-color="#d9d1c6"/>
+      <stop offset=".9" stop-color="#7a7069"/>
+      <stop offset="1" stop-color="#3f3733"/>
+    </linearGradient>
+    <linearGradient id="aluDark" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#3a322e"/>
+      <stop offset=".3" stop-color="#a99f96"/>
+      <stop offset=".6" stop-color="#5e554f"/>
+      <stop offset="1" stop-color="#2e2724"/>
+    </linearGradient>
+    <linearGradient id="bake" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#46362f"/>
+      <stop offset=".4" stop-color="#1c1411"/>
+      <stop offset="1" stop-color="#0b0706"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(570 196) rotate(32)">
+    <!-- Handle: bakelite, on the side opposite the spout, with its metal bracket -->
+    <path d="M-300 52h-34v34h34z" fill="url(#aluDark)"/>
+    <path d="M-318 46c-66-8-112 16-110 64l10 90c2 22 22 32 38 26l8-4c-22-8-26-26-28-46l-4-68c0-26 26-36 86-30z" fill="url(#bake)"/>
+    <path d="M-402 98c2-20 16-30 40-34" fill="none" stroke="#7a6359" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+
+    <!-- Boiler (lower chamber), faceted, with the safety valve -->
+    <path d="M-290 248h200l46 222h-292z" fill="url(#alu)"/>
+    <path d="M-232 248l-19 222M-148 248l19 222" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M-235 248l-19 222M-145 248l19 222" stroke="#2b2421" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M-336 470h292l-4 12h-284z" fill="url(#aluDark)"/>
+    <path d="M-76 322h16a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-16z" fill="url(#aluDark)"/>
+    <circle cx="-56" cy="331" r="5" fill="#d9d1c6"/>
+
+    <!-- Screw joint -->
+    <path d="M-296 226h212l-4 22h-204z" fill="url(#aluDark)"/>
+    <path d="M-294 232h208" stroke="#eee8de" stroke-opacity=".5" stroke-width="2"/>
+
+    <!-- Upper chamber (jug), faceted, and the pouring lip -->
+    <path d="M-322 24h264l-34 202h-196z" fill="url(#alu)"/>
+    <path d="M-245 24l14 202M-135 24l-14 202" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M-248 24l14 202M-132 24l-14 202" stroke="#2b2421" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M-66 24l64-26c5 1 6 6 1 9l-69 81z" fill="url(#alu)"/>
+    <path d="M-4 1c-24 14-44 30-62 48" fill="none" stroke="#2b2421" stroke-opacity=".5" stroke-width="2"/>
+
+    <!-- Lid and knob -->
+    <path d="M-326 26h272l-8-12-56-16h-144l-56 16z" fill="url(#alu)"/>
+    <path d="M-326 26h272" stroke="#2b2421" stroke-opacity=".45" stroke-width="2"/>
+    <path d="M-200 -14h20v14h-20z" fill="#1c1411"/>
+    <path d="M-220 -26c0-9 13-14 30-14s30 5 30 14-13 12-30 12-30-3-30-12z" fill="url(#bake)"/>
+    <path d="M-210 -30c6-4 14-5 22-5" fill="none" stroke="#7a6359" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  </g>
+</svg>

@@ -1,0 +1,112 @@
+{%- comment -%}
+  Fold 4, for home | for business (ink). Text either side of the amber stream; both column headings share one grid row
+  so they sit on the same baseline (brief §5.6). Points are newline-separated settings; blank uses the locale defaults.
+{%- endcomment -%}
+{%- liquid
+  if routes.root_url == '/'
+    assign prefix = ''
+  else
+    assign prefix = routes.root_url
+  endif
+  capture years
+    render 'years'
+  endcapture
+  assign years = years | strip
+
+  assign l_head = section.settings.left_heading
+  if l_head == blank
+    assign l_head = 'home.audiences.home_heading' | t
+  endif
+  assign l_lead = section.settings.left_lead
+  if l_lead == blank
+    assign l_lead = 'home.audiences.home_lead' | t
+  endif
+  assign l_points = section.settings.left_points | newline_to_br | split: '<br />'
+  if section.settings.left_points == blank
+    assign l_points = 'home.audiences.home_points' | t | split: '|'
+  endif
+  assign l_cta = section.settings.left_cta_label
+  if l_cta == blank
+    assign l_cta = 'home.audiences.home_cta' | t
+  endif
+  assign l_url = section.settings.left_cta_link
+  if l_url == blank
+    assign l_url = prefix | append: '/collections/cafe'
+  endif
+
+  assign r_head = section.settings.right_heading
+  if r_head == blank
+    assign r_head = 'home.audiences.business_heading' | t
+  endif
+  assign r_lead = section.settings.right_lead | replace: '%years%', years
+  if section.settings.right_lead == blank
+    assign r_lead = 'home.audiences.business_lead' | t: years: years
+  endif
+  assign r_points = section.settings.right_points | newline_to_br | split: '<br />'
+  if section.settings.right_points == blank
+    assign r_points = 'home.audiences.business_points' | t | split: '|'
+  endif
+  assign r_cta = section.settings.right_cta_label
+  if r_cta == blank
+    assign r_cta = 'home.audiences.business_cta' | t
+  endif
+  assign r_url = section.settings.right_cta_link
+  if r_url == blank
+    assign r_url = prefix | append: '/pages/profissional#contacto'
+  endif
+-%}
+<section class="section audiences" data-theme="ink" data-motion="stream" aria-labelledby="AudHome-{{ section.id }}">
+  {% render 'stream' %}
+  <div class="container grid audiences__grid">
+    <h2 class="h2 audiences__h audiences__h--home" id="AudHome-{{ section.id }}">{{ l_head }}</h2>
+    <p class="lead audiences__lead audiences__lead--home">{{ l_lead }}</p>
+    <ul class="ticks audiences__list audiences__list--home" role="list">
+      {%- for pt in l_points -%}
+        {%- assign t = pt | strip -%}
+        {%- if t != blank -%}
+          <li>
+            {%- if t contains '[[TBC' -%}
+              {{ t | split: '[[TBC' | first | strip }} {% render 'tbc', note: 'desconto da subscrição' %}
+            {%- else -%}{{ t }}{%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    <p class="audiences__cta audiences__cta--home"><a class="btn btn--primary" href="{{ l_url }}">{{ l_cta }}</a></p>
+
+    <h2 class="h2 audiences__h audiences__h--biz" id="AudBiz-{{ section.id }}">{{ r_head }}</h2>
+    <p class="lead audiences__lead audiences__lead--biz">{{ r_lead }}</p>
+    <ul class="ticks audiences__list audiences__list--biz" role="list">
+      {%- for pt in r_points -%}
+        {%- assign t = pt | strip -%}
+        {%- if t != blank -%}<li>{{ t }}</li>{%- endif -%}
+      {%- endfor -%}
+    </ul>
+    <p class="audiences__cta audiences__cta--biz"><a class="btn btn--outline" href="{{ r_url }}">{{ r_cta }}</a></p>
+  </div>
+</section>
+
+<script src="{{ 'stream.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.audiences.name",
+  "class": "section-home-audiences",
+  "settings": [
+    { "type": "header", "content": "t:sections.audiences.home" },
+    { "type": "text", "id": "left_heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "left_lead", "label": "t:settings.text", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "left_points", "label": "t:sections.audiences.points", "info": "t:sections.audiences.points_info" },
+    { "type": "text", "id": "left_cta_label", "label": "t:settings.cta_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "left_cta_link", "label": "t:settings.cta_link" },
+    { "type": "header", "content": "t:sections.audiences.business" },
+    { "type": "text", "id": "right_heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "right_lead", "label": "t:settings.text", "info": "t:sections.audiences.years_info" },
+    { "type": "textarea", "id": "right_points", "label": "t:sections.audiences.points", "info": "t:sections.audiences.points_info" },
+    { "type": "text", "id": "right_cta_label", "label": "t:settings.cta_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "right_cta_link", "label": "t:settings.cta_link" }
+  ],
+  "enabled_on": { "templates": ["index"] },
+  "presets": [{ "name": "t:sections.audiences.name" }]
+}
+{% endschema %}

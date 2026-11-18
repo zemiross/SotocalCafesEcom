@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "locator"
+      }
+    },
+    "locator": {
+      "type": "locator",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "locator"
+  ]
+}

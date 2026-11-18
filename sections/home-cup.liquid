@@ -1,0 +1,74 @@
+{%- comment -%}
+  Fold 5, the cup (cream). Peak–end: the cup filling is the peak and the CTA appears at the end.
+  cup.js pins the stage and scrubs: stream reaches the surface → ripples → fill 0 → 100% → crema → tail drop →
+  ripples settle → headline + sub + CTA reveal (the page's only text reveal) → arrow draws onto the CTA.
+  Static / reduced motion: cup full with crema, the pour finished, headline and CTA visible.
+{%- endcomment -%}
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = 'home.cup.heading' | t
+  endif
+  assign sub = section.settings.sub
+  if sub == blank
+    assign sub = 'home.cup.sub' | t
+  endif
+  assign cta = section.settings.cta_label
+  if cta == blank
+    assign cta = 'home.cup.cta' | t
+  endif
+  assign url = section.settings.cta_link
+  if url == blank
+    if routes.root_url == '/'
+      assign url = '/collections/cafe'
+    else
+      assign url = routes.root_url | append: '/collections/cafe'
+    endif
+  endif
+  assign words = heading | split: ' '
+-%}
+<section class="section cup-fold" data-theme="cream" data-motion="cup" aria-labelledby="CupTitle-{{ section.id }}"
+         style="--pin-vh: {{ section.settings.pin_vh }};">
+  <div class="cup-stage" data-cup-stage>
+    {% render 'stream', variant: 'cup', ribbon: 'in' %}
+    <h2 class="cup-fold__title h-display" id="CupTitle-{{ section.id }}" data-cup-reveal>
+      <span class="cup-fold__line">{{ words.first }}</span>
+      {%- if words.size > 1 %} <span class="cup-fold__line">{{ words | slice: 1, 20 | join: ' ' }}</span>{% endif -%}
+    </h2>
+    <div class="cup-fold__cup">
+      {% render 'cup-svg', state: 'full' %}
+    </div>
+    <div class="cup-fold__foot container grid">
+      <p class="cup-fold__sub" data-cup-reveal>{{ sub }}</p>
+      <div class="cup-fold__cta" data-cup-reveal>
+        <svg class="cup-fold__arrow" data-cup-arrow viewBox="0 0 200 120" aria-hidden="true" focusable="false">
+          <defs><clipPath id="CupArrowClip-{{ section.id }}" clipPathUnits="userSpaceOnUse"><rect class="cup-fold__arrow-clip" data-cup-arrow-clip x="-10" y="-10" width="220" height="140"/></clipPath></defs>
+          <g clip-path="url(#CupArrowClip-{{ section.id }})">
+            <path d="M8 8C40 6 92 14 120 46s34 52 60 58"/>
+            <path d="M166 92l15 12-18 6"/>
+          </g>
+        </svg>
+        <a class="btn btn--primary" href="{{ url }}">{{ cta }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'stream.js' | asset_url }}" defer></script>
+<script src="{{ 'cup.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.cup.name",
+  "class": "section-home-cup",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:settings.heading", "info": "t:settings.blank_uses_default" },
+    { "type": "textarea", "id": "sub", "label": "t:settings.text", "info": "t:settings.blank_uses_default" },
+    { "type": "text", "id": "cta_label", "label": "t:settings.cta_label", "info": "t:settings.blank_uses_default" },
+    { "type": "url", "id": "cta_link", "label": "t:settings.cta_link" },
+    { "type": "range", "id": "pin_vh", "label": "t:sections.cup.pin_vh", "min": 80, "max": 250, "step": 10, "unit": "vh", "default": 150 }
+  ],
+  "enabled_on": { "templates": ["index"] },
+  "presets": [{ "name": "t:sections.cup.name" }]
+}
+{% endschema %}

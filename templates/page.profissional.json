@@ -1,0 +1,88 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "ink",
+        "preset": "profissional",
+        "cta_link": "#contacto"
+      }
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "tight": true,
+        "theme": "cream"
+      }
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "preset": "horeca",
+        "theme": "ink"
+      }
+    },
+    "lead": {
+      "type": "lead-form",
+      "settings": {
+        "theme": "cream"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "category": "profissional",
+        "theme": "cream",
+        "limit": 8
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "heading": ""
+      },
+      "disabled": true
+    },
+    "photo": {
+      "type": "image-band",
+      "settings": {
+        "fallback": "chavena",
+        "caption": "",
+        "theme": "cream"
+      }
+    },
+    "gifts": {
+      "type": "corporate-gifts",
+      "settings": {
+        "theme": "ink"
+      }
+    },
+    "supply": {
+      "type": "horeca-supply",
+      "settings": {}
+    },
+    "equipment": {
+      "type": "horeca-equipment",
+      "settings": {
+        "theme": "ink"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "benefits",
+    "supply",
+    "equipment",
+    "photo",
+    "main",
+    "steps",
+    "gifts",
+    "lead",
+    "faq",
+    "testimonials"
+  ]
+}

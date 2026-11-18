@@ -1,0 +1,9 @@
+{%- comment -%}
+  Last-order dates for Christmas delivery (theme settings, updated each year). A blank date shows nothing, or a TBC marker
+  while the pre-launch markers are on. Delivery times are Sotocal's answer (question 6).
+{%- endcomment -%}
+{%- if settings.gift_cutoff_mainland != blank -%}<p class="gift-cutoff">{{ 'gifts.cutoff_mainland' | t: date: settings.gift_cutoff_mainland }}</p>{%- endif -%}
+{%- if settings.gift_cutoff_islands != blank -%}<p class="gift-cutoff">{{ 'gifts.cutoff_islands' | t: date: settings.gift_cutoff_islands }}</p>{%- endif -%}
+{%- if settings.gift_cutoff_mainland == blank or settings.gift_cutoff_islands == blank -%}
+  {%- if request.design_mode or settings.show_tbc_markers -%}<p>{% render 'tbc', note: 'datas-limite de encomenda para Natal: continente e ilhas (pergunta 6)' %}</p>{%- endif -%}
+{%- endif -%}

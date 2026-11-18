@@ -1,0 +1,185 @@
+{%- comment -%}
+  JSON-LD @graph with stable @ids (brief §11). Base IRI comes from settings.entity_base_url (default https://sotocalcafes.pt)
+  so @ids stay stable even on a preview domain. FAQPage is emitted by snippets/faq-list and BreadcrumbList by
+  snippets/breadcrumbs (where that content lives), both referencing the same @ids.
+  Facts used here come only from brief §2.
+{%- endcomment -%}
+{%- liquid
+  assign base = settings.entity_base_url | default: 'https://sotocalcafes.pt'
+  assign base_last = base | slice: -1
+  if base_last == '/'
+    assign base_length = base | size
+    assign base_keep = base_length | minus: 1
+    assign base = base | slice: 0, base_keep
+  endif
+  assign org_id = base | append: '/#organization'
+  assign site_id = base | append: '/#website'
+  assign founder_id = base | append: '/#jose-barbosa'
+  assign director_id = base | append: '/#maria-jose-barbosa'
+  assign page_url = canonical_url
+  assign lang = request.locale.iso_code
+  if settings.logo != blank
+    assign logo_url = settings.logo | image_url: width: 600 | prepend: 'https:'
+  else
+    assign logo_url = 'logo-sotocal.png' | asset_url | prepend: 'https:'
+  endif
+  assign same_as = ''
+  if settings.social_facebook != blank
+    assign same_as = same_as | append: settings.social_facebook | append: '|'
+  endif
+  if settings.social_instagram != blank
+    assign same_as = same_as | append: settings.social_instagram | append: '|'
+  endif
+  assign maps_short = false
+  if settings.social_google_maps contains 'share.google' or settings.social_google_maps contains 'goo.gl'
+    assign maps_short = true
+  endif
+  if settings.social_google_maps != blank and maps_short == false
+    assign same_as = same_as | append: settings.social_google_maps | append: '|'
+  endif
+  if settings.social_wikidata != blank
+    assign same_as = same_as | append: settings.social_wikidata | append: '|'
+  endif
+  assign same_as = same_as | split: '|'
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ org_id | json }},
+      "name": "Sotocal",
+      "legalName": "Sotocal – Sociedade Torrefactora De Cafés de Angola, Lda.",
+      "url": {{ base | append: '/' | json }},
+      "logo": {{ logo_url | json }},
+      "slogan": {{ 'seo.slogan' | t | json }},
+      "description": {{ 'facts.entity_1' | t | json }},
+      "foundingDate": "1960",
+      "foundingLocation": { "@type": "Place", "name": "Porto, Portugal" },
+      "founder": { "@id": {{ founder_id | json }} },
+      "employee": [{ "@id": {{ founder_id | json }} }, { "@id": {{ director_id | json }} }],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Engenheiro Ferreira Dias, n.º 398",
+        "postalCode": "4100-246",
+        "addressLocality": "Porto",
+        "addressCountry": "PT"
+      },
+      "telephone": "+351226167020",
+      "email": "sotocalcafes@sotocalcafes.pt",
+      "vatID": "PT500275068",
+      "taxID": "500275068",
+      "areaServed": ["PT", "EU"],
+      "award": ["PME Excelência Indústria 2001", "PME Líder 2011"],
+      "sameAs": {{ same_as | json }}
+    },
+    {
+      "@type": "Person",
+      "@id": {{ founder_id | json }},
+      "name": "José Barbosa",
+      "jobTitle": {{ 'facts.founder_role' | t | json }},
+      "worksFor": { "@id": {{ org_id | json }} }
+    },
+    {
+      "@type": "Person",
+      "@id": {{ director_id | json }},
+      "name": "Maria José Barbosa",
+      "jobTitle": {{ 'facts.director_role' | t | json }},
+      "worksFor": { "@id": {{ org_id | json }} }
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ site_id | json }},
+      "url": {{ base | append: '/' | json }},
+      "name": "Sotocal",
+      "inLanguage": {% if shop.published_locales.size > 1 %}["pt-PT", "en"]{% else %}"pt-PT"{% endif %},
+      "publisher": { "@id": {{ org_id | json }} }
+      {%- if request.page_type == 'index' -%},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": {{ shop.url | append: routes.search_url | append: '?q={search_term_string}' | json }} },
+        "query-input": "required name=search_term_string"
+      }
+      {%- endif %}
+    }
+
+    {%- case request.page_type -%}
+      {%- when 'product' -%},
+      {%- render 'structured-data-product', product: product, org_id: org_id, page_url: page_url -%}
+      {%- when 'collection' -%},
+      {
+        "@type": "CollectionPage",
+        "@id": {{ page_url | append: '#webpage' | json }},
+        "url": {{ page_url | json }},
+        "name": {{ collection.title | json }},
+        "isPartOf": { "@id": {{ site_id | json }} },
+        "inLanguage": {{ lang | json }},
+        "mainEntity": {
+          "@type": "ItemList",
+          "numberOfItems": {{ collection.products_count }},
+          "itemListElement": [
+            {%- for p in collection.products limit: 24 -%}
+            { "@type": "ListItem", "position": {{ forloop.index }}, "url": {{ shop.url | append: p.url | json }}, "name": {{ p.title | json }} }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+      }
+      {%- when 'article' -%},
+      {%- render 'structured-data-article', article: article, blog: blog, org_id: org_id, page_url: page_url, base: base -%}
+      {%- when 'page' -%}
+        {%- case template.suffix -%}
+          {%- when 'historia' -%},
+          { "@type": "AboutPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ page.title | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "about": { "@id": {{ org_id | json }} }, "mentions": [{ "@id": {{ founder_id | json }} }, { "@id": {{ director_id | json }} }] }
+          {%- when 'facts' -%},
+          { "@type": "AboutPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ page.title | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "about": { "@id": {{ org_id | json }} }, "dateModified": {{ page.updated_at | date: '%Y-%m-%d' | json }} }
+          {%- when 'profissional' -%},
+          { "@type": "WebPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ page.title | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "publisher": { "@id": {{ org_id | json }} }, "about": { "@id": {{ page_url | append: '#service' | json }} } },
+          {
+            "@type": "Service",
+            "@id": {{ page_url | append: '#service' | json }},
+            "name": {{ 'pages.profissional.service_name' | t | json }},
+            "serviceType": {{ 'pages.profissional.service_name' | t | json }},
+            "provider": { "@id": {{ org_id | json }} },
+            "areaServed": {{ 'pages.profissional.service_area' | t | json }},
+            "audience": { "@type": "BusinessAudience", "name": {{ 'pages.profissional.service_audience' | t | json }} }
+          }
+          {%- when 'contact' -%},
+          { "@type": "ContactPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ page.title | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "about": { "@id": {{ org_id | json }} } }
+          {%- else -%},
+          { "@type": "WebPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ page.title | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "publisher": { "@id": {{ org_id | json }} } }
+        {%- endcase -%}
+    {%- endcase %}
+    {%- if settings.hq_open_to_public and settings.hq_opening_hours != blank and request.page_type == 'index' -%},
+    {
+      "@type": "LocalBusiness",
+      "@id": {{ base | append: '/#hq' | json }},
+      "name": "Sotocal",
+      "parentOrganization": { "@id": {{ org_id | json }} },
+      "url": {{ base | append: '/' | json }},
+      "telephone": "+351226167020",
+      "address": { "@type": "PostalAddress", "streetAddress": "Rua Engenheiro Ferreira Dias, n.º 398", "postalCode": "4100-246", "addressLocality": "Porto", "addressCountry": "PT" },
+      "openingHours": {{ settings.hq_opening_hours | newline_to_br | strip_newlines | split: '<br />' | json }}
+    }
+    {%- endif -%}
+    {%- assign hub_type = metaobject.system.type -%}
+    {%- if hub_type == 'service_area' -%},
+    {%- assign area_place = metaobject.in_name.value -%}{%- if area_place == blank -%}{%- assign area_place = 'service_area.in_default' | t: name: metaobject.name.value -%}{%- endif -%}
+    {%- assign area_heading = 'service_area.heading' | t: place: area_place -%}
+    { "@type": "WebPage", "@id": {{ page_url | append: '#webpage' | json }}, "url": {{ page_url | json }}, "name": {{ area_heading | json }}, "inLanguage": {{ lang | json }}, "isPartOf": { "@id": {{ site_id | json }} }, "about": { "@id": {{ page_url | append: '#service' | json }} }, "breadcrumb": { "@id": {{ page_url | append: '#breadcrumb' | json }} } },
+    {
+      "@type": "Service",
+      "@id": {{ page_url | append: '#service' | json }},
+      "name": {{ area_heading | json }},
+      "serviceType": {{ 'pages.profissional.service_name' | t | json }},
+      "provider": { "@id": {{ org_id | json }} },
+      "areaServed": { "@type": "AdministrativeArea", "name": {{ metaobject.district.value | json }} },
+      "audience": { "@type": "BusinessAudience", "name": {{ 'pages.profissional.service_audience' | t | json }} }
+    }
+    {%- endif -%}
+    {%- if hub_type == 'method' or hub_type == 'machine' -%},
+    {%- render 'structured-data-hub', m: metaobject, org_id: org_id, site_id: site_id, page_url: page_url, lang: lang -%}
+    {%- endif %}
+  ]
+}
+</script>

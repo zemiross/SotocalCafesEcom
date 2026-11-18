@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "layout": "coffee",
+        "show_subscription": true,
+        "show_intensity": true,
+        "fic_open": false
+      }
+    },
+    "faq": {
+      "type": "product-faq",
+      "settings": {
+        "theme": "ink",
+        "heading": "",
+        "limit": 3
+      }
+    },
+    "pairings": {
+      "type": "product-pairings",
+      "settings": {
+        "heading": ""
+      }
+    },
+    "compare": {
+      "type": "blend-compare",
+      "settings": {
+        "heading": "",
+        "collection": "cafe"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq",
+    "pairings",
+    "compare"
+  ]
+}

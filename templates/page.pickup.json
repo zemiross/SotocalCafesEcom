@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "pickup"
+      }
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "preset": "pickup",
+        "theme": "ink"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "tight": true,
+        "theme": "cream"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "category": "envios",
+        "theme": "cream",
+        "limit": 6
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "steps",
+    "main",
+    "faq"
+  ]
+}

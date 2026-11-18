@@ -1,0 +1,369 @@
+{
+  "blocks": {
+    "button": {
+      "name": "Button",
+      "outline": "Outline",
+      "primary": "Primary (accent)",
+      "style": "Style"
+    },
+    "heading": {
+      "level": "Level",
+      "name": "Heading"
+    },
+    "image": {
+      "caption": "Caption",
+      "name": "Image"
+    },
+    "quote": {
+      "attribution": "Attribution",
+      "name": "Quote"
+    },
+    "text": {
+      "name": "Text"
+    }
+  },
+  "sections": {
+    "announcement": {
+      "enabled": "Show announcement",
+      "link": "Link",
+      "name": "Announcement bar",
+      "text": "Text",
+      "text_info": "Blank: “Free shipping on orders over …” using the theme setting amount."
+    },
+    "audiences": {
+      "business": "For business",
+      "home": "For home",
+      "name": "Home | business",
+      "points": "Points (one per line)",
+      "points_info": "Blank: uses the default points in PT and EN.",
+      "years_info": "Use %years% for the years since 1960. Blank: default text."
+    },
+    "benefits": {
+      "name": "Benefits (For business)"
+    },
+    "blends": {
+      "blend": "Blend",
+      "character": "Character line",
+      "chips": "Descriptors",
+      "chips_info": "Comma-separated, three at most.",
+      "fallback": "Reference blend (default text and image)",
+      "fallback_handle": "Product handle (when no product is chosen)",
+      "ideal_for": "Ideal for",
+      "image": "Packshot",
+      "name": "Four blends",
+      "product": "Product",
+      "step_vh": "Scroll per blend (desktop)",
+      "title": "Name"
+    },
+    "cart_drawer": {
+      "name": "Cart drawer"
+    },
+    "compare": {
+      "collection": "Collection to compare",
+      "name": "Compare blends"
+    },
+    "contact": {
+      "hours": "Opening hours",
+      "name": "Contact"
+    },
+    "content": {
+      "name": "Content"
+    },
+    "cup": {
+      "name": "The cup",
+      "pin_vh": "Sequence length (scroll)"
+    },
+    "facts": {
+      "name": "Fact sheet",
+      "source": "Source",
+      "source_label": "Source name",
+      "source_url": "URL",
+      "updated": "Updated on (dd/mm/yyyy)",
+      "updated_info": "Blank: the page's last edit date."
+    },
+    "faq": {
+      "all": "All",
+      "category": "Category",
+      "name": "FAQ"
+    },
+    "featured_product": {
+      "name": "Featured product"
+    },
+    "footer": {
+      "group": "Footer",
+      "menu": "Footer menu",
+      "name": "Footer"
+    },
+    "giftbox": {
+      "name": "Gift box contents"
+    },
+    "header": {
+      "group": "Header",
+      "menu": "Main menu",
+      "name": "Header",
+      "overlay": "Transparent over the homepage hero"
+    },
+    "hero": {
+      "info": "The H1 is real text. Without an image, the theme shows a moka pot that tilts and pours. An uploaded image must have its spout exactly at the centre.",
+      "machine": "Coffee pot",
+      "machine_image": "Cut-out image (replaces the moka pot)",
+      "machine_image_info": "Transparent WebP/AVIF, 2400 × 3000, spout centred at ~58% of the height (asset A1).",
+      "machine_shadow": "Shadow layer",
+      "name": "Homepage hero",
+      "note": "Shipping note",
+      "show_note": "Show shipping note",
+      "spout_y": "Spout height in the uploaded image"
+    },
+    "image_band": {
+      "cafeeiro": "Coffee cherries",
+      "chavena": "Espresso in the Sotocal cup",
+      "fallback": "Default photo",
+      "name": "Photograph",
+      "torrefacao": "Green coffee and antique grinder"
+    },
+    "lead_form": {
+      "name": "Business lead form"
+    },
+    "list_collections": {
+      "name": "All collections"
+    },
+    "locator": {
+      "name": "Café locator"
+    },
+    "main_404": {
+      "name": "404"
+    },
+    "main_article": {
+      "article": "Article",
+      "name": "Article",
+      "recipe": "Recipe"
+    },
+    "main_blog": {
+      "name": "Blog"
+    },
+    "main_cart": {
+      "name": "Cart"
+    },
+    "main_collection": {
+      "name": "Collection",
+      "per_page": "Products per page"
+    },
+    "main_hub": {
+      "name": "Method or machine"
+    },
+    "tool_calculator": {"name": "Cost calculator", "collection": "Blends collection", "collection_info": "Blends without a provisional price appear as presets.", "default_dose": "Default dose (g)"},
+    "tool_quiz": {"name": "Quiz", "collection": "Blends collection", "collection_info": "Only blends in this collection are suggested.", "tokens_info": "Each answer is matched to the product “Best for” chips. Type here exactly the text used in those chips.", "token_automatic": "Chip: bean-to-cup", "token_moka": "Chip: moka pot", "token_espresso": "Chip: manual espresso", "token_milk": "Chip: with milk", "target_soft": "“Mild” strength (1–5)", "target_mid": "“Balanced” strength (1–5)", "target_strong": "“Strong” strength (1–5)"},
+    "gift_season": {
+      "name": "Christmas season"
+    },
+    "corporate_gifts": {
+      "name": "Corporate gifts"
+    },
+    "horeca_equipment": {
+      "name": "Equipment (machines)"
+    },
+    "horeca_supply": {
+      "name": "What we supply"
+    },
+    "main_service_area": {
+      "name": "Supplier by area"
+    },
+    "main_customer": {
+      "name": "Customer account",
+      "view": "View"
+    },
+    "main_page": {
+      "name": "Page content",
+      "show_title": "Show title",
+      "tight": "Tighter spacing"
+    },
+    "main_password": {
+      "name": "Password page"
+    },
+    "main_product": {
+      "fic_open": "Open food information by default",
+      "layout": "Type",
+      "layout_bundle": "Gift box or bundle",
+      "layout_coffee": "Coffee",
+      "layout_simple": "Accompaniment or conserva",
+      "layout_spice": "Spice",
+      "layout_substitute": "Coffee substitute",
+      "name": "Product",
+      "show_intensity": "Show intensity",
+      "show_subscription": "Show subscription"
+    },
+    "main_search": {
+      "name": "Search"
+    },
+    "newsletter": {
+      "name": "Newsletter"
+    },
+    "page_hero": {
+      "heading_info": "Blank: the page title (or the preset's).",
+      "name": "Page hero",
+      "preset": "Default text",
+      "preset_none": "None"
+    },
+    "pairings": {
+      "collection": "Fallback collection",
+      "collection_info": "Used when the product has no pairings set.",
+      "name": "Goes well with"
+    },
+    "people": {
+      "name": "People"
+    },
+    "product_faq": {
+      "limit": "Number of questions",
+      "name": "Product FAQ"
+    },
+    "qr": {
+      "name": "QR landing",
+      "source": "QR source",
+      "offer_text": "First-order offer",
+      "offer_text_info": "Text shown on the page. Blank = no offer.",
+      "discount_code": "Discount code",
+      "discount_code_info": "Applied automatically through the /discount/ link. Create the code under Discounts; blank = no discount."
+    },
+    "roast": {
+      "bean": "Bean",
+      "depth": "Depth",
+      "far": "Far (pre-blurred image)",
+      "image_green": "Green bean",
+      "image_pair_info": "Same pose and scale as the green bean (asset A2).",
+      "image_roasted": "Roasted bean",
+      "mid": "Middle",
+      "name": "The roast",
+      "near": "Near",
+      "quote": "Quote",
+      "quote_attribution": "Quote attribution",
+      "rotation": "Rotation",
+      "size": "Size",
+      "stage_1": "Stage 1",
+      "stage_2": "Stage 2",
+      "stage_3": "Stage 3",
+      "stage_4": "Stage 4",
+      "x": "Horizontal position",
+      "y": "Vertical position"
+    },
+    "sequence": {
+      "base_url": "Frames base URL (Shopify Files)",
+      "ext": "Format",
+      "frame_count": "Frame count",
+      "header": "Image sequence (optional)",
+      "info": "Replaces the still with a scroll-scrubbed sequence. Names: base + zero-padded number + extension (e.g. hero_0001.webp).",
+      "pad": "Number digits"
+    },
+    "steps": {
+      "name": "Numbered steps",
+      "preset": "Process",
+      "step": "Step"
+    },
+    "testimonials": {
+      "business": "Business",
+      "item": "Testimonial",
+      "name": "Testimonials",
+      "permission": "Real testimonials only, with the person's written permission.",
+      "person": "Name",
+      "quote": "Testimonial"
+    },
+    "timeline": {
+      "name": "Timeline"
+    },
+    "values": {
+      "name": "Values and awards",
+      "values": "Values",
+      "values_info": "Comma-separated. Blank: default values."
+    }
+  },
+  "settings": {
+    "blank_uses_default": "Blank: uses the default text in PT and EN.",
+    "blank_uses_product": "Blank: uses the product data.",
+    "cream": "Cream",
+    "cta_label": "Button label",
+    "cta_link": "Button link",
+    "heading": "Heading",
+    "ink": "Ink (dark)",
+    "link_label": "Link label",
+    "link_url": "Link",
+    "subheading": "Subheading",
+    "text": "Text",
+    "theme": "Background"
+  },
+  "settings_schema": {
+    "brand": {
+      "favicon": "Favicon",
+      "locked_info": "Brand colours and typefaces are locked in code (not editable here).",
+      "logo": "Logo",
+      "logo_info": "Used as a mask so it recolours per background. Prefer an SVG or transparent PNG.",
+      "logo_width": "Logo width",
+      "name": "Brand",
+      "share_image": "Social sharing image",
+      "share_image_info": "1200 × 630. Blank: the theme's Open Graph images per page type."
+    },
+    "commerce": {
+      "free_shipping_threshold": "Free shipping from (€)",
+      "free_shipping_threshold_info": "Used in the announcement and the cart progress bar. [[TBC]] 40 €.",
+      "name": "Commerce",
+      "pickup_enabled": "Collection at partner cafés",
+      "schema_return_days": "Return window in days (structured data)",
+      "shipping_handling_days": "Handling days (structured data)",
+      "shipping_rate_pt": "Mainland Portugal shipping rate (€)",
+      "shipping_rate_pt_info": "Only for product structured data. Blank: not published.",
+      "shipping_transit_days": "Transit days (structured data)",
+      "upsell_product": "Cart upsell",
+      "upsell_product_info": "For example the Despensa do Norte gift box or the 2 × 1 kg pack."
+    },
+    "legal": {
+      "cofunding_image": "Co-funding logos",
+      "cofunding_info": "Blank: uses the Norte 2020 / Portugal 2020 / ERDF strip.",
+      "cofunding_link": "Project sheet link",
+      "cookie_banner_enabled": "Show the theme's cookie banner",
+      "cookie_banner_info": "Turn off Shopify's own cookie banner so only one shows.",
+      "name": "Legal",
+      "ral_entity_name": "Alternative dispute resolution entity",
+      "ral_entity_url": "ADR entity website",
+      "ral_info": "Required in Portugal. [[TBC]]"
+    },
+    "prelaunch": {
+      "name": "Pre-launch",
+      "show_tbc_markers": "Show [[TBC]] markers",
+      "show_tbc_markers_info": "Shows missing content for review. Turn off before the store opens."
+    },
+    "gifts": {
+      "cutoff_info": "Deadline to arrive before Christmas, for example “18 December”. Update every year. Blank = the date is not shown.",
+      "cutoff_islands": "Last order for the Azores and Madeira",
+      "cutoff_mainland": "Last order for mainland Portugal",
+      "force": "Christmas season",
+      "force_auto": "Automatic (1 Nov to 24 Dec)",
+      "force_off": "Always off",
+      "force_on": "Always on",
+      "info": "The Christmas season runs from 1 November to 24 December every year, with no URL change.",
+      "name": "Christmas gifts"
+    },
+    "leads": {
+      "endpoint": "Request-sending service URL",
+      "endpoint_info": "URL of the service described in store-setup/lead-endpoint/README.md. Fill in only after the service is published and tested.",
+      "info": "Requests from the business form are emailed through a sending service (Resend), with a copy to the owner. Blank = the normal Shopify form, as before.",
+      "name": "Contact requests"
+    },
+    "local": {
+      "hq_hours": "Head office opening hours",
+      "hq_hours_info": "One range per line in schema.org format, for example: Mo-Fr 09:00-18:00. Used only if “Head office receives the public” is ticked.",
+      "hq_open": "Head office receives the public",
+      "hq_open_info": "Tick only if the public can visit or collect orders at the head office (decision D4). Without it, no opening hours are published.",
+      "info": "Affects Google and structured data only. While the head office does not receive the public, Sotocal is a service-area business: no opening hours and no LocalBusiness.",
+      "name": "Local presence"
+    },
+    "seo": {
+      "entity_base_url": "Canonical brand domain",
+      "entity_base_url_info": "Base for structured-data @ids.",
+      "google_site_verification": "Google Search Console verification",
+      "name": "SEO"
+    },
+    "social": {
+      "maps_info": "[[TBC]] canonical Google Maps URL.",
+      "name": "Social",
+      "wikidata_info": "Wikidata item URL once it exists (sameAs)."
+    }
+  }
+}

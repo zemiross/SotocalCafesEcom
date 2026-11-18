@@ -1,0 +1,25 @@
+{%- comment -%} Page body from the admin editor (content harvested in docs/CONTENT.md). Optional heading for pages without page-hero. {%- endcomment -%}
+<section class="section{% if section.settings.tight %} section--tight{% endif %} main-page" data-theme="{{ section.settings.theme }}"{% unless section.settings.show_title %} aria-label="{{ page.title | escape }}"{% endunless %}>
+  <div class="container">
+    {%- if section.settings.show_title -%}
+      {% render 'breadcrumbs' %}
+      <h1 class="h-display" style="margin-block: 24px 48px">{{ page.title }}</h1>
+    {%- endif -%}
+    <div class="grid">
+      <div class="rte main-page__body">
+        {%- if page.content != blank -%}{{ page.content }}{%- else -%}<p>{% render 'tbc', note: 'conteúdo da página (ver docs/CONTENT.md)' %}</p>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_page.name",
+  "settings": [
+    { "type": "checkbox", "id": "show_title", "label": "t:sections.main_page.show_title", "default": false },
+    { "type": "checkbox", "id": "tight", "label": "t:sections.main_page.tight", "default": true },
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] }
+  ]
+}
+{% endschema %}

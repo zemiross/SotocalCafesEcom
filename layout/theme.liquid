@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FCEFCC">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+      <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+    {%- endif -%}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'fonts' -%}
+
+    <script>
+      (function (d) {
+        var c = d.documentElement.classList;
+        c.remove('no-js'); c.add('js');
+        try { if (matchMedia('(prefers-reduced-motion: no-preference)').matches) c.add('motion-ok'); } catch (e) {}
+      })(document);
+    </script>
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {%- liquid
+      case request.page_type
+        when 'index'
+          assign page_css = 'sections-home.css'
+        when 'product'
+          assign page_css = 'sections-product.css'
+        when 'collection' or 'search' or 'list-collections'
+          assign page_css = 'sections-collection.css'
+        when 'cart'
+          assign page_css = ''
+        else
+          assign page_css = 'sections-pages.css'
+      endcase
+    -%}
+    {%- if metaobject.system.type == 'method' or metaobject.system.type == 'machine' -%}
+      {%- assign page_css = 'sections-collection.css' -%}
+    {%- endif -%}
+    {%- if page_css != blank -%}{{ page_css | asset_url | stylesheet_tag }}{%- endif -%}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+    {%- render 'structured-data' -%}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix | handle }}{% endif %}">
+    <a class="skip-link" href="#main">{{ 'accessibility.skip_to_content' | t }}</a>
+    {%- render 'icon-sprite' -%}
+    {%- render 'cookie-banner' -%}
+
+    {% sections 'header-group' %}
+
+    <main id="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+    {% section 'cart-drawer' %}
+
+    <script>
+      window.Sotocal = {
+        locale: {{ request.locale.iso_code | json }},
+        routes: {
+          root: {{ routes.root_url | json }},
+          cart: {{ routes.cart_url | json }},
+          cartAdd: {{ routes.cart_add_url | json }},
+          cartChange: {{ routes.cart_change_url | json }},
+          cartUpdate: {{ routes.cart_update_url | json }},
+          predictiveSearch: {{ routes.predictive_search_url | json }},
+          search: {{ routes.search_url | json }}
+        },
+        assets: {
+          gsap: {{ 'gsap.min.js' | asset_url | json }},
+          scrollTrigger: {{ 'ScrollTrigger.min.js' | asset_url | json }},
+          search: {{ 'search.js' | asset_url | json }},
+          consent: {{ 'consent.js' | asset_url | json }},
+          leaflet: {{ 'leaflet.js' | asset_url | json }},
+          leafletCss: {{ 'leaflet.css' | asset_url | json }}
+        },
+        strings: {
+          added: {{ 'cart.added' | t | json }},
+          error: {{ 'general.error' | t | json }},
+          loading: {{ 'general.loading' | t | json }},
+          searchNoResults: {{ 'search.no_results_short' | t | json }},
+          searchResults: {{ 'search.results_count_short' | t | json }},
+          unavailable: {{ 'product.unavailable' | t | json }},
+          soldOut: {{ 'product.sold_out' | t | json }},
+          addToCart: {{ 'product.add_to_cart' | t | json }}
+        }
+      };
+    </script>
+  </body>
+</html>

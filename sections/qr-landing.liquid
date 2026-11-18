@@ -1,0 +1,52 @@
+{%- comment -%}
+  QR landing for printed cups, sugar sachets and café displays (brief §11, WS8). Printed URL:
+  /pages/q-chavena?c=<codigo-cafe> (or q-acucar). It publishes qr_landing_view with the source and the café code, then forwards
+  to the shop with utm_source, utm_medium=qr, utm_campaign=horeca and utm_content=<codigo-cafe>. Optional first-order offer:
+  offer_text is shown, and discount_code is applied through Shopify's /discount/<code> link. The page is noindex (robots-meta)
+  and exists only for measurement. Works without JS: a visible link is the fallback (no meta refresh, for accessibility).
+{%- endcomment -%}
+{%- liquid
+  assign source = section.settings.source
+  assign base = routes.root_url
+  if base == '/'
+    assign base = ''
+  endif
+  assign target = base | append: '/collections/cafe?utm_source=' | append: source | append: '&utm_medium=qr&utm_campaign=horeca'
+-%}
+<section class="section qr-landing" data-theme="cream" data-qr-landing data-source="{{ source }}" data-target="{{ target }}" data-discount="{{ section.settings.discount_code | strip | escape }}" aria-labelledby="QrTitle">
+  <div class="container stack">
+    <h1 class="h-display" id="QrTitle">{{ 'pages.qr.heading' | t }}</h1>
+    <p class="lead">{{ 'pages.qr.text' | t }}</p>
+    {%- if section.settings.offer_text != blank -%}<p class="lead qr__offer">{{ section.settings.offer_text }}</p>{%- elsif request.design_mode or settings.show_tbc_markers -%}<p>{% render 'tbc', note: 'oferta da primeira encomenda para QR (texto e código de desconto): decisão da Sotocal' %}</p>{%- endif -%}
+    <a class="btn btn--primary" href="{{ target }}" data-qr-link>{{ 'home.hero.cta' | t }}</a>
+  </div>
+</section>
+<script>
+  (function () {
+    var el = document.querySelector('[data-qr-landing]');
+    if (!el) return;
+    var code = '';
+    try { code = (new URLSearchParams(location.search).get('c') || '').toLowerCase(); } catch (e) {}
+    if (!/^[a-z0-9-]{1,40}$/.test(code)) code = '';
+    var target = el.dataset.target + (code ? '&utm_content=' + code : '');
+    var href = el.dataset.discount ? '/discount/' + encodeURIComponent(el.dataset.discount) + '?redirect=' + encodeURIComponent(target) : target;
+    var link = el.querySelector('[data-qr-link]');
+    if (link) link.setAttribute('href', href);
+    var go = function () { location.replace(href); };
+    document.addEventListener('DOMContentLoaded', function () {
+      try { window.Sotocal && window.Sotocal.publish && window.Sotocal.publish('qr_landing_view', { source: el.dataset.source, cafe: code }); } catch (e) {}
+      setTimeout(go, 400);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.qr.name",
+  "settings": [
+    { "type": "select", "id": "source", "label": "t:sections.qr.source", "default": "chavena", "options": [ { "value": "chavena", "label": "Chávena" }, { "value": "acucar", "label": "Açúcar" } ] },
+    { "type": "text", "id": "offer_text", "label": "t:sections.qr.offer_text", "info": "t:sections.qr.offer_text_info" },
+    { "type": "text", "id": "discount_code", "label": "t:sections.qr.discount_code", "info": "t:sections.qr.discount_code_info" }
+  ]
+}
+{% endschema %}

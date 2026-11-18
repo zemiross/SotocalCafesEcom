@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "theme": "cream",
+        "preset": "torra"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "tight": true,
+        "theme": "cream"
+      }
+    },
+    "compare": {
+      "type": "blend-compare",
+      "settings": {
+        "heading": "",
+        "collection": "cafe"
+      }
+    },
+    "photo": {
+      "type": "image-band",
+      "settings": {
+        "fallback": "cafeeiro",
+        "caption": "",
+        "theme": "cream"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "photo",
+    "main",
+    "compare"
+  ]
+}

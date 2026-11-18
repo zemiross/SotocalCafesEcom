@@ -1,0 +1,71 @@
+/* Product page, quick add, blend comparison, gift box (brief §8). */
+.product { padding-top: calc(var(--header-h) * .5 + 24px); }
+.product .breadcrumbs { margin-bottom: var(--s-6); }
+.product__grid { display: grid; gap: var(--s-7); }
+@media (min-width: 1024px) {
+  .product__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+  .product__gallery { grid-column: 1 / 7; position: sticky; top: calc(var(--header-h) + 24px); }
+  .product__info { grid-column: 8 / 13; }
+}
+.product__media { list-style: none; padding: 0; display: grid; gap: var(--s-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.product__media-item { aspect-ratio: 1; display: grid; place-items: center; padding: 8%; overflow: hidden; }
+.product__media-item:first-child { grid-column: 1 / -1; aspect-ratio: 1 / .92; }
+.product__img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 1023.98px) {
+  .product__media { position: relative; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: var(--s-3); margin-right: -16px; padding-right: 16px; scrollbar-width: none; }
+  .product__media-item, .product__media-item:first-child { flex: 0 0 86%; scroll-snap-align: start; aspect-ratio: 1; }
+}
+.product__info { display: grid; gap: var(--s-5); align-content: start; }
+.product__title { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+.product__subtitle { margin-top: var(--s-2); color: var(--fg-muted); font-weight: 500; }
+.product__character { max-width: 40ch; }
+.product__fit { display: grid; gap: var(--s-2); font-size: var(--fs-small); }
+.product__fit p { margin: 0; }
+.product__fit .label { margin-right: var(--s-2); }
+.notify { display: grid; gap: var(--s-3); padding: var(--s-5); border: 1.5px solid var(--line); border-radius: var(--r-input); }
+.notify[hidden] { display: none; }
+.notify__form { display: grid; gap: var(--s-3); }
+.notify__title { margin: 0; font-family: var(--font-ui); font-size: var(--fs-body); font-weight: 600; }
+.product__intensity { display: flex; align-items: center; gap: var(--s-3); }
+.intensity { display: inline-flex; gap: 6px; }
+.intensity__dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--ink); }
+.intensity__dot.is-on { background: var(--ink); }
+.buy-form { display: grid; gap: var(--s-5); padding-top: var(--s-5); border-top: 1px solid var(--line); }
+.buy-form__row { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.buy-form__submit { flex: 1 1 220px; }
+.radio-pill.is-unavailable span { text-decoration: line-through; color: var(--fg-muted); }
+.purchase-type { border: 0; padding: 0; margin: 0; display: grid; gap: var(--s-2); }
+.purchase-type legend { margin-bottom: var(--s-2); }
+.purchase-type__option { display: flex; gap: var(--s-3); align-items: flex-start; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: var(--r-input); cursor: pointer; min-height: 48px; }
+.purchase-type__option:has(input:checked) { border-color: var(--ink); background: color-mix(in oklab, var(--ink) 5%, transparent); }
+.purchase-type__option input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--ink); flex: none; }
+.product__promises { list-style: none; padding: 0; display: grid; gap: var(--s-2); font-size: var(--fs-small); }
+.product__promises li { display: flex; gap: var(--s-2); align-items: center; }
+.product__accordions { margin-top: var(--s-3); }
+
+.fic { display: grid; gap: 0; margin: 0; }
+.fic > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--s-4); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.fic dt { font-weight: 600; font-size: .9375rem; }
+.fic dd { margin: 0; font-size: .9375rem; }
+.fic__missing { color: var(--fg-muted); font-style: italic; }
+.fic__nutrition { width: 100%; margin-top: var(--s-4); font-size: .9375rem; }
+.fic__nutrition caption { text-align: left; font-weight: 600; padding-bottom: var(--s-2); }
+.fic__nutrition th, .fic__nutrition td { text-align: left; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.fic__nutrition td { text-align: right; }
+
+.sticky-atc {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-3);
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--cream-hi); border-top: 1px solid var(--sand-deep);
+}
+.sticky-atc__info { display: grid; min-width: 0; }
+.sticky-atc__title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 1024px) { .sticky-atc { display: none !important; } }
+
+.product-faq .accordion { border-top-color: var(--line); }
+.giftbox__list { list-style: none; padding: 0; display: grid; gap: 0; }
+.giftbox__list li { display: flex; gap: var(--s-4); padding-block: 14px; border-bottom: 1px solid var(--line); }
+.giftbox__qty { min-width: 3ch; color: var(--fg-muted); }
+.gift-message { display: grid; gap: var(--s-2); }
+.gift-cutoffs p { margin: 0; }

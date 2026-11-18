@@ -1,0 +1,57 @@
+/* Collection, search and list-collections (brief §8). */
+.collection { padding-top: calc(var(--header-h) * .5 + 24px); }
+.collection__head { margin-block: var(--s-5) var(--s-7); display: grid; gap: var(--s-4); }
+.collection__intro { max-width: 56ch; }
+.filters { position: relative; z-index: 5; display: grid; gap: var(--s-3); margin-bottom: var(--s-7); padding-block: var(--s-4); border-block: 1px solid var(--line); }
+.filters__row { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+.filters__group { position: relative; }
+.filters__summary {
+  list-style: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px;
+  border: 1.5px solid var(--line); border-radius: var(--r-pill); font-weight: 500;
+}
+.filters__summary::-webkit-details-marker { display: none; }
+.filters__group[open] > .filters__summary { border-color: var(--fg); }
+.filters__group[open] .icon--chevron { transform: rotate(180deg); }
+.filters__count { color: var(--fg-muted); }
+.filters__panel {
+  position: absolute; top: calc(100% + 6px); left: 0; min-width: 240px; margin: 0; padding: var(--s-3) var(--s-4);
+  background: var(--cream-hi); border: 1px solid var(--sand-deep); border-radius: var(--r-input);
+}
+.filters__panel .checkbox { min-height: 44px; padding-top: 10px; }
+.filters__price { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.filters__sort { margin-left: auto; display: flex; align-items: center; gap: var(--s-2); }
+.filters__sort .select { min-height: 44px; width: auto; }
+.filters__meta { margin: 0; }
+[aria-busy="true"] [data-collection-results] { opacity: .5; transition: opacity var(--dur-micro); }
+.collection__empty { padding-block: var(--s-8); }
+.collection-seo .rte { columns: 2 28ch; column-gap: var(--s-7); max-width: none; }
+.collection-seo .rte > * { break-inside: avoid; }
+@media (max-width: 1023.98px) {
+  .filters__sort { margin-left: 0; width: 100%; }
+  .filters__panel { position: static; margin-top: var(--s-2); }
+  .filters__group { flex: 1 1 100%; }
+}
+
+/* Buying guide and method links under the grid (WS4). */
+.collection-guide__methods { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+
+/* Method hubs and machine pages (WS5). */
+.hub { padding-top: calc(var(--header-h) * .5 + 24px); }
+.hub__head { margin-block: var(--s-5) var(--s-7); display: grid; gap: var(--s-4); max-width: 62ch; }
+.hub__answer { max-width: 56ch; }
+.hub__body { display: grid; gap: var(--s-8, var(--s-7)); }
+.hub__body > section { display: grid; gap: var(--s-4); }
+.hub__facts { max-width: 56ch; }
+.hub__steps { counter-reset: step; list-style: none; padding: 0; display: grid; gap: var(--s-3); }
+.hub__steps li { counter-increment: step; display: grid; grid-template-columns: 2.25rem 1fr; gap: var(--s-3); align-items: start; }
+.hub__steps li::before { content: counter(step); font-family: var(--font-ui); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hub__machines { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+.fic { display: grid; gap: 0; margin: 0; }
+.fic > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--s-4); padding-block: 10px; border-bottom: 1px solid var(--line); }
+.fic dt { font-weight: 600; }
+.fic dd { margin: 0; }
+.hub__head .h-display { font-size: clamp(2.5rem, 5vw, 4.5rem); }
+
+/* Christmas season band and waitlist on the gifts collection (WS9). */
+.gift-cutoff { margin: 0; }
+.gift-waitlist__form { max-width: 36rem; }

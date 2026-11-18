@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "season": {
+      "type": "gift-season",
+      "settings": {}
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "per_page": 24
+      }
+    },
+    "corporate": {
+      "type": "corporate-gifts",
+      "settings": {
+        "theme": "cream"
+      }
+    }
+  },
+  "order": [
+    "season",
+    "main",
+    "corporate"
+  ]
+}

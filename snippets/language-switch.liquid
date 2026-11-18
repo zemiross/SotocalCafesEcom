@@ -1,0 +1,14 @@
+{%- comment -%} PT | EN via the localization form; works without JS (DECISIONS D21). Param: id (unique per instance). {%- endcomment -%}
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', id: id, class: 'lang-switch' -%}
+    <span class="visually-hidden" id="{{ id }}-label">{{ 'header.language' | t }}</span>
+    {%- for language in localization.available_languages -%}
+      {%- assign code = language.iso_code | split: '-' | first | upcase -%}
+      <button type="submit" name="locale_code" value="{{ language.iso_code }}" lang="{{ language.iso_code }}"
+              aria-describedby="{{ id }}-label"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %}>
+        <span aria-hidden="true">{{ code }}</span><span class="visually-hidden">{{ language.endonym_name | capitalize }}</span>
+      </button>
+      {%- unless forloop.last -%}<span class="lang-switch__sep" aria-hidden="true">|</span>{%- endunless -%}
+    {%- endfor -%}
+  {%- endform -%}
+{%- endif -%}

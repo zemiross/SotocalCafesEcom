@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "qr-landing",
+      "settings": {
+        "source": "chavena"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,17 @@
+{%- comment -%} Newsletter (brief §9): customer form tagged "newsletter"; double opt-in is enabled in admin (ADMIN-SETUP). Param: id. {%- endcomment -%}
+{%- form 'customer', id: id, class: 'newsletter-form', novalidate: 'novalidate' -%}
+  <input type="hidden" name="contact[tags]" value="{{ tag | default: 'newsletter' }}">
+  {%- if form.posted_successfully? -%}
+    <p class="form-status" role="status" tabindex="-1" data-newsletter-success>{{ 'newsletter.success' | t }}</p>
+  {%- else -%}
+    <label class="visually-hidden" for="{{ id }}-email">{{ 'newsletter.email_label' | t }}</label>
+    <input class="input" id="{{ id }}-email" type="email" name="contact[email]" autocomplete="email" inputmode="email" required
+           placeholder="{{ 'newsletter.placeholder' | t }}"
+           {% if form.errors %}aria-invalid="true" aria-describedby="{{ id }}-error"{% else %}aria-describedby="{{ id }}-note"{% endif %}>
+    <button class="btn btn--solid" type="submit">{{ 'newsletter.submit' | t }}</button>
+    {%- if form.errors -%}
+      <p class="field-error" id="{{ id }}-error" role="alert" style="flex-basis:100%">{{ 'newsletter.error' | t }}</p>
+    {%- endif -%}
+    <p class="small muted" id="{{ id }}-note" style="flex-basis:100%">{{ 'newsletter.note_html' | t: privacy_url: shop.privacy_policy.url }}</p>
+  {%- endif -%}
+{%- endform -%}

@@ -1,0 +1,36 @@
+{%- comment -%} One product, presented on its sand plane with price and add to cart (used on Despensa do Norte and Subscrição pages). {%- endcomment -%}
+{%- assign p = section.settings.product -%}
+{%- if p != blank -%}
+<section class="section featured-product" data-theme="{{ section.settings.theme }}" aria-labelledby="Featured-{{ section.id }}">
+  <div class="container grid">
+    <div class="col-left">
+      <div class="media-plane featured-product__media">
+        {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(min-width: 1024px) 36vw, 90vw', loading: 'lazy', alt: p.title }}{%- endif -%}
+        <span class="contact-shadow" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="col-right stack">
+      <h2 class="h2" id="Featured-{{ section.id }}">{{ p.title }}</h2>
+      {%- if p.metafields.sotocal.character != blank -%}<p class="lead">{{ p.metafields.sotocal.character.value }}</p>{%- endif -%}
+      {% render 'price', product: p, show_from: true, size: 'lg' %}
+      <div class="cluster">
+        {% render 'quick-add', product: p %}
+        <a class="text-link" href="{{ p.url }}">{{ 'product.view_full' | t }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{%- elsif request.design_mode or settings.show_tbc_markers -%}
+<section class="section section--tight" data-theme="cream"><div class="container"><p>{% render 'tbc', note: 'escolher o produto em destaque' %}</p></div></section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.featured_product.name",
+  "settings": [
+    { "type": "product", "id": "product", "label": "t:sections.blends.product" },
+    { "type": "select", "id": "theme", "label": "t:settings.theme", "default": "cream", "options": [ { "value": "cream", "label": "t:settings.cream" }, { "value": "ink", "label": "t:settings.ink" } ] }
+  ],
+  "presets": [{ "name": "t:sections.featured_product.name" }]
+}
+{% endschema %}

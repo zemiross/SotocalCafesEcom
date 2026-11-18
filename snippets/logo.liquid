@@ -1,0 +1,22 @@
+{%- comment -%}
+  Logo: the official vector emblem (converted from the brand's "Sotocal - Logotipo.ai", scripts/ai-to-svg.mjs) in its two
+  Pantone colours, 466 C (cream oval) and 1545 C (artwork). The cream oval carries its own background, so the full-colour
+  mark reads on cream and on ink folds alike; no recolouring (DECISIONS D45). A theme-settings logo overrides it.
+  Params: width (px), class.
+{%- endcomment -%}
+{%- liquid
+  assign logo_w = width | default: settings.logo_width | default: 92
+  if settings.logo != blank
+    assign ratio = settings.logo.aspect_ratio
+  else
+    assign ratio = 1.5462
+  endif
+  assign logo_h = logo_w | divided_by: ratio | round
+-%}
+<a class="logo {{ class }}" href="{{ routes.root_url }}" {% if request.page_type == 'index' %}aria-current="page"{% endif %}>
+  {%- if settings.logo != blank -%}
+    {{ settings.logo | image_url: width: 400 | image_tag: width: logo_w, height: logo_h, alt: shop.name, class: 'logo__img', loading: 'eager' }}
+  {%- else -%}
+    <img class="logo__img" src="{{ 'logo-sotocal-emblem.svg' | asset_url }}" alt="{{ shop.name | default: 'Sotocal' }}" width="{{ logo_w }}" height="{{ logo_h }}">
+  {%- endif -%}
+</a>

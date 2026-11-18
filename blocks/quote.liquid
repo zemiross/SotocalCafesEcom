@@ -1,0 +1,15 @@
+{%- comment -%} Theme block: quote with « » (PT) or “ ” (EN) from the locale. Real attributions only. {%- endcomment -%}
+{%- if block.settings.quote != blank -%}
+<figure class="quote" {{ block.shopify_attributes }}>
+  <blockquote><p>{{ 'general.quote_open' | t }}{{ block.settings.quote }}{{ 'general.quote_close' | t }}</p></blockquote>
+  {%- if block.settings.attribution != blank -%}<figcaption>{{ block.settings.attribution }}</figcaption>{%- endif -%}
+</figure>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:blocks.quote.name",
+  "settings": [ { "type": "textarea", "id": "quote", "label": "t:blocks.quote.name" }, { "type": "text", "id": "attribution", "label": "t:blocks.quote.attribution" } ],
+  "presets": [{ "name": "t:blocks.quote.name" }]
+}
+{% endschema %}
