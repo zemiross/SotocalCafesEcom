@@ -1,0 +1,77 @@
+# Static pre-launch site (without Shopify)
+
+18/11/2026. Decisions D117 (the site), D118 (guides), D119 (local pages).
+
+The theme is a Shopify theme (Liquid), so it cannot run off Shopify. This build renders the same templates with **real data** and **no shop** into plain HTML files, so the brand, business and SEO pages can be live on the real domain before the store exists. The result is in `site/` (generated, not committed).
+
+```bash
+npm run build:static     # writes /site
+npm run serve:static     # http://localhost:4190, served like Cloudflare Pages (clean URLs, _redirects, 404)
+npm run qa:static        # build + browser check of every page + SEO gate + JSON-LD
+```
+
+## What is on the site
+
+| URL | Indexed | Notes |
+|---|---|---|
+| `/` | yes | Home. Hero, roast, the four blends, business card. No purchase promises |
+| `/pages/historia`, `/pages/a-torra`, `/pages/sobre-a-sotocal` | yes | Real timeline, people, awards and fact sheet |
+| `/pages/profissional` | yes | B2B page, including the machine-equipment section. Phone and email instead of the form (see below) |
+| `/pages/fornecedor-de-cafe/<distrito>` (18) | yes | Local supplier pages for every mainland district (D119). Açores and Madeira are not built until Sotocal confirms the islands (Q73) |
+| `/blogs/guia-do-cafe` and 5 guides | yes | Café Delta alternativas, Melhor café em grão em Portugal, A cevada tem cafeína?, Cevada e chicória têm glúten?, O que é a chicória? (D118). Written in `docs/seo/drafts`, published with `publish: static` |
+| `/pages/contactos` | yes | Phone, email, address. No form |
+| `/pages/perguntas-frequentes` | yes | Without the answers that describe the shop (where to buy, shipping) |
+| `/pages/calculadora-custo-chavena` | yes | Cost-per-cup calculator with 74 dated competitor prices |
+| `/collections/cafe` and the 4 `/products/lote-*` pages | **no** | Information pages. "Compra online em breve", no prices, no Product schema, `noindex` |
+| `/404` | n/a | |
+
+Also generated: `sitemap.xml` (only the indexed pages), `robots.txt` (all crawlers allowed, AI crawlers named), `_redirects` and `_headers`.
+
+## What `catalogue_only` does
+
+A theme setting (`settings.catalogue_only`, default off). The static build forces it on. On Shopify it also works as a "store open but not selling" switch. When on:
+
+- header: no search, account or cart; cart drawer not rendered;
+- no prices, unit prices, quick-add, subscriptions, delivery or returns text, newsletter, payment icons or Product/Offer schema;
+- the product page shows "Compra online em breve", the formats, and a link to the contact page;
+- the hero, home cards, final call to action, 404 and FAQ intro stop promising purchase, pickup or shipping;
+- product, collection, cart and search pages get `noindex`;
+- the gift-box section on the B2B page is hidden until its contents and price are confirmed (Q12).
+
+## What the build refuses to do
+
+`scripts/prototype/static-site.mjs` fails the build if any page contains `[[TBC`, "exemplo", "protótipo", a `/reference/` image path, a placeholder price (1,00 / 10,00 / 40,00 €), a form that posts to Shopify, or a link to a page that does not exist. It also refuses to turn the B2B form on without a reviewed privacy policy.
+
+## Redirects
+
+`docs/redirects.csv` has 35 rows. Where the equivalent page exists on this site it is a **301** (14 rows). Where it does not (spices, substitutes, accompaniments, conservas, guides) it is a **302 to the home page**, so Google does not cache a wrong permanent mapping. When the Shopify store goes live, the full `docs/redirects.csv` replaces this file.
+
+## To put it on the internet (needs your approval; nothing is deployed)
+
+1. Host: Cloudflare Pages (free) connected to the GitHub repo. Build command `npm ci && npm run build:static`, output directory `site`. Cloudflare serves `pages/historia.html` at `/pages/historia`, as Shopify does.
+2. Domain: needs DNS access (D106). Until then the site would sit on a temporary address (such as `*.pages.dev`) that is public. Build it with `npm run build:static -- --noindex`, which adds `X-Robots-Tag: noindex, nofollow` to every response, so it does not compete with the real domain. Build without the flag for the real domain.
+3. Redirect `www` to the apex domain (Cloudflare rule). Keep the legacy site up until the new one is checked on its own address.
+4. Search Console and Bing: verify the domain and submit `sitemap.xml`.
+5. Measure on the host with PageSpeed Insights. The local server does not compress files, so the home page scores lower here (73–88) than it will with Brotli.
+
+## Turning on the B2B form
+
+The form needs three things, none of which exist yet:
+
+1. A reviewed privacy policy at `store-setup/legal/privacy-policy.html` (Q25, Q62). Without it the build stops.
+2. The Resend variables from `store-setup/lead-endpoint/README.md` set in the Cloudflare project, and a sender domain verified in Resend (needs DNS).
+3. `LEAD_ENDPOINT_URL=/api/lead npm run build:static`. `functions/api/lead.js` runs the same handler on Cloudflare. It is untested on Cloudflare until deployed; the handler itself has 5 passing tests.
+
+Until then the B2B page and the contact page show the phone number and the email address.
+
+## Moving to Shopify later
+
+The URL paths (`/pages/…`, `/products/…`, `/collections/…`) are the Shopify ones, and canonical tags have no trailing slash as on Shopify, so the move is a DNS switch plus the full redirect import. Turn `catalogue_only` off when the shop opens.
+
+## What it does not cover
+
+- No cart, checkout, payments, VAT, shipping, invoicing, subscriptions, Merchant Center feed, stock or "avise-me".
+- No English (unpublished at launch, D58).
+- Seven pages have fewer than 3 in-content links (`npm run qa:static` lists them as warnings); they rely on the header and footer navigation.
+- Guides: only the five above. The others are skeletons.
+- Legal pages: no privacy policy or cookie text exists yet. The site sets no cookies and loads no third-party script, so there is no consent banner; adding analytics later means adding consent first.

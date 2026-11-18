@@ -2,20 +2,28 @@
 {%- liquid
   assign threshold = settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros
   assign text = section.settings.text
+  assign link = section.settings.link
   if text == blank
-    assign text = 'announcement.free_shipping' | t: amount: threshold
+    if settings.catalogue_only
+      assign text = 'announcement.catalogue' | t
+      if link == blank
+        assign link = routes.root_url | append: '/pages/profissional' | replace: '//', '/'
+      endif
+    else
+      assign text = 'announcement.free_shipping' | t: amount: threshold
+    endif
   endif
 -%}
 {%- if section.settings.enabled -%}
 <div class="announcement" data-announcement data-key="{{ text | handle | truncate: 40, "" }}">
   <div class="announcement__inner container">
     <p>
-      {%- if section.settings.link != blank -%}
-        <a href="{{ section.settings.link }}">{{ text }}</a>
+      {%- if link != blank -%}
+        <a href="{{ link }}">{{ text }}</a>
       {%- else -%}
         {{ text }}
       {%- endif -%}
-      {%- if settings.free_shipping_threshold == 40 %} {% render 'tbc', note: 'limiar de envio grátis 40 €' %}{% endif -%}
+      {%- if settings.free_shipping_threshold == 40 and settings.catalogue_only != true %} {% render 'tbc', note: 'limiar de envio grátis 40 €' %}{% endif -%}
     </p>
     <button class="announcement__close" type="button" data-announcement-close aria-label="{{ 'announcement.dismiss' | t }}">
       {% render 'icon', name: 'close', class: 'icon--sm' %}

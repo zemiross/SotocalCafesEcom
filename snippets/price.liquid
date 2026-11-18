@@ -2,6 +2,7 @@
   Price group (proximity): price, compare-at, unit price €/kg and "IVA incluído" together; Omnibus line when discounted.
   Params: product, variant (optional), show_from (bool), size ('lg'), id (optional, for live updates on the product page).
 {%- endcomment -%}
+{%- unless settings.catalogue_only -%}
 {%- liquid
   if variant == blank
     assign variant = product.selected_or_first_available_variant
@@ -46,3 +47,4 @@
     <span class="price__note">{% render 'tbc', note: 'preço provisório' %}</span>
   {%- endif -%}
 </div>
+{%- endunless -%}

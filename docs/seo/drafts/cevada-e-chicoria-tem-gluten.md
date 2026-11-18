@@ -6,11 +6,14 @@ seo_title: Cevada e chicória têm glúten? O que diz a lei
 seo_description: A cevada tem glúten e deve vir declarada no rótulo. A chicória não é um cereal com glúten. O que diz o Regulamento (UE) 1169/2011 e como ler as misturas.
 answer: A cevada tem glúten: é um dos cereais que o Anexo II do Regulamento (UE) n.º 1169/2011 manda declarar nos alimentos. A chicória não faz parte dessa lista. Numa mistura, vale a lista de ingredientes: se leva cevada, leva glúten. Por isso a Cevada Sotocal, a Cevada Oriente e a Mistura Sako declaram a cevada como alergénio.
 author: Sotocal
-last_reviewed: 2026-11-17
+published: 2026-11-18
+last_reviewed: 2026-11-18
+publish: static
+related_products: lote-super-milano, lote-super
 sources:
   - https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:32011R1169
 keywords: cevada tem glúten; chicória tem glúten
-status: DRAFT, ready for review (needs D1 and a legal read)
+status: PUBLISHED in the static site 18/11/2026 (D118). D1 confirmed 17/11/2026.
 ---
 
 # Cevada e chicória têm glúten?
@@ -48,4 +51,4 @@ A Sotocal é uma torrefação do Porto fundada em 1960. Quatro a cinco anos depo
 - Regulamento (UE) n.º 1169/2011, Anexo II, ponto 1: https://eur-lex.europa.eu/legal-content/PT/TXT/?uri=CELEX:32011R1169
 - Composição e alergénios dos produtos: informação fornecida pela Sotocal (leaflet de produto, 2026).
 
-Última revisão: 17/11/2026.
+Última revisão: 18/11/2026.

@@ -9,17 +9,30 @@
   if heading == blank
     assign heading = 'pages.lead.heading' | t
   endif
+  assign no_form = false
+  if settings.catalogue_only and settings.lead_endpoint_url == blank
+    assign no_form = true
+  endif
 -%}
 <section class="section lead" id="contacto" data-theme="{{ section.settings.theme }}" aria-labelledby="Lead-{{ section.id }}">
   <div class="container grid">
     <div class="col-left">
       <h2 class="h2" id="Lead-{{ section.id }}">{{ heading }}</h2>
-      <p class="lead" style="margin-top: 16px">{{ 'pages.lead.intro' | t }}</p>
+      <p class="lead" style="margin-top: 16px">{% if no_form %}{{ 'pages.lead.intro_static' | t }}{% else %}{{ 'pages.lead.intro' | t }}{% endif %}</p>
+      {%- unless no_form -%}
       <p class="small muted" style="margin-top: 16px">{{ 'pages.lead.or_call' | t }} <a class="link" href="tel:+351226167020">+351 226 167 020</a> <span>{{ 'contact.call_cost' | t }}</span></p>
+      {%- endunless -%}
     </div>
     <div class="col-right">
+      {%- if no_form -%}
+        <div class="stack">
+          <p class="lead">{{ 'pages.lead.static_text' | t }}</p>
+          <p><a class="btn btn--primary" href="tel:+351226167020">+351 226 167 020</a></p>
+          <p><a class="link" href="mailto:sotocalcafes@sotocalcafes.pt">{{ 'pages.lead.static_email' | t }}</a></p>
+        </div>
+      {%- else -%}
       {%- assign lead_success = 'pages.lead.success' | t -%}
-      {%- form 'contact', id: 'HorecaLead', class: 'lead-form', novalidate: 'novalidate', data-lead-form: '', data-endpoint: settings.lead_endpoint_url, data-success: lead_success -%}
+      {%- form 'contact', id: 'HorecaLead', class: 'lead-form', novalidate: 'novalidate', data-lead-form: '', data-endpoint: settings.lead_endpoint_url, data-static: settings.catalogue_only, data-success: lead_success -%}
         {%- if form.posted_successfully? -%}
           <div class="form-status" role="status" tabindex="-1" data-lead-success>
             <p class="h3">{{ 'pages.lead.success' | t }}</p>
@@ -112,6 +125,7 @@
           <button class="btn btn--primary" type="submit" style="margin-top: 24px">{{ 'pages.lead.submit' | t }}</button>
         {%- endif -%}
       {%- endform -%}
+      {%- endif -%}
     </div>
   </div>
 </section>

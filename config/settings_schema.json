@@ -32,6 +32,7 @@
   {
     "name": "t:settings_schema.prelaunch.name",
     "settings": [
+      { "type": "checkbox", "id": "catalogue_only", "label": "t:settings_schema.prelaunch.catalogue_only", "info": "t:settings_schema.prelaunch.catalogue_only_info", "default": false },
       { "type": "checkbox", "id": "show_tbc_markers", "label": "t:settings_schema.prelaunch.show_tbc_markers", "info": "t:settings_schema.prelaunch.show_tbc_markers_info", "default": true }
     ]
   },

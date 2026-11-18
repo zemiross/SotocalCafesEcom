@@ -2,33 +2,46 @@
 blog: guia-do-cafe
 handle: cevada-tem-cafeina
 title: A cevada tem cafeína?
-seo_title: A cevada tem cafeína? O que diz a ciência
-seo_description: A cafeína na cevada torrada e nas misturas com café, com a fonte de cada afirmação. Em construção: a fonte principal ainda não está validada.
-answer: [[TBC: resposta de uma frase com fonte]]
+seo_title: A cevada tem cafeína? Cevada e misturas com café
+seo_description: A cevada torrada não contém cafeína. As misturas com café contêm a cafeína do café que levam. Veja o que diz a lista de ingredientes da Sotocal.
+answer: A cevada torrada, sozinha, não contém cafeína. Por isso uma bebida só de cevada, como a Cevada Sotocal (ingrediente: cevada torrada), não tem cafeína. As misturas que levam café, como a Mistura Bom Dia (25% de café) e a Mistura Sako (20% de café), contêm a cafeína do café que levam. Confirme sempre a lista de ingredientes na embalagem.
 author: Sotocal
-last_reviewed: 2026-11-17
+published: 2026-11-18
+last_reviewed: 2026-11-18
+publish: static
+no_sources_by_decision: D118
+related_products: lote-super-milano, lote-super
 sources: []
 keywords: cevada tem cafeína
-status: DRAFT, BLOCKED (no validated source for barley itself; do not publish an answer without one)
+status: PUBLISHED in the static site 18/11/2026 (D118) without an external source, by José's decision. The page says so. Add a citable source (INSA/PortFIR or similar) when one is found.
 ---
 
 # A cevada tem cafeína?
 
-**Resposta direta:** [[TBC: não escrever sem fonte primária sobre a cevada torrada. Fontes a procurar: tabela de composição de alimentos INSA (PortFIR), base de dados do Departamento de Agricultura dos EUA para a cevada torrada, ou um artigo científico. Não usar páginas de lojas.]]
+**Resposta direta:** A cevada torrada, sozinha, não contém cafeína. Por isso uma bebida só de cevada, como a Cevada Sotocal (ingrediente: cevada torrada), não tem cafeína. As misturas que levam café, como a Mistura Bom Dia (25% de café) e a Mistura Sako (20% de café), contêm a cafeína do café que levam. Confirme sempre a lista de ingredientes na embalagem.
 
 ## O que se sabe com certeza
 
-- A Mistura Bom Dia leva 25% de café e a Mistura Sako leva 20% de café: levam a cafeína do café que contêm. A [Mistura Sako](/products/mistura-sako) diz a percentagem de café na embalagem.
-- A Cevada Sotocal vende-se como «cevada torrada moída» ([[TBC: confirmar a lista de ingredientes: só cevada?]]).
+- A Cevada Sotocal vende-se como cevada torrada moída e o único ingrediente é a cevada torrada.
+- A [Mistura Bom Dia](/products/mistura-bom-dia) leva 25% de café e 75% de chicória.
+- A Mistura Sako leva 20% de café e 80% de cereais torrados (cevada, chicória e grão preto).
+- Quando uma mistura leva café, leva a cafeína desse café. Quanto mais café na mistura, mais cafeína.
+
+## Quanta cafeína tem uma chávena?
+
+Depende da mistura, da dose e do modo de preparação. Não indicamos valores de cafeína por chávena nesta página. A percentagem de café de cada mistura está na embalagem.
+
+## Cevada e glúten
+
+A cevada contém glúten e vem declarada como alergénio. Leia [cevada e chicória têm glúten?](/blogs/guia-do-cafe/cevada-tem-gluten).
 
 ## Ver também
 
-- [Cevada e chicória têm glúten?](/blogs/guia-do-cafe/cevada-tem-gluten)
 - [O que é a chicória](/blogs/guia-do-cafe/o-que-e-a-chicoria)
 - [A história da Sotocal](/pages/historia)
 
-## Fontes
+## Sobre as fontes
 
-- [[TBC]]
+A composição dos produtos Sotocal vem das embalagens e do folheto de produto (2026). A afirmação geral de que a cevada torrada não contém cafeína é de conhecimento comum e esta página não cita uma fonte externa para ela.
 
-Última revisão: 17/11/2026.
+Última revisão: 18/11/2026.

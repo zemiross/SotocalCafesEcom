@@ -9,12 +9,41 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const port = Number(process.argv[2] || process.env.PORT || 4173);
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.pdf': 'application/pdf', '.txt': 'text/plain' };
+const types = { '.xml': 'application/xml', '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.pdf': 'application/pdf', '.txt': 'text/plain' };
 
 const cdn = {};
+// SITE_DIR=site serves the static pre-launch build exactly as Cloudflare Pages would: extensionless URLs map to .html files,
+// _redirects is honoured, unknown paths get 404.html.
+const siteDir = process.env.SITE_DIR ? path.join(root, process.env.SITE_DIR) : null;
+const siteRedirects = [];
+if (siteDir) {
+  try {
+    for (const l of (await readFile(path.join(siteDir, '_redirects'), 'utf8')).split(/\r?\n/)) {
+      const [from, to, code] = l.trim().split(/\s+/);
+      if (from && !from.startsWith('#') && to) siteRedirects.push([from, to, Number(code) || 301]);
+    }
+  } catch { /* no redirects file */ }
+}
 createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${port}`);
   let p = decodeURIComponent(url.pathname);
+  if (siteDir) {
+    const hit = siteRedirects.find(([from]) => from === p);
+    if (hit) { res.writeHead(hit[2], { Location: hit[1] }); res.end(); return; }
+    if (p.length > 1 && p.endsWith('/')) { res.writeHead(301, { Location: p.slice(0, -1) + url.search }); res.end(); return; }
+    for (const f of [path.join(siteDir, p), path.join(siteDir, p + '.html'), path.join(siteDir, p, 'index.html')]) {
+      try {
+        const s = await stat(f);
+        if (!s.isFile()) continue;
+        res.writeHead(200, { 'Content-Type': types[path.extname(f)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+        res.end(await readFile(f));
+        return;
+      } catch { /* try the next candidate */ }
+    }
+    res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(await readFile(path.join(siteDir, '404.html')).catch(() => 'Not found'));
+    return;
+  }
   if (/\/cart\/(add|change|update)(\.js)?$/.test(p)) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ sections: {}, items: [] }));

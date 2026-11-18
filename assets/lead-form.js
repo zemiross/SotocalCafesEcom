@@ -79,6 +79,15 @@
         })
         .catch(() => {
           clearTimeout(timer);
+          if (form.dataset.static === 'true') {
+            // Static site: there is no Shopify form to fall back to, so say how to reach Sotocal.
+            if (button) button.disabled = false;
+            let fail = form.querySelector('[data-lead-fail]');
+            if (!fail) { fail = document.createElement('p'); fail.className = 'form-status'; fail.tabIndex = -1; fail.setAttribute('role', 'alert'); fail.setAttribute('data-lead-fail', ''); form.prepend(fail); }
+            fail.textContent = pt ? 'Não foi possível enviar o pedido. Ligue-nos para +351 226 167 020 ou escreva para sotocalcafes@sotocalcafes.pt.' : 'We could not send your request. Call +351 226 167 020 or write to sotocalcafes@sotocalcafes.pt.';
+            fail.focus();
+            return;
+          }
           delete form.dataset.endpoint;
           if (email && !email.value.trim()) email.value = 'sotocalcafes@sotocalcafes.pt';
           if (button) button.disabled = false;

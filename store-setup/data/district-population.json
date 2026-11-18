@@ -1,0 +1,92 @@
+{
+ "Aveiro": {
+  "population": 700964,
+  "most_populous": "Santa Maria da Feira",
+  "most_populous_pop": 136720
+ },
+ "Beja": {
+  "population": 144410,
+  "most_populous": "Beja",
+  "most_populous_pop": 33401
+ },
+ "Braga": {
+  "population": 846515,
+  "most_populous": "Braga",
+  "most_populous_pop": 193333
+ },
+ "Bragança": {
+  "population": 122833,
+  "most_populous": "Bragança",
+  "most_populous_pop": 34580
+ },
+ "Castelo Branco": {
+  "population": 177912,
+  "most_populous": "Castelo Branco",
+  "most_populous_pop": 52272
+ },
+ "Coimbra": {
+  "population": 408631,
+  "most_populous": "Coimbra",
+  "most_populous_pop": 140796
+ },
+ "Évora": {
+  "population": 152436,
+  "most_populous": "Évora",
+  "most_populous_pop": 53568
+ },
+ "Faro": {
+  "population": 467495,
+  "most_populous": "Loulé",
+  "most_populous_pop": 72373
+ },
+ "Guarda": {
+  "population": 143019,
+  "most_populous": "Guarda",
+  "most_populous_pop": 40155
+ },
+ "Leiria": {
+  "population": 458679,
+  "most_populous": "Leiria",
+  "most_populous_pop": 128640
+ },
+ "Lisboa": {
+  "population": 2275591,
+  "most_populous": "Lisboa",
+  "most_populous_pop": 544851
+ },
+ "Portalegre": {
+  "population": 104989,
+  "most_populous": "Portalegre",
+  "most_populous_pop": 22368
+ },
+ "Porto": {
+  "population": 1786656,
+  "most_populous": "Vila Nova de Gaia",
+  "most_populous_pop": 304149
+ },
+ "Santarém": {
+  "population": 425431,
+  "most_populous": "Santarém",
+  "most_populous_pop": 58770
+ },
+ "Setúbal": {
+  "population": 875656,
+  "most_populous": "Almada",
+  "most_populous_pop": 177400
+ },
+ "Viana do Castelo": {
+  "population": 231488,
+  "most_populous": "Viana do Castelo",
+  "most_populous_pop": 85864
+ },
+ "Vila Real": {
+  "population": 185878,
+  "most_populous": "Vila Real",
+  "most_populous_pop": 49623
+ },
+ "Viseu": {
+  "population": 351592,
+  "most_populous": "Viseu",
+  "most_populous_pop": 99693
+ }
+}

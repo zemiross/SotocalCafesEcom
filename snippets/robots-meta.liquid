@@ -8,6 +8,7 @@
   - a collection URL with a tag, an active filter or a non-default sort order
   - internal search results
   - a product still tagged `preco-provisorio` (placeholder price: unresolved TBC, quality gate 4)
+  - catalogue mode (no purchase): product, collection, cart and search pages
   - a local supplier page unless the area is served and has local content (facts, deliveries or consenting cafés)
   - the gift-box landing page (supports /products/despensa-do-norte, same intent: docs/seo/url-map.csv)
   - a page or article whose body still contains a literal [[TBC …]] (quality gate 4)
@@ -50,6 +51,12 @@
         assign robots_noindex = true
       endif
   endcase
+  # Catalogue mode (no purchase): product, collection, cart and search pages exist for visitors but stay out of the index.
+  if settings.catalogue_only
+    if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'list-collections' or request.page_type == 'cart' or request.page_type == 'search'
+      assign robots_noindex = true
+    endif
+  endif
   if request.page_type == 'page' and page.template_suffix == 'quiz'
     assign quiz_ready = 0
     for p in collections['cafe'].products

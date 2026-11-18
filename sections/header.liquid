@@ -70,6 +70,7 @@
 
       <div class="header-actions">
         <div class="hide-mobile">{% render 'language-switch', id: 'HeaderLanguage' %}</div>
+        {%- unless settings.catalogue_only -%}
         <button class="icon-btn" type="button" data-search-open aria-controls="search-dialog" aria-haspopup="dialog">
           {% render 'icon', name: 'search' %}<span class="visually-hidden">{{ 'header.search' | t }}</span>
         </button>
@@ -83,6 +84,7 @@
           <span class="visually-hidden" data-cart-label>{{ 'header.cart_count' | t: count: cart.item_count }}</span>
           <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}" aria-hidden="true">{{ cart.item_count }}</span>
         </a>
+        {%- endunless -%}
       </div>
     </div>
   </div>
@@ -136,6 +138,7 @@
   </div>
 </dialog>
 
+{%- unless settings.catalogue_only -%}
 <dialog id="search-dialog" class="drawer search-dialog" data-theme="cream" aria-label="{{ 'header.search' | t }}">
   <div class="search-dialog__inner container">
     <div class="menu-drawer__top">
@@ -156,6 +159,7 @@
     </form>
   </div>
 </dialog>
+{%- endunless -%}
 
 {% schema %}
 {

@@ -9,6 +9,8 @@ Unknowns are `[[TBC: …]]` and are listed in `docs/QUESTIONS-FOR-CLIENT.md`. Ne
 ```bash
 npm run prototype      # render the theme's Liquid with LiquidJS + mock data into /prototype
 npm run serve          # http://localhost:4173 (serves /prototype plus the real /assets)
+npm run build:static   # static pre-launch site without Shopify → /site (real data, catalogue_only on); --noindex for a temporary address
+npm run qa:static      # build + browser check of every static page + SEO gate + JSON-LD (docs/seo/16-static-prelaunch.md)
 npm run check:theme    # Shopify Theme Check (must stay at 0 errors)
 npm run check:locales  # pt-PT ⇄ en parity + every literal 'key' | t exists
 npm run check:jsonld   # JSON-LD parse + required fields on every prototype page
@@ -74,6 +76,14 @@ Admin › Content › Metaobjects › Partner café: name, address, postal_code,
 ## How to turn on a local supplier page
 
 Admin › Content › Metaobjects › Zona servida (`service_area`, `/pages/fornecedor-de-cafe/<distrito>`): tick `served`, write a district-specific short answer, add `delivery` and/or `local_facts` from Sotocal, set Active. The page stays noindex until all of that is true (D111, `docs/seo/15-local-pages.md`). Never publish a district with only the name swapped.
+
+## How to publish a guide
+
+Guides are Markdown drafts in `docs/seo/drafts/*.md`, the single source of the text. Front matter: `handle`, `title`, `seo_title` (≤ 60 with " | Sotocal"), `seo_description` (≤ 155), `answer` (40 to 70 words), `author`, `published`, `last_reviewed`, `sources` (or `no_sources_by_decision: D118`), `self_included`, `compared_handles` or `compared_rule: grao-1kg`, `related_products`, and `publish: static` to put it in the static site. Resolve every `[[TBC]]` first: the build refuses a published draft that has one. Run `npm run check:guides`, then `npm run qa:static`. Internal links to pages the static site does not have are unlinked automatically; `/collections/cafe-em-grao` maps to `/collections/cafe`. Comparison tables read `competitor` entries and never show a Sotocal row without a real price.
+
+## Catalogue mode
+
+`settings.catalogue_only` (Theme settings › pre-launch) hides cart, prices, search, account, newsletter and purchase promises and noindexes product and collection pages. Any new section that mentions buying, shipping, pickup, subscriptions or prices must respect it (`{% if settings.catalogue_only %}`), because the static site renders every page with it on and `npm run build:static` fails on leftovers.
 
 ## Don't
 

@@ -3,6 +3,7 @@
   #presentes-empresas, linked from the gifts collection. No public prices: volume pricing is on request. The lead form's business type
   "Presentes de empresa" tells the sales team what the enquiry is about.
 {%- endcomment -%}
+{%- unless settings.catalogue_only -%}
 <section class="section section--tight corporate-gifts" id="presentes-empresas" data-theme="{{ section.settings.theme }}" aria-labelledby="CorpGifts-{{ section.id }}">
   <div class="container grid">
     <h2 class="h2 col-left" id="CorpGifts-{{ section.id }}">{{ 'gifts.corporate_heading' | t }}</h2>
@@ -21,6 +22,7 @@
     </div>
   </div>
 </section>
+{%- endunless -%}
 
 {% schema %}
 {

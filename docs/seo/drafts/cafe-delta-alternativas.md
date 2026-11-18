@@ -1,19 +1,22 @@
 ---
 blog: guia-do-cafe
 handle: cafe-delta-alternativas
-status: DRAFT, closest to ready (data verified); needs D14 decision and the Sotocal price
+title: Café Delta em grão: alternativas e preços por kg
 seo_title: Café Delta em grão: alternativas e preços por kg   # 48 characters
 seo_description: Preços por kg dos cafés Delta em grão e de alternativas (Nicola, Sical, marca própria), com fonte e data. Comparação objetiva.   # 126 characters
+answer: O café Delta em grão de 1 kg custava, a 17 de novembro de 2026 no Continente, entre 19,99 € e 25,99 € por kg, consoante o lote. Nas mesmas prateleiras, alternativas de 1 kg iam de 10,99 € (marca própria) a 21,99 € (Nicola). Esta página compara preços, não o sabor: cada preço tem a fonte e a data em que o lemos.
+author: Sotocal
+published: 2026-11-18
+last_reviewed: 2026-11-18
+publish: static
+self_included: false
+criteria: Preço por kg, tamanho da embalagem, formato e tipo de preço (normal ou promoção), lidos no Continente Online a 17/11/2026. Sem juízos de qualidade.
+compared_handles: continente-8773030, continente-8773229, continente-8976391, continente-2061464, continente-2130164, continente-2004739, continente-3630158, continente-2852183, continente-2014662
+related_products: lote-super-milano, lote-super
+sources:
+  - https://www.continente.pt/pesquisa/?q=cafe+em+grao
 keywords: café delta grão; café em grão delta; melhor café delta grão; café delta grão 1kg
-metafields:
-  compared: continente-2004739, continente-3630158, continente-2014662 (Delta); continente-8976391, continente-2130164, continente-2852183 (Nicola); continente-2061464 (Sical); continente-8773030, continente-8773229 (Continente). Reorder by price per kg, lowest first.
-  self_included: true once a real Sotocal price exists; otherwise false
-  last_reviewed: 2026-11-17
-  sources: https://www.continente.pt/pesquisa/?q=cafe+em+grao
-blockers:
-  - D14 decided 17/11/2026: allowed (D76). docs/SEO.md updated. Still needs the legal read of the wording below.
-  - Sotocal price (D8) for the Sotocal row; without it the page compares only other brands (still valid, but weaker).
-  - Legal read of the wording (Advertising Code art. 16) before publishing.
+status: PUBLISHED in the static site 18/11/2026 (D118). Sotocal row stays out until a real price exists (D8). Legal read of the wording (D76, Q62) is still the gate before any deployment.
 ---
 
 # Café Delta em grão: alternativas e preços por kg
@@ -40,11 +43,11 @@ O que se vê na tabela, sem juízos:
 
 ## Embalagens mais pequenas
 
-Os cafés Delta em embalagens de 500 g ou 750 g têm preço por kg diferente do de 1 kg: por exemplo, o Delta Lote Portugal, de 750 g, estava a 17,32 € por kg em promoção (preço recomendado: 25,32 € por kg). Comparar sempre o preço por kg, e a data.
+Os cafés Delta em embalagens de 500 g ou 750 g têm preço por kg diferente do de 1 kg: por exemplo, o Delta Lote Portugal, de 750 g, estava a 17,32 € por kg em promoção (preço recomendado: 25,32 € por kg). Compare sempre o preço por kg, e a data.
 
-## Quando faz sentido escolher outra marca
+## Quando não escolher a Sotocal
 
-[[TBC: texto da Sotocal, factual e sem comparações de qualidade, sobre quando uma alternativa serve melhor (por exemplo preço, onde se compra, formato).]]
+Se procura a opção mais barata, a Sotocal não é a melhor escolha. Se procura um café torrado no Porto desde 1960, o mesmo que servimos nos cafés do Norte, é para isso que cá estamos.
 
 ## Ver também
 

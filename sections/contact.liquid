@@ -10,11 +10,14 @@
       </address>
       <p><a class="link" href="tel:+351226167020">+351 226 167 020</a><br><span class="small muted">{{ 'contact.call_cost' | t }}</span></p>
       <p><a class="link" href="mailto:sotocalcafes@sotocalcafes.pt">sotocalcafes@sotocalcafes.pt</a></p>
+      {%- if section.settings.hours != blank or settings.show_tbc_markers or request.design_mode -%}
       <p><strong>{{ 'pages.contact.hours' | t }}</strong><br>{% if section.settings.hours != blank %}{{ section.settings.hours | newline_to_br }}{% else %}{% render 'tbc', note: 'horário de atendimento' %}{% endif %}</p>
+      {%- endif -%}
       {%- if settings.social_google_maps != blank -%}
         <p><a class="text-link" href="{{ settings.social_google_maps }}" rel="noopener" target="_blank">{% render 'icon', name: 'map', class: 'icon--sm' %} {{ 'pages.contact.map' | t }}<span class="visually-hidden"> ({{ 'general.new_window' | t }})</span></a></p>
       {%- endif -%}
     </div>
+{%- unless settings.catalogue_only -%}
     <div class="col-right">
       <h2 class="h3">{{ 'pages.contact.form_heading' | t }}</h2>
       {%- form 'contact', id: 'ContactForm', class: 'contact__form stack', novalidate: 'novalidate' -%}
@@ -31,6 +34,7 @@
         {%- endif -%}
       {%- endform -%}
     </div>
+{%- endunless -%}
   </div>
 </section>
 

@@ -1,3 +1,4 @@
+{%- unless settings.catalogue_only -%}
 {%- liquid
   assign heading = section.settings.heading
   if heading == blank
@@ -17,6 +18,7 @@
     {% render 'newsletter-form', id: 'Newsletter' %}
   </div>
 </section>
+{%- endunless -%}
 
 {% schema %}
 {

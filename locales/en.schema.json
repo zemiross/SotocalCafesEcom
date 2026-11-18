@@ -326,6 +326,8 @@
     },
     "prelaunch": {
       "name": "Pre-launch",
+      "catalogue_only": "Catalogue mode (no purchase)",
+      "catalogue_only_info": "Hides the cart, prices, search, account and newsletter; products become informational and are not indexed. Used for the pre-launch site.",
       "show_tbc_markers": "Show [[TBC]] markers",
       "show_tbc_markers_info": "Shows missing content for review. Turn off before the store opens."
     },

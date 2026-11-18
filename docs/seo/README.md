@@ -21,6 +21,7 @@ Closed 17/11/2026. Thirteen workstreams delivered, each with a report. Launch la
 | [12-ws12-geo-offsite.md](12-ws12-geo-offsite.md), [geo-prompts.md](geo-prompts.md) | GEO prompts, off-site plan |
 | [13-ws13-measurement.md](13-ws13-measurement.md) | Events, UTMs, AI referrals, ledger |
 | [14-plan-gap-review.md](14-plan-gap-review.md) | Line-by-line review of the brief (18/11/2026): done, missing, Torrié/Bicafé study, top launch gaps |
+| [16-static-prelaunch.md](16-static-prelaunch.md) | Static pre-launch site without Shopify: what is on it, what the build refuses, how to deploy, how to move to Shopify |
 | [15-local-pages.md](15-local-pages.md) | District supplier pages "fornecedor de café <distrito>": gate, status, how to turn one on |
 
 Data files: `keyword-map.csv`, `url-map.csv`, `old-urls.csv`, `ledger.csv` (and its rendered `ledger.md`), `geo-tracking.csv`, `drafts/`.

@@ -37,12 +37,21 @@ A page is indexable only when all three are true:
 
 Otherwise the page renders with `noindex,follow`. The entry is also DRAFT in Shopify, so it returns 404 until someone publishes it.
 
-| Area | Status at launch | Why |
+| Area | Status | Why |
 |---|---|---|
-| Porto | Live, indexable | Roastery and HQ since 1960, Rua Engenheiro Ferreira Dias, n.º 398; HQ is the online-order collection point (D94) |
-| The 17 other districts, Açores, Madeira | DRAFT, noindex | No confirmed service or local facts yet (Q68). The brief says Sotocal supplies HORECA "from Minho to the Algarve", but it gives no district-level detail |
+| Porto | Live, indexable | Roastery and HQ since 1960, Rua Engenheiro Ferreira Dias, n.º 398, plus the district facts below |
+| The 17 other mainland districts | **Live, indexable (D119, 18/11/2026)** | Sotocal distributes to all of Portugal (José). Each page has the coverage statement, the district's municipalities and Census 2021 population |
+| Açores, Madeira | Draft, noindex | Waiting for confirmation that "all Portugal" includes the islands (Q73) |
 
-## Why not 20 live pages today
+What every district page contains: H1 "Fornecedor de café em Faro", the coverage statement (Sotocal distributes to all of Portugal, from the Porto roastery, since 1960), "O distrito de Faro tem 16 concelhos: …", "Em 2021 viviam no distrito cerca de 467 mil pessoas (Censos 2021), e o concelho mais populoso é o de Loulé", the B2B supply paragraph, links to the history, the roast and contacts, the contact block, `Service` schema with the district, and breadcrumbs.
+
+The municipality lists are in `store-setup/data/concelhos.json`: 278 municipalities, validated against the municipality list on pt.wikipedia.org (all names present, none repeated, counts equal the official figures, the 30 unused names are the island municipalities). Population is in `store-setup/data/district-population.json`, summed from the same table and rounded.
+
+Body text is 40 to 71 % unique against sibling pages (Beja and Setúbal sit at 40 %). The measure leaves out the breadcrumbs and the contact block, which are the same on every page by design.
+
+**Risk to know about.** These pages differ by facts about the place, not about Sotocal's service in it. Google can treat pages like that as doorway pages. What makes them durable is real service detail per district (delivery days, local clients with consent, who covers the area: Q68). Until it arrives they are live because José decided so (D119), against the recommendation in D111.
+
+## Why they were gated first (D111) and what changed
 
 The brief forbids city pages built from a template with the city swapped (§4, WS8). The reason is concrete: comprarhielo.com's 273 such pages are the example of what not to do. Google calls these doorway pages and can demote the whole site for them.
 

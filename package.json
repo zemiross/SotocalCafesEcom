@@ -9,6 +9,10 @@
     "vendor": "node scripts/vendor.mjs",
     "placeholders": "node scripts/make-placeholders.mjs",
     "prototype": "node scripts/build-prototype.mjs",
+    "build:static": "node scripts/build-static.mjs",
+    "check:static": "node scripts/check-static.mjs",
+    "qa:static": "npm run build:static && npm run check:static && node scripts/check-seo.mjs --site=site && node scripts/check-jsonld.mjs --site=site",
+    "serve:static": "node scripts/serve-static.mjs",
     "serve": "node scripts/serve.mjs",
     "check:locales": "node scripts/check-locales.mjs",
     "check:theme": "node scripts/theme-check.mjs",
@@ -41,6 +45,7 @@
     "lighthouse": "^13.6.0",
     "linkinator": "^8.1.0",
     "liquidjs": "^10.30.0",
+    "marked": "^18.1.2",
     "sharp": "^0.35.5"
   }
 }

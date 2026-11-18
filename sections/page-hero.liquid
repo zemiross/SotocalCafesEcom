@@ -11,6 +11,11 @@
   assign intro = section.settings.intro
   if intro == blank and section.settings.preset != 'none'
     assign key = 'pages.' | append: section.settings.preset | append: '.intro'
+    if settings.catalogue_only and section.settings.preset == 'faq'
+      assign key = 'pages.faq.intro_catalogue'
+    elsif settings.catalogue_only and section.settings.preset == 'contact'
+      assign key = 'pages.contact.intro_catalogue'
+    endif
     assign intro = key | t: years: years
   endif
   if section.settings.preset != 'none' and section.settings.heading == blank

@@ -22,7 +22,8 @@
   },
   "announcement": {
     "free_shipping": "Envio grátis a partir de {{ amount }}",
-    "dismiss": "Fechar aviso"
+    "dismiss": "Fechar aviso",
+    "catalogue": "A loja online abre em breve. Cafés, restaurantes e hotéis: peça uma visita."
   },
   "header": {
     "menu": "Menu",
@@ -189,7 +190,11 @@
     "giftbox_heading": "O que vem na caixa",
     "giftbox_text": "Produtos Sotocal escolhidos para oferecer.",
     "quick_add": "Adicionar",
-    "view_full": "Ver todos os detalhes"
+    "view_full": "Ver todos os detalhes",
+    "catalogue_heading": "Compra online em breve",
+    "catalogue_text": "Os lotes Sotocal servem-se nos cafés do Norte. A loja online abre em breve; até lá, fale connosco.",
+    "catalogue_formats": "Formatos:",
+    "catalogue_cta": "Fale connosco"
   },
   "cart": {
     "title": "Carrinho",
@@ -238,7 +243,9 @@
       "cta": "Comprar café",
       "link": "Tem um café ou restaurante?",
       "note": "Envio para Portugal continental, Açores, Madeira e União Europeia.",
-      "machine_alt": "Cafeteira italiana de alumínio, inclinada, a verter café"
+      "machine_alt": "Cafeteira italiana de alumínio, inclinada, a verter café",
+      "cta_catalogue": "Conhecer os lotes",
+      "subheading_catalogue": "Torrado no Porto desde 1960. Os lotes que servimos nos cafés do Norte."
     },
     "roast": {
       "heading": "Tudo acontece na torra.",
@@ -290,13 +297,15 @@
       "business_heading": "Para o seu negócio",
       "business_lead": "Há {{ years }} anos ao lado de cafés, restaurantes e hotéis.",
       "business_points": "Equipamento adequado, colocado mediante acordo|Assistência técnica rápida|Formação para tirar sempre o melhor expresso|Material promocional para o seu espaço",
-      "business_cta": "Pedir contacto comercial"
+      "business_cta": "Pedir contacto comercial",
+      "home_points_catalogue": "Os lotes Sotocal servem-se nos cafés do Norte."
     },
     "cup": {
       "heading": "Orgulhosamente português.",
       "sub": "Uma torrefação de família, no Porto, desde 1960. José Barbosa, um dos fundadores, continua a liderar a casa.",
       "cta": "Comprar café",
-      "svg_title": "Chávena Sotocal com «Português?» e «Orgulhosamente Português» escritos no interior"
+      "svg_title": "Chávena Sotocal com «Português?» e «Orgulhosamente Português» escritos no interior",
+      "cta_catalogue": "Conhecer os lotes"
     }
   },
   "tools": {
@@ -404,7 +413,8 @@
     "cafes_heading": "Onde já se bebe Sotocal {{ place }}",
     "locator_link": "Ver todos os cafés no mapa",
     "breadcrumb_parent": "Profissional",
-    "list_heading": "Onde fornecemos"
+    "list_heading": "Onde fornecemos",
+    "more_heading": "Conhecer a Sotocal"
   },
   "hubs": {
     "by": "Por {{ name }}.",
@@ -599,10 +609,10 @@
       "group_2_title": "Na relação connosco",
       "group_2_items": "Material promocional para o seu espaço|Ótima relação qualidade-preço|Rigor no cumprimento dos acordos",
       "equipment_heading": "Máquina de café para restaurantes, cafés e hotéis",
-    "equipment_text": "Não precisa de comprar a máquina. Quando o seu café, restaurante ou hotel passa a servir café Sotocal, colocamos o equipamento adequado no estabelecimento, mediante acordo, e damos assistência técnica rápida.",
-    "equipment_text_2": "Deixamos também as instruções de funcionamento e de manutenção. A Sotocal não vende máquinas de café: o equipamento faz parte do acordo de fornecimento, que propomos depois de uma visita.",
-    "equipment_cta": "Pedir uma visita",
-    "no_machines": "A Sotocal não vende máquinas de café: coloca o equipamento adequado mediante acordo."
+      "equipment_text": "Não precisa de comprar a máquina. Quando o seu café, restaurante ou hotel passa a servir café Sotocal, colocamos o equipamento adequado no estabelecimento, mediante acordo, e damos assistência técnica rápida.",
+      "equipment_text_2": "Deixamos também as instruções de funcionamento e de manutenção. A Sotocal não vende máquinas de café: o equipamento faz parte do acordo de fornecimento, que propomos depois de uma visita.",
+      "equipment_cta": "Pedir uma visita",
+      "no_machines": "A Sotocal não vende máquinas de café: coloca o equipamento adequado mediante acordo."
     },
     "locator": {
       "heading": "Onde beber Sotocal",
@@ -668,11 +678,13 @@
       "privacy_html": "Usamos os seus dados só para responder. <a class=\"link\" href=\"{{ privacy_url }}\">Política de privacidade</a>",
       "submit": "Enviar mensagem",
       "success": "Mensagem enviada. Respondemos em breve.",
-      "error": "Verifique os campos assinalados."
+      "error": "Verifique os campos assinalados.",
+      "intro_catalogue": "Fale connosco por telefone ou por email."
     },
     "faq": {
       "heading": "Perguntas frequentes",
-      "intro": "Respostas curtas sobre encomendas, envios, lotes e subscrição."
+      "intro": "Respostas curtas sobre encomendas, envios, lotes e subscrição.",
+      "intro_catalogue": "Respostas curtas sobre a Sotocal e os lotes."
     },
     "pickup": {
       "heading": "Levantar num café Sotocal",
@@ -746,7 +758,10 @@
       "submit": "Pedir contacto",
       "success": "Pedido recebido. Vamos ligar-lhe em breve.",
       "error_summary": "Não foi possível enviar. Verifique os campos.",
-      "error_email": "Indique um email válido, ou deixe-o em branco e ative o JavaScript."
+      "error_email": "Indique um email válido, ou deixe-o em branco e ative o JavaScript.",
+      "static_text": "Para um fornecimento ou uma visita, ligue-nos ou escreva-nos.",
+      "static_email": "Escrever para sotocalcafes@sotocalcafes.pt",
+      "intro_static": "Fale com um comercial da Sotocal para conhecer o seu espaço."
     },
     "qr": {
       "heading": "Bem-vindo ao café Sotocal.",

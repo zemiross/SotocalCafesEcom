@@ -16,6 +16,7 @@
       {%- if intro != blank -%}<p class="lead collection__intro">{{ intro }}</p>{%- endif -%}
     </header>
 
+    {%- unless settings.catalogue_only -%}
     <form class="filters" action="{{ collection.url }}" method="get" data-filters aria-label="{{ 'collections.filters_label' | t }}">
       <div class="filters__row">
         {%- for filter in collection.filters -%}
@@ -58,6 +59,7 @@
       </div>
       <p class="filters__meta small muted" role="status" aria-live="polite" data-results-count>{{ 'collections.count' | t: count: collection.products_count }}</p>
     </form>
+    {%- endunless -%}
 
     <div data-collection-results>
       {%- if collection.products.size > 0 -%}

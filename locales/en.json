@@ -22,7 +22,8 @@
   },
   "announcement": {
     "free_shipping": "Free shipping on orders over {{ amount }}",
-    "dismiss": "Dismiss notice"
+    "dismiss": "Dismiss notice",
+    "catalogue": "The online shop opens soon. Cafés, restaurants and hotels: ask for a visit."
   },
   "header": {
     "menu": "Menu",
@@ -189,7 +190,11 @@
     "giftbox_heading": "What's in the box",
     "giftbox_text": "Sotocal products chosen for giving.",
     "quick_add": "Add",
-    "view_full": "See full details"
+    "view_full": "See full details",
+    "catalogue_heading": "Online shop opening soon",
+    "catalogue_text": "Sotocal blends are served in the cafés of the North. The online shop opens soon; until then, get in touch.",
+    "catalogue_formats": "Formats:",
+    "catalogue_cta": "Get in touch"
   },
   "cart": {
     "title": "Basket",
@@ -238,7 +243,9 @@
       "cta": "Shop coffee",
       "link": "Run a café or restaurant?",
       "note": "Shipping to mainland Portugal, the Azores, Madeira and the EU.",
-      "machine_alt": "Aluminium moka pot, tilted, pouring coffee"
+      "machine_alt": "Aluminium moka pot, tilted, pouring coffee",
+      "cta_catalogue": "See the blends",
+      "subheading_catalogue": "Roasted in Porto since 1960. The blends we serve in the cafés of the North."
     },
     "roast": {
       "heading": "It all happens in the roast.",
@@ -290,13 +297,15 @@
       "business_heading": "For your business",
       "business_lead": "For {{ years }} years, alongside cafés, restaurants and hotels.",
       "business_points": "Suitable equipment, placed under an agreement|Fast technical assistance|Training so you always pull a great espresso|Promotional material for your premises",
-      "business_cta": "Request a sales call"
+      "business_cta": "Request a sales call",
+      "home_points_catalogue": "Sotocal blends are served in the cafés of the North."
     },
     "cup": {
       "heading": "Proudly Portuguese.",
       "sub": "A family roaster in Porto since 1960. José Barbosa, one of the founders, still leads the company.",
       "cta": "Shop coffee",
-      "svg_title": "Sotocal cup with “Português?” and “Orgulhosamente Português” lettered inside"
+      "svg_title": "Sotocal cup with “Português?” and “Orgulhosamente Português” lettered inside",
+      "cta_catalogue": "See the blends"
     }
   },
   "tools": {
@@ -404,7 +413,8 @@
     "cafes_heading": "Where Sotocal is already served {{ place }}",
     "locator_link": "See every café on the map",
     "breadcrumb_parent": "For business",
-    "list_heading": "Where we supply"
+    "list_heading": "Where we supply",
+    "more_heading": "About Sotocal"
   },
   "hubs": {
     "by": "By {{ name }}.",
@@ -599,10 +609,10 @@
       "group_2_title": "In how we work with you",
       "group_2_items": "Promotional material for your premises|Strong value for money|Rigour in honouring agreements",
       "equipment_heading": "A coffee machine for your restaurant, café or hotel",
-    "equipment_text": "You do not need to buy the machine. When your café, restaurant or hotel starts serving Sotocal coffee, we place suitable equipment on the premises under an agreement and provide fast technical support.",
-    "equipment_text_2": "We also leave operating and maintenance instructions. Sotocal does not sell coffee machines: the equipment is part of the supply agreement, which we propose after a visit.",
-    "equipment_cta": "Ask for a visit",
-    "no_machines": "Sotocal does not sell coffee machines: it places suitable equipment under an agreement."
+      "equipment_text": "You do not need to buy the machine. When your café, restaurant or hotel starts serving Sotocal coffee, we place suitable equipment on the premises under an agreement and provide fast technical support.",
+      "equipment_text_2": "We also leave operating and maintenance instructions. Sotocal does not sell coffee machines: the equipment is part of the supply agreement, which we propose after a visit.",
+      "equipment_cta": "Ask for a visit",
+      "no_machines": "Sotocal does not sell coffee machines: it places suitable equipment under an agreement."
     },
     "locator": {
       "heading": "Where to drink Sotocal",
@@ -668,11 +678,13 @@
       "privacy_html": "We only use your details to reply. <a class=\"link\" href=\"{{ privacy_url }}\">Privacy policy</a>",
       "submit": "Send message",
       "success": "Message sent. We'll reply soon.",
-      "error": "Please check the highlighted fields."
+      "error": "Please check the highlighted fields.",
+      "intro_catalogue": "Get in touch by phone or by email."
     },
     "faq": {
       "heading": "Frequently asked questions",
-      "intro": "Short answers about orders, shipping, blends and subscriptions."
+      "intro": "Short answers about orders, shipping, blends and subscriptions.",
+      "intro_catalogue": "Short answers about Sotocal and its blends."
     },
     "pickup": {
       "heading": "Collect at a Sotocal café",
@@ -746,7 +758,10 @@
       "submit": "Request a call",
       "success": "Request received. We'll call you soon.",
       "error_summary": "We couldn't send this. Please check the fields.",
-      "error_email": "Enter a valid email, or leave it blank with JavaScript turned on."
+      "error_email": "Enter a valid email, or leave it blank with JavaScript turned on.",
+      "static_text": "For a supply agreement or a visit, call us or write to us.",
+      "static_email": "Write to sotocalcafes@sotocalcafes.pt",
+      "intro_static": "Talk to a Sotocal sales representative about your space."
     },
     "qr": {
       "heading": "Welcome to Sotocal coffee.",

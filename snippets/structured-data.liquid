@@ -105,8 +105,11 @@
     }
 
     {%- case request.page_type -%}
-      {%- when 'product' -%},
+      {%- when 'product' -%}
+      {%- comment -%} Catalogue mode (no purchase): no Product/Offer schema, there is nothing to offer yet. {%- endcomment -%}
+      {%- unless settings.catalogue_only -%},
       {%- render 'structured-data-product', product: product, org_id: org_id, page_url: page_url -%}
+      {%- endunless -%}
       {%- when 'collection' -%},
       {
         "@type": "CollectionPage",

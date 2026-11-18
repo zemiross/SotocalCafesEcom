@@ -12,6 +12,7 @@
     <div class="col-right stack">
       <h1 class="h-display" id="NotFoundTitle">{{ 'not_found.heading' | t }}</h1>
       <p class="lead">{{ 'not_found.text' | t }}</p>
+      {%- unless settings.catalogue_only -%}
       <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
         <label class="label" for="NotFoundSearch">{{ 'search.label' | t }}</label>
         <div class="search-form__row">
@@ -19,8 +20,9 @@
           <button class="btn btn--solid" type="submit">{{ 'search.submit' | t }}</button>
         </div>
       </form>
+      {%- endunless -%}
       <ul class="hairlines" role="list">
-        <li><a class="link" href="{{ prefix }}/collections/cafe">{{ 'home.hero.cta' | t }}</a></li>
+        <li><a class="link" href="{{ prefix }}/collections/cafe">{% if settings.catalogue_only %}{{ 'home.hero.cta_catalogue' | t }}{% else %}{{ 'home.hero.cta' | t }}{% endif %}</a></li>
         <li><a class="link" href="{{ prefix }}/pages/profissional">{{ 'nav.business' | t }}</a></li>
         <li><a class="link" href="{{ prefix }}/pages/contactos">{{ 'nav.contact' | t }}</a></li>
         <li><a class="link" href="{{ routes.root_url }}">{{ 'general.back_home' | t }}</a></li>

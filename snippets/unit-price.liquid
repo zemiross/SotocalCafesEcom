@@ -4,6 +4,7 @@
   Params: variant, price (optional, cents; e.g. a selling-plan price), class, plain (text only).
   Outputs nothing if no quantity is known.
 {%- endcomment -%}
+{%- unless settings.catalogue_only -%}
 {%- liquid
   assign p = price | default: variant.price
   assign label = ''
@@ -44,3 +45,4 @@
 {%- elsif label != '' -%}
   <span class="unit-price {{ class }}" data-unit-price><span class="visually-hidden">{{ 'product.unit_price_label' | t }} </span>{{ label }}</span>
 {%- endif -%}
+{%- endunless -%}

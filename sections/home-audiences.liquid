@@ -33,6 +33,11 @@
   if l_url == blank
     assign l_url = prefix | append: '/collections/cafe'
   endif
+  if settings.catalogue_only
+    assign l_points = 'home.audiences.home_points_catalogue' | t | split: '|'
+    assign l_cta = 'home.cup.cta_catalogue' | t
+    assign l_url = prefix | append: '/#lotes'
+  endif
 
   assign r_head = section.settings.right_heading
   if r_head == blank

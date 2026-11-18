@@ -73,7 +73,9 @@
           </div>
         {%- endif -%}
 
-        {%- if layout == 'coffee' and section.settings.show_intensity -%}
+        {%- if layout == 'coffee' and section.settings.show_intensity and m.intensity == blank and settings.show_tbc_markers != true and request.design_mode != true -%}
+          {%- comment -%} No intensity value yet and the TBC markers are off: show no empty label. {%- endcomment -%}
+        {%- elsif layout == 'coffee' and section.settings.show_intensity -%}
           <div class="product__intensity">
             <span class="label">{{ 'product.intensity' | t }}</span>
             {%- if m.intensity != blank -%}
@@ -93,6 +95,18 @@
           </ul>
         {%- endif -%}
 
+        {%- if settings.catalogue_only -%}
+          <div class="product__catalogue stack">
+            <p class="h3">{{ 'product.catalogue_heading' | t }}</p>
+            <p>{{ 'product.catalogue_text' | t }}</p>
+            {%- unless product.has_only_default_variant -%}
+              <p class="small"><strong>{{ 'product.catalogue_formats' | t }}</strong>
+                {%- for option in product.options_with_values %} {{ option.name }}: {{ option.values | join: ', ' }}{% unless forloop.last %};{% endunless %}{%- endfor -%}
+              </p>
+            {%- endunless -%}
+            <a class="btn btn--primary" href="{% if routes.root_url != '/' %}{{ routes.root_url }}{% endif %}/pages/contactos">{{ 'product.catalogue_cta' | t }}</a>
+          </div>
+        {%- else -%}
         {%- form 'product', product, id: form_id, class: 'buy-form', novalidate: 'novalidate', data-cart-add: '', data-product-form: '' -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
           {%- unless product.has_only_default_variant -%}
@@ -211,6 +225,7 @@
             <li>{% render 'icon', name: 'cup', class: 'icon--sm' %}<a class="link" href="{% if routes.root_url != '/' %}{{ routes.root_url }}{% endif %}/pages/levantar-no-cafe">{{ 'product.pickup_link' | t }}</a></li>
           {%- endif -%}
         </ul>
+        {%- endif -%}
 
         <div class="accordion product__accordions">
           {%- if product.description != blank -%}
@@ -247,15 +262,18 @@
             <summary>{{ 'product.tab_food_info' | t }}<span class="pm" aria-hidden="true"></span></summary>
             <div class="accordion__body">{% render 'fic-table', product: product %}</div>
           </details>
+          {%- unless settings.catalogue_only -%}
           <details class="accordion__item">
             <summary>{{ 'product.tab_shipping' | t }}<span class="pm" aria-hidden="true"></span></summary>
             <div class="accordion__body rte">{{ 'product.shipping_returns_html' | t: refund_url: shop.refund_policy.url }}</div>
           </details>
+          {%- endunless -%}
         </div>
       </div>
     </div>
   </div>
 
+  {%- unless settings.catalogue_only -%}
   <div class="sticky-atc" data-sticky-atc hidden>
     <div class="sticky-atc__info">
       <span class="sticky-atc__title">{{ product.title }}</span>
@@ -287,8 +305,9 @@
       ]
     }
   </script>
+  {%- endunless -%}
 </section>
-<script src="{{ 'product.js' | asset_url }}" defer></script>
+{%- unless settings.catalogue_only -%}<script src="{{ 'product.js' | asset_url }}" defer></script>{%- endunless -%}
 
 {% schema %}
 {

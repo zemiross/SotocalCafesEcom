@@ -2,6 +2,7 @@
   Quick add. Single-variant products add directly; others open a small dialog with a native <select> of variants
   (conventional and accessible, no JS mapping needed). Param: product.
 {%- endcomment -%}
+{%- unless settings.catalogue_only -%}
 {%- assign v = product.selected_or_first_available_variant -%}
 {%- if product.available == false -%}
   <button class="btn btn--outline btn--sm" type="button" disabled>{{ 'product.sold_out' | t }}</button>
@@ -41,3 +42,4 @@
     </div>
   </dialog>
 {%- endif -%}
+{%- endunless -%}

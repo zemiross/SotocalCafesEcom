@@ -30,6 +30,12 @@ Status values:
 | Several launch keywords mapped to pages whose titles did not contain them; "cevada em grão" mapped to a ground product | SEO titles for the sucedâneos, café em grão, café moído and capsule collections, Mistura Bom Dia, Cevada, A torra and the calculator. "cevada em grão" → conditional (Q66) |
 | B2B machine terms (CPC 2,14–2,68 USD) rejected | Targeted by a section on the B2B page, "Máquina de café para restaurantes, cafés e hotéis" (`#equipamento`). Offices wait for Q71 (D115) |
 
+## Update 18/11 (later): guides and local pages are live in the static site
+
+- The five guides in `docs/seo/drafts` publish in the static site (D118): Delta alternatives, best beans in Portugal, cevada caffeine, cevada and chicória gluten, what chicory is. Two are live without an external source by José's decision, and say so. Neither comparison shows a Sotocal row yet (no real price). The legal read of the comparison wording (D76, Q62) is still the gate before any deployment.
+- The 18 mainland district pages are live (D119). Açores and Madeira wait for Q73.
+- Still open from the table below: the specialty tier of the listicle, the "melhor café para máquina automática", "melhores torrefações do Norte" and "cabaz de natal" guides, Maria José's byline, the method hubs (Q14) and everything that needs the store.
+
 ## Section by section
 
 ### §1 What Sotocal is

@@ -4,6 +4,7 @@
   if (!section) return;
   section.dataset.wired = '1';
   const form = section.querySelector('[data-filters]');
+  if (!form) return; // catalogue mode (no purchase) renders the grid without filters
   const id = section.dataset.sectionId;
   let controller;
 

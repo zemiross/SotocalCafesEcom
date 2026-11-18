@@ -40,6 +40,14 @@
     assign link_url = prefix | append: '/pages/profissional'
   endif
 
+  if settings.catalogue_only
+    assign cta_label = 'home.hero.cta_catalogue' | t
+    assign cta_url = prefix | append: '/#lotes'
+    if section.settings.subheading == blank
+      assign sub = 'home.hero.subheading_catalogue' | t
+    endif
+  endif
+
   assign words = heading | split: ' '
   assign n = words.size
   assign half = n | divided_by: 2 | floor
@@ -112,7 +120,7 @@
     </div>
     <div class="col-right hero__cta">
       <a class="btn btn--primary" href="{{ cta_url }}">{{ cta_label }}</a>
-      {%- if section.settings.show_note -%}
+      {%- if section.settings.show_note and settings.catalogue_only != true -%}
         <p class="hero__note small muted">{% render 'icon', name: 'truck', class: 'icon--sm' %}<span>{{ note }}</span></p>
       {%- endif -%}
     </div>

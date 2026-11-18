@@ -64,7 +64,7 @@
     </main>
 
     {% sections 'footer-group' %}
-    {% section 'cart-drawer' %}
+    {%- unless settings.catalogue_only -%}{% section 'cart-drawer' %}{%- endunless -%}
 
     <script>
       window.Sotocal = {

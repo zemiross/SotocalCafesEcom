@@ -10,9 +10,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const base = process.argv[2] || 'http://localhost:4175';
-const out = path.join(root, 'qa', 'lighthouse');
+const out = path.join(root, 'qa', process.env.SITE_DIR ? 'lighthouse-static' : 'lighthouse');
 mkdirSync(out, { recursive: true });
-const targets = [
+const prototypeTargets = [
   ['home', '/', 85], ['home-en', '/en/', 85], ['product', '/products/lote-super-milano/', 90], ['collection', '/collections/cafe/', 90],
   ['historia', '/pages/historia/', 90], ['profissional', '/pages/profissional/', 90], ['article', '/blogs/guia-do-cafe/melhor-cafe-em-grao-para-maquina-automatica/', 90],
   // Templates added in WS5–WS10 and D111.
@@ -20,6 +20,13 @@ const targets = [
   ['calculator', '/pages/calculadora-custo-chavena/', 90], ['quiz', '/pages/qual-o-cafe-para-a-minha-maquina/', 90],
   ['gifts', '/collections/presentes/', 90], ['local', '/pages/fornecedor-de-cafe/porto/', 90],
 ];
+// SITE_DIR=site: the static pre-launch pages (run `npm run serve:static` and pass http://localhost:4190).
+const staticTargets = [
+  ['home', '/', 85], ['historia', '/pages/historia', 90], ['a-torra', '/pages/a-torra', 90], ['profissional', '/pages/profissional', 90],
+  ['contactos', '/pages/contactos', 90], ['faq', '/pages/perguntas-frequentes', 90], ['calculator', '/pages/calculadora-custo-chavena', 90],
+  ['local', '/pages/fornecedor-de-cafe/porto', 90], ['product', '/products/lote-super-milano', 90], ['collection', '/collections/cafe', 90],
+];
+const targets = process.env.SITE_DIR ? staticTargets : prototypeTargets;
 const chrome = await chromeLauncher.launch({ chromePath: chromium.executablePath(), chromeFlags: ['--headless=new', '--no-sandbox'] });
 const results = [];
 try {

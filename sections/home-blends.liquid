@@ -85,13 +85,18 @@
                   {%- if c == '[[TBC]]' -%}<li>{% render 'tbc', note: 'descritores do Descafeinado' %}</li>{%- elsif c != blank -%}<li class="chip">{{ c }}</li>{%- endif -%}
                 {%- endfor -%}
               </ul>
+              {%- if ideal != blank or settings.show_tbc_markers or request.design_mode -%}
               <p class="blend__ideal">
                 <span class="blend__ideal-label">{{ 'home.blends.ideal_for' | t }}</span>
                 {% if ideal != blank %}{{ ideal }}{% else %}{% render 'tbc', note: 'ideal para' %}{% endif %}
               </p>
+              {%- endif -%}
               {%- if p != blank -%}
                 {% render 'price', product: p, show_from: true %}
                 <div class="blend__actions">
+                  {%- if settings.catalogue_only -%}
+                    <a class="btn btn--outline" href="{{ view_url }}">{{ 'home.blends.view' | t }}<span class="visually-hidden">: {{ name }}</span></a>
+                  {%- else -%}
                   {%- assign fv = p.selected_or_first_available_variant -%}
                   {%- form 'product', p, class: 'blend__form', data-cart-add: '' -%}
                     <input type="hidden" name="id" value="{{ fv.id }}">
@@ -103,6 +108,7 @@
                     <p class="blend__variant small muted" id="BlendVariant-{{ block.id }}">{{ 'home.blends.adds' | t: variant: fv.title }}</p>
                   {%- endform -%}
                   <a class="text-link" href="{{ view_url }}">{{ 'home.blends.view' | t }}<span class="visually-hidden">: {{ name }}</span></a>
+                  {%- endif -%}
                 </div>
               {%- else -%}
                 <p class="price"><span class="price__current">{% render 'tbc', note: 'preço desde x,xx €' %}</span> <span class="unit-price">{% render 'tbc', note: 'x,xx €/kg' %}</span> <span class="price__tax">{{ 'product.tax_included' | t }}</span></p>

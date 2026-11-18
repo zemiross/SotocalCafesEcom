@@ -57,7 +57,11 @@ for (const d of docs) {
   const sources = Array.isArray(fm.sources) ? fm.sources : (/sources:\s*\S+/.test(raw) ? ['(listed)'] : []);
   const srcInBody = /## Fontes[\s\S]*https?:\/\//.test(body);
   const tbcLeft = /\[\[TBC/.test(body) || /\[\[TBC/.test(raw);
-  if (sources.length === 0 && !srcInBody && fm.no_third_party_facts !== 'true') (tbcLeft ? warn : fail).push('no sources for third-party facts');
+  if (sources.length === 0 && !srcInBody && fm.no_third_party_facts !== 'true') {
+    // D118 (José, 18/11/2026): two substitute guides publish without an external source. The page must say so; this stays a warning.
+    if (fm.no_sources_by_decision) warn.push(`no external source, published by decision ${fm.no_sources_by_decision}`);
+    else (tbcLeft ? warn : fail).push('no sources for third-party facts');
+  }
   // Links.
   const links = [...body.matchAll(/\]\((\/[^)#\s]*)[^)]*\)/g)].map((m) => m[1]);
   const commercial = links.filter((l) => COMMERCIAL.test(l));

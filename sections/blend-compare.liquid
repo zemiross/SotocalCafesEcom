@@ -9,7 +9,7 @@
     assign heading = 'product.compare_heading' | t
   endif
 -%}
-{%- if col.products.size > 1 -%}
+{%- if col.products.size > 1 and settings.catalogue_only != true -%}
 <section class="section section--tight compare" data-theme="cream" aria-labelledby="Compare-{{ section.id }}">
   <div class="container">
     <h2 class="h2" id="Compare-{{ section.id }}">{{ heading }}</h2>

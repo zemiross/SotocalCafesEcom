@@ -17,10 +17,12 @@
 
     {%- if has_lead -%}
       <article class="blog__lead grid">
+        {%- if lead.image -%}
         <div class="col-left blog__lead-media media-plane">
           {%- if lead.image -%}{{ lead.image | image_url: width: 1200 | image_tag: widths: '400, 700, 1000, 1200', sizes: '(min-width: 1024px) 40vw, 92vw', loading: 'eager', alt: lead.image.alt }}{%- endif -%}
         </div>
-        <div class="col-right stack">
+        {%- endif -%}
+        <div class="{% if lead.image %}col-right{% else %}col-full{% endif %} stack">
           <h2 class="h2"><a class="blog__link" href="{{ lead.url }}">{{ lead.title }}</a></h2>
           <p>{{ lead.excerpt_or_content | strip_html | truncatewords: 40 }}</p>
           {% render 'article-meta', article: lead %}

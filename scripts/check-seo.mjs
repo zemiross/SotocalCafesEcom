@@ -9,7 +9,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const proto = path.join(root, 'prototype');
+// SITE_DIR=site checks the static pre-launch build (flat .html files); the default is the prototype.
+const SITE_DIR = process.env.SITE_DIR || process.argv.find((x) => x.startsWith('--site='))?.slice(7) || 'prototype';
+const proto = path.join(root, SITE_DIR);
 const SKIP = /^(en[\\/]|404|password|cart|search|account)/;
 const files = readdirSync(proto, { recursive: true }).map(String).filter((f) => f.endsWith('.html') && !SKIP.test(f));
 
@@ -21,7 +23,10 @@ const shingles = (text, n = 5) => {
   for (let i = 0; i + n <= w.length; i += 1) out.add(w.slice(i, i + n).join(' '));
   return out;
 };
-const urlOf = (f) => '/' + f.replace(/\\/g, '/').replace(/index\.html$/, '');
+const urlOf = (f) => {
+  const u = '/' + f.replace(/\\/g, '/').replace(/index\.html$/, '').replace(/\.html$/, '');
+  return u.endsWith('/') ? u : `${u}/`;
+};
 // Siblings share the parent path (/blogs/guia-do-cafe/<x>, /pages/maquina/<x>, /products/<x>); a blog index is not an article's sibling.
 const family = (url) => url.split('/').filter(Boolean).slice(0, -1).join('/') || 'home';
 // Gate 6 (≥ 3 links out) is enforced on content pages; elsewhere it is reported as a warning.
@@ -43,7 +48,8 @@ const pages = files.map((f) => {
     canonical: /<link rel="canonical" href="[^"]+"/i.test(html),
     links: [...main.matchAll(/<a [^>]*href="(\/[^"#?]*)/gi)].map((m) => m[1].replace(/\/?$/, '/')),
     allLinks: [...html.matchAll(/<a [^>]*href="(\/[^"#?]*)/gi)].map((m) => m[1].replace(/\/?$/, '/')),
-    sh: shingles(textOf(main)),
+    // Gate 2 measures body text: the breadcrumbs and the contact block (same on every page by design) are left out.
+    sh: shingles(textOf(main.replace(/<nav[^>]*breadcrumb[\s\S]*?<\/nav>/gi, ' ').replace(/<section class="section lead"[\s\S]*?<\/section>/gi, ' '))),
     literalTbc: /\[\[TBC/.test(textOf(main.replace(/<mark class="tbc">[\s\S]*?<\/mark>/g, ''))),
   };
 });
@@ -74,7 +80,7 @@ for (const p of indexable) {
   report.push(`  ${p.url}  title ${p.title.length}  desc ${p.description.length}  unique ${score == null ? 'n/a' : score + ' %'}  out ${out.size}  in ${inbound}`);
 }
 mkdirSync(path.join(root, 'qa'), { recursive: true });
-writeFileSync(path.join(root, 'qa', 'seo.txt'), report.join('\n') + '\n');
+writeFileSync(path.join(root, 'qa', SITE_DIR === 'prototype' ? 'seo.txt' : `seo-${SITE_DIR}.txt`), report.join('\n') + '\n');
 report.filter((r) => r.startsWith('✗') || r.startsWith('!')).forEach((r) => console.log(r));
 console.log(`Indexable pt-PT pages checked: ${indexable.length} (skipped ${pages.length - indexable.length} noindex). Scores in qa/seo.txt.`);
 console.log(errors ? `✗ ${errors} quality-gate problem(s)` : '✓ Titles, descriptions, H1, canonical, links and uniqueness pass');

@@ -7,9 +7,12 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildMock } from './prototype/mock-data.mjs';
+import { staticPages, applyStatic, postProcess, finish, privacyPolicyHtml } from './prototype/static-site.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const out = path.join(root, 'prototype');
+// SITE=static builds the pre-launch site (real data, no shop) into /site for hosting without Shopify (docs/seo/16-static-prelaunch.md).
+const STATIC = process.env.SITE === 'static';
+const out = path.join(root, STATIC ? 'site' : 'prototype');
 const read = (...p) => readFileSync(path.join(root, ...p), 'utf8');
 const warnings = new Set();
 
@@ -255,6 +258,7 @@ async function renderPage(page, lang) {
   currentLang = lang;
   currentLocale = JSON.parse(read('locales', lang === 'en' ? 'en.json' : 'pt-PT.default.json'));
   mock = buildMock({ lang, page });
+  if (STATIC) applyStatic(mock, page);
   const globals = mock.globals;
   const ctxRender = async (tplSrc, file) => engine.parseAndRender(stripSchema(tplSrc), {}, { globals });
 
@@ -275,27 +279,46 @@ async function renderPage(page, lang) {
     content = await ctxRender(read('templates', `${tplName}.liquid`));
   }
   const layout = tj_layout(page);
-  const html = await engine.parseAndRender(stripSchema(read('layout', `${layout}.liquid`)), {
+  let html = await engine.parseAndRender(stripSchema(read('layout', `${layout}.liquid`)), {
     content_for_layout: content,
     content_for_header: mock.contentForHeader,
   }, { globals });
-  const dest = path.join(out, lang === 'en' ? 'en' : '', page.out);
+  let rel = page.out;
+  if (STATIC) {
+    // Flat files (pages/historia.html) are served at /pages/historia on Cloudflare Pages, Netlify and GitHub Pages: no trailing slash, like Shopify.
+    if (rel.endsWith('/index.html') && rel !== 'index.html') rel = rel.replace(/\/index\.html$/, '.html');
+    const r = postProcess(html, page);
+    html = r.html;
+    for (const p of r.problems) staticProblems.push(`${page.url}: ${p}`);
+    staticBuilt.push({ url: page.url, html, noindex: /<meta name="robots" content="noindex/.test(html) });
+  }
+  const dest = path.join(out, lang === 'en' ? 'en' : '', rel);
   mkdirSync(path.dirname(dest), { recursive: true });
   writeFileSync(dest, html);
   return dest;
 }
 const tj_layout = (page) => page.layout || 'theme';
+const staticProblems = [];
+const staticBuilt = [];
 
-const pages = buildMock({ lang: 'pt-PT', page: {} }).pages;
+const allPages = buildMock({ lang: 'pt-PT', page: {} }).pages;
+const pages = STATIC ? staticPages(allPages) : allPages;
 if (existsSync(out)) rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 const built = [];
-for (const lang of ['pt-PT', 'en']) {
+for (const lang of STATIC ? ['pt-PT'] : ['pt-PT', 'en']) {
   for (const page of pages) {
     try { built.push(path.relative(root, await renderPage(page, lang))); }
     catch (e) { console.error(`✗ ${lang} ${page.template}: ${e.message}`); process.exitCode = 1; }
   }
 }
-writeFileSync(path.join(out, 'pages.json'), JSON.stringify(pages.map((p) => ({ template: p.template, path: p.url })), null, 2));
-console.log(`Built ${built.length} pages into /prototype`);
+if (STATIC) {
+  const r = finish(out, staticBuilt);
+  staticProblems.push(...r.problems);
+  console.log(`Built ${built.length} pages into /site (${r.indexable} indexable, ${r.redirects} legacy redirects)`);
+  if (staticProblems.length) { console.error('Static site problems:'); staticProblems.forEach((p) => console.error(`  - ${p}`)); process.exitCode = 1; }
+} else {
+  writeFileSync(path.join(out, 'pages.json'), JSON.stringify(pages.map((p) => ({ template: p.template, path: p.url })), null, 2));
+  console.log(`Built ${built.length} pages into /prototype`);
+}
 if (warnings.size) { console.log('\nWarnings:'); [...warnings].sort().forEach((w) => console.log(`  - ${w}`)); }

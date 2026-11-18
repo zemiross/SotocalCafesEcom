@@ -29,6 +29,14 @@
           </nav>
         {%- endfor -%}
       {%- else -%}
+        {%- if settings.catalogue_only -%}
+        <nav aria-label="{{ 'nav.shop' | t }}">
+          <p class="footer__heading">{{ 'nav.shop' | t }}</p>
+          <ul class="footer__list" role="list">
+            <li><a href="{{ prefix }}/collections/cafe">{{ 'nav.coffee' | t }}</a></li>
+          </ul>
+        </nav>
+        {%- else -%}
         <nav aria-label="{{ 'nav.shop' | t }}">
           <p class="footer__heading">{{ 'nav.shop' | t }}</p>
           <ul class="footer__list" role="list">
@@ -40,6 +48,7 @@
             <li><a href="{{ prefix }}/collections/presentes">{{ 'nav.gifts' | t }}</a></li>
           </ul>
         </nav>
+        {%- endif -%}
         <nav aria-label="{{ 'nav.about' | t }}">
           {%- capture n_cafes_raw -%}{% render 'cafe-count' %}{%- endcapture -%}
           {%- capture n_pickup_raw -%}{% render 'cafe-count', pickup: true %}{%- endcapture -%}
@@ -59,8 +68,8 @@
           <ul class="footer__list" role="list">
             <li><a href="{{ prefix }}/pages/perguntas-frequentes">{{ 'nav.faq' | t }}</a></li>
             {%- if n_pickup > 0 and settings.pickup_enabled -%}<li><a href="{{ prefix }}/pages/levantar-no-cafe">{{ 'nav.pickup' | t }}</a></li>{%- endif -%}
-            <li><a href="{{ prefix }}/pages/subscricao">{{ 'nav.subscription' | t }}</a></li>
-            <li><a href="{{ prefix }}/blogs/guia-do-cafe">{{ 'nav.guide' | t }}</a></li>
+{%- unless settings.catalogue_only -%}<li><a href="{{ prefix }}/pages/subscricao">{{ 'nav.subscription' | t }}</a></li>{%- endunless -%}
+<li><a href="{{ prefix }}/blogs/guia-do-cafe">{{ 'nav.guide' | t }}</a></li>
             <li><a href="{{ prefix }}/pages/contactos">{{ 'nav.contact' | t }}</a></li>
           </ul>
         </nav>
@@ -86,9 +95,10 @@
           {%- for policy in shop.policies -%}
             <a href="{{ policy.url }}">{{ policy.title }}</a>
           {%- endfor -%}
-          <a href="{{ prefix }}/pages/declaracao-de-acessibilidade">{{ 'footer.accessibility' | t }}</a>
-          <button type="button" data-consent-open>{{ 'consent.reopen' | t }}</button>
+{%- unless settings.catalogue_only -%}<a href="{{ prefix }}/pages/declaracao-de-acessibilidade">{{ 'footer.accessibility' | t }}</a>{%- endunless -%}
+{%- unless settings.catalogue_only -%}<button type="button" data-consent-open>{{ 'consent.reopen' | t }}</button>{%- endunless -%}
         </div>
+        {%- unless settings.catalogue_only -%}
         <p>
           {{ 'footer.ral_intro' | t }}
           {%- if settings.ral_entity_name != blank -%}
@@ -96,6 +106,7 @@
           {%- else %} {% render 'tbc', note: 'entidade RAL' %}{%- endif -%}.
           <a class="link" href="https://www.consumidor.gov.pt/" rel="noopener">{{ 'footer.ral_portal' | t }}</a>
         </p>
+        {%- endunless -%}
       </div>
       <div class="footer__badges">
         <a class="livro-reclamacoes" href="https://www.livroreclamacoes.pt/" rel="noopener" target="_blank">
@@ -110,7 +121,7 @@
             <img src="{{ 'cofunding-projeto.png' | asset_url }}" alt="{{ 'footer.cofunding_alt' | t }}" width="900" height="214" loading="lazy">
           {%- endif -%}
         {%- if settings.cofunding_link != blank -%}</a>{%- else -%}</span>{%- endif -%}
-        {% render 'payment-icons' %}
+{%- unless settings.catalogue_only -%}{% render 'payment-icons' %}{%- endunless -%}
       </div>
     </div>
   </div>

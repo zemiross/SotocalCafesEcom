@@ -326,6 +326,8 @@
     },
     "prelaunch": {
       "name": "Pré-lançamento",
+      "catalogue_only": "Modo catálogo (sem compra)",
+      "catalogue_only_info": "Esconde carrinho, preços, pesquisa, conta e newsletter; os produtos ficam informativos e deixam de ser indexados. Usado no site de pré-lançamento.",
       "show_tbc_markers": "Mostrar marcadores [[TBC]]",
       "show_tbc_markers_info": "Mostra os conteúdos em falta para revisão. Desligue antes de abrir a loja."
     },

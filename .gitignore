@@ -4,6 +4,8 @@ node_modules/
 # Generated: `npm run prototype` rebuilds /prototype; Playwright and Lighthouse write /qa
 prototype/
 qa/
+# Generated: `npm run build:static` writes the static pre-launch site to /site
+site/
 
 # Secrets and local settings: never commit
 .env

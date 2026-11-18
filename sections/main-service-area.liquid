@@ -65,6 +65,12 @@
     <div class="col-right stack">
       <h2 class="h3">{{ 'service_area.supply_heading' | t }}</h2>
       <p>{{ 'service_area.supply_text' | t }} <a class="text-link" href="{{ base }}/pages/profissional">{{ 'service_area.supply_link' | t }}</a></p>
+      <h2 class="h3">{{ 'service_area.more_heading' | t }}</h2>
+      <ul class="collection-guide__methods" role="list">
+        <li><a class="text-link" href="{{ base }}/pages/historia">{{ 'nav.history' | t }}</a></li>
+        <li><a class="text-link" href="{{ base }}/pages/a-torra">{{ 'nav.roast' | t }}</a></li>
+        <li><a class="text-link" href="{{ base }}/pages/contactos">{{ 'nav.contact' | t }}</a></li>
+      </ul>
       {%- if cafe_count > 0 -%}
         <h2 class="h3">{{ 'service_area.cafes_heading' | t: place: place }}</h2>
         <ul class="hairlines" role="list">

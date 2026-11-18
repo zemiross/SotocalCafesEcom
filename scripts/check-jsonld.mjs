@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const proto = path.join(root, 'prototype');
+const proto = path.join(root, process.env.SITE_DIR || process.argv.find((x) => x.startsWith('--site='))?.slice(7) || 'prototype');
 const pages = readdirSync(proto, { recursive: true }).map(String).filter((f) => f.endsWith('.html'));
 const REQUIRED = {
   Organization: ['@id', 'name', 'legalName', 'url', 'logo', 'foundingDate', 'address', 'telephone', 'vatID'],
